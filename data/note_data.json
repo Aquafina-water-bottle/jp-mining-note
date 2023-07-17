@@ -1,0 +1,144 @@
+{
+  "id": "jp-mining-note",
+  "model-name": "JP Mining Note",
+  "js-prefix": "jpmn",
+  "templates": {
+    "main": {
+      "name": "Mining Card"
+    },
+    "pa_sent": {
+      "name": "PA Sentence Card"
+    },
+    "pa_word": {
+      "name": "PA Word Card"
+    },
+    "cloze_deletion": {
+      "name": "Cloze Deletion Card"
+    }
+  },
+  "build": [
+    {
+      "input-file": "",
+      "output-file": "tmp/scss",
+      "type": "copy-scss",
+      "to-release": false
+    },
+    {
+      "input-file": "scss/base/consts.scss.template",
+      "output-file": "tmp/scss/base/consts.scss",
+      "type": "jinja",
+      "to-release": false
+    },
+    {
+      "input-file": "scss/style.scss",
+      "output-file": "tmp/scss/style.scss",
+      "type": "jinja",
+      "to-release": false
+    },
+    {
+      "input-file": "tmp/scss/style.scss",
+      "output-file": "jp-mining-note/style.css",
+      "type": "scss",
+      "input-dir": "build"
+    },
+    {
+      "input-file": "scss/field.scss",
+      "output-file": "tmp/scss/field.scss",
+      "type": "jinja",
+      "to-release": false
+    },
+    {
+      "input-file": "tmp/scss/field.scss",
+      "output-file": "media/_field.css",
+      "type": "scss",
+      "input-dir": "build"
+    },
+    {
+      "input-file": "scss/editor.scss",
+      "output-file": "tmp/scss/editor.scss",
+      "type": "jinja",
+      "to-release": false
+    },
+    {
+      "input-file": "tmp/scss/editor.scss",
+      "output-file": "media/_editor.css",
+      "type": "scss",
+      "input-dir": "build"
+    },
+    {
+      "input-file": "_js/jpmn_main_back.js.map",
+      "output-file": "media/_jpmn_main_back.js.map",
+      "type": "copy"
+    },
+    {
+      "input-file": "_js/jpmn_main_front.js.map",
+      "output-file": "media/_jpmn_main_front.js.map",
+      "type": "copy"
+    },
+    {
+      "input-file": "_js/jpmn_pa_word_back.js.map",
+      "output-file": "media/_jpmn_pa_word_back.js.map",
+      "type": "copy"
+    },
+    {
+      "input-file": "_js/jpmn_pa_word_front.js.map",
+      "output-file": "media/_jpmn_pa_word_front.js.map",
+      "type": "copy"
+    },
+    {
+      "input-file": "_js/jpmn_pa_sent_back.js.map",
+      "output-file": "media/_jpmn_pa_sent_back.js.map",
+      "type": "copy"
+    },
+    {
+      "input-file": "_js/jpmn_pa_sent_front.js.map",
+      "output-file": "media/_jpmn_pa_sent_front.js.map",
+      "type": "copy"
+    },
+    {
+      "input-file": "_js/jpmn_cloze_deletion_back.js.map",
+      "output-file": "media/_jpmn_cloze_deletion_back.js.map",
+      "type": "copy"
+    },
+    {
+      "input-file": "_js/jpmn_cloze_deletion_front.js.map",
+      "output-file": "media/_jpmn_cloze_deletion_front.js.map",
+      "type": "copy"
+    },
+    {
+      "input-file": "jp-mining-note/_jpmn-options.js",
+      "output-file": "media/_jpmn-options.js",
+      "type": "copy"
+    }
+  ],
+  "media-install": {
+    "static": [
+      "_silence.wav",
+      "NotoSansJP-Regular.otf",
+      "NotoSansJP-Bold.otf",
+      "NotoSerifJP-Regular.otf",
+      "NotoSerifJP-Bold.otf",
+      "_icon_jpdb_darkmode.png",
+      "_icon_jpdb_lightmode.png",
+      "_icon_jisho_darkmode.png",
+      "_icon_jisho_lightmode.png",
+      "_icon_image_black.svg",
+      "_icon_image_white.svg"
+    ],
+    "dynamic": [
+      "_editor.css",
+      "_field.css",
+      "_jpmn_main_front.js.map",
+      "_jpmn_main_back.js.map",
+      "_jpmn_pa_sent_front.js.map",
+      "_jpmn_pa_sent_back.js.map",
+      "_jpmn_pa_word_front.js.map",
+      "_jpmn_pa_word_back.js.map",
+      "_jpmn_cloze_deletion_front.js.map",
+      "_jpmn_cloze_deletion_back.js.map"
+    ],
+    "options": [
+      "_jpmn-options.js"
+    ]
+  }
+}

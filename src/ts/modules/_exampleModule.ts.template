@@ -1,0 +1,13 @@
+import { Module } from "../module"
+import { getOption } from "../options"
+
+export class {{MODULE_UPPER_CAMELCASE}} extends Module {
+
+  constructor() {
+    super("sm:{{MODULE_CAMELCASE}}");
+  }
+
+  main() {
+    // ...
+  }
+}

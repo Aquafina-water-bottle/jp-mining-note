@@ -8,7 +8,7 @@ and I would recommend watching it before continuing.
 
 However, to dispell any mysteries, here is a fully annotated summary of the user interface.
 
-{{ img("UI annotated summary", "assets/eg_fushinnsha_diagram.png") }}
+{{ img("UI annotated summary", "assets/fushinnsha/diagram.png") }}
 
 Additional information on some parts of the UI is stated below.
 
@@ -38,7 +38,7 @@ and/or to view the full list of keybinds.
 
 === "Default"
     <figure markdown>
-      {{ img("info circle example", "assets/info_circle.gif") }}
+      {{ img("info circle example", "assets/info_circle/info.gif") }}
       <figcaption>
         On hover, the info circle on the top left corner just shows some basic info.
         However, it also serves as a notification system to the user, when it has a color.
@@ -47,7 +47,7 @@ and/or to view the full list of keybinds.
 
 === "Error"
     <figure markdown>
-      {{ img("info circle error example", "assets/info_circle_error.gif") }}
+      {{ img("info circle error example", "assets/info_circle/error.gif") }}
       <figcaption>
         This should only appear when some javascript code fails.
         In other words, this should **not** appear under normal circumstances.
@@ -58,7 +58,7 @@ and/or to view the full list of keybinds.
 
 === "Warning"
     <figure markdown>
-      {{ img("info circle error example", "assets/info_circle_warning.gif") }}
+      {{ img("info circle error example", "assets/info_circle/warning.gif") }}
       <figcaption>
         This serves to warn the user about something.
         It can appear without completely breaking the functionality of the card.
@@ -68,7 +68,7 @@ and/or to view the full list of keybinds.
 
 === "Leech"
     <figure markdown>
-      {{ img("info circle error example", "assets/info_circle_leech.gif") }}
+      {{ img("info circle error example", "assets/info_circle/leech.gif") }}
       <figcaption>
         When the card is a leech, the circle is highlighted yellow (or blue in light mode)
         to indicate that it is a leech.
@@ -97,21 +97,26 @@ in a previous card, to differentiate between similar kanjis, etc.
 By default, it searches for the kanji within the "Word" field,
 within "JP Mining Note" types.
 
-{{ img("kanji hover demo", "assets/kanji_hover.gif") }}
+{{ img("kanji hover demo", "assets/ui/kanji_hover.gif") }}
 
-You may have noticed that some results are greyed out.
-These represent words from cards that have not been reviewed yet.
-Conversely, as non-greyed out results come from cards that you have already reviewed,
-they should represent words that you already know.
 
-Additionally, pitch accents are also shown when you hover over a particular word
-within the tooltip.
-{{ bleeding_edge_only("0.11.0.0")}}
+**Various Details:**
+
+* You may have noticed that some results are greyed out.
+    These represent words from cards that have not been reviewed yet.
+    Conversely, as non-greyed out results come from cards that you have already reviewed,
+    they should represent words that you already know.
+
+* Pitch accents are shown when you hover over a particular word
+    within the tooltip. You can change this to always be shown in the {{ RTOs }}.
+
+* You can click on the word to open the specified card within Anki's card browser.
+
 
 See [here](tooltipresults.md) for information on how the examples are chosen,
 and how to customize it.
 
-??? example "Related Programs *(click here)*"
+??? example "Related Programs <small>(click here)</small>"
 
     [**Cade's Kanji Hover**](https://cademcniven.com/projects/kanjihover/)
 
@@ -128,6 +133,11 @@ and how to customize it.
         mass-generated. This indeed has several advantages, such as being able to
         use the infomation on Android, where Anki-Connect isn't full supported.
 
+
+    [**KanjiEater's Kanji Connections**](https://github.com/kanjieater/anki-plugin-heisigs-rtk)
+
+    - Ability to show kanjis with heisig's RTK keywords, as well as related vocabulary.
+        Similar to Hanzi Web for Anki.
 
     !!! warning
         None of the above will work with jp-mining-note by default.
@@ -147,35 +157,34 @@ The indicators are as follows:
 
 - 同 (short for 同じ) indicates that the card is a duplicate.
 - 読 (short for 読み方) indicates that there are other card(s) with the same reading (ignoring pitch accent).
+    In Japanese, these words are 同音異義語.
+    I consider this the most useful of the three.
 - 漢 (short for 漢字) indicates that there are other card(s) with the same kanji, but different reading.
 
-{{ img("same reading indicator eg", "assets/same_reading_indicator.gif") }}
+{{ img("same reading indicator eg", "assets/ui/same_reading_indicator.gif") }}
 
 As you can see from the above, the query ignores pitch accent.
 The word 自身 is still shown, despite having a different pitch accent
 compared to 地震.
 
 
-<!--
-This is a handy tool to help the user differentiate between words with the same readings.
-One practical use case is verifying if your card is not a duplicate version of a previous card.
-For example, if you have two cards 言いふらす and 言い触らす,
-the indicator will show that both words exists, so you can safely suspend one of the cards.
--->
-
 !!! note
     This indicator will be yellow (or blue on light mode) for new cards only.
     After the first review, the indicator will be the same color as the default info circle (grey).
 
+The tooltip behaves very similarly properties to Kanji hover's tooltip:
 
-Results are greyed out if the word is from a new card, just like for Kanji Hover.
+* New cards are greyed out.
+* You can click on words to open them in Anki's card browser.
+* Pitch accent is shown without requiring the user to hover over the word by default.
+    This is different from Kanji hover's tooltip.
 
 See [here](tooltipresults.md) for information on how the examples are chosen,
 and how to customize it.
 
 ---
 
-# Images
+# Images & Pitch Accent
 
 See the [Images](images.md) page for information on the following:
 
@@ -183,251 +192,32 @@ See the [Images](images.md) page for information on the following:
 * Specifying default images
 * Automatically formatting pictures within the definition
 
----
-
-# Pitch Accent
 See the [Pitch Accent](autopa.md) page for information on the following:
 
 * Pitch accent notation
 * Automatic pitch accent coloring
+* How to override the pitch accent of any word
 
 ---
-
 
 
 # External Links
 {{ feature_version("0.10.3.0") }}
 
 External links are shown as icons in the `Extra Info` collapsable field by default.
-Hovering over them will show the url, and clicking on them will send you to the specified url,
+By default, hovering over them will show the url.
+Click on the desired icon to visit to the desired site.
 
-{{ img("external links demo", "assets/external_links.gif") }}
+{{ img("external links demo", "assets/ui/external_links.gif") }}
 
-## External Links in Primary Definition
-{{ feature_version("0.11.0.0") }}
-
-If you wish to have the external links to be on the primary definition section,
-set `external-links-position` to `"Primary Definition"`
-in the {{ CTO_FILE }}.
-
-??? example "Example image *(click here)*"
-    {{ img("external links in primary definition", "assets/external_links_primary_def.png") }}
-
-
-## Custom External Links
-Custom external links can be specified under the `external-links` section
-in the {{ CTO_FILE }}.
-
-Creating external links is self explanatory and is explained further in the config file.
-Additionally, some commented-out examples are provided within the file.
-
-!!! note
-    If you want to remove all external links, set `external-links` to `{}`.
-    For example:
-    ```
-    "external-links": {},
-    ```
-
-## Icons With Multiple Text Characters
-
-When using text instead of a picture, it is recommended that you use single characters
-(e.g. one kanji) to represent the icon.
-
-However, in the cases where you want to use more characters,
-the default CSS rules causes the icon will use the minimum amount of space,
-which may mis-aligned the surrounding icons.
-
-??? example "Instructions on how to to adjust these icons *(click here)*"
-
-    Using the [custom SCSS](customcss.md), you can specify
-    the amount of space it takes (in terms of number of icons):
-
-    ```scss
-    @use "../base/common" as common;
-
-    .glossary__external-links a[data-details="DICTIONARY_ID"] { // (1)!
-      width: common.maxWidthForXIcons(2);
-    }
-    ```
-
-    {% raw %}
-    1.  The DICTIONARY_ID are the key values of `external-links`.
-        For example, the id of the `jpdb.io` entry below is exactly `jpdb.io`.
-        ```json
-        "jpdb.io": {
-            "icon-type": "image",
-            "icon-image-light": "_icon_jpdb_lightmode.png",
-            "icon-image-dark":  "_icon_jpdb_darkmode.png",
-            "url": "https://jpdb.io/search?q={{text:Word}}"
-        }
-        ```
-    {% endraw %}
-
-
-    !!! warning
-        This SCSS code is **NOT CSS**.
-        This cannot be added directly to the template's style sheet in Anki.
-        Please see the link above to see how to use custom SCSS.
-
-    An example of this can be found in `src/scss/dictionaries/style.scss`
+See also: [UI Customization (External Links)](uicustomization.md#external-links).
 
 ---
 
 
-<!--
-# Sentences
-
-## Removing Sentence Quotes
-The sentence display has quotes surrounding the sentence by default, to provide
-an easy indicator to differentiate between a sentence and vocab card.
-
-If you want to remove the quotes, you can set the following {{ RTO }} to `false`:
-
-```
-{
-  "modules": {
-    "sent-utils": {
-      // automatically adds quotes to the sentence (if not alt display)
-      "auto-quote-sentence": false,
-
-      // automatically adds quotes to the sentence (if alt display)
-      "auto-quote-alt-display-sentence": false,
-    }
-  }
-}
-```
-
--->
-
-
-
-
-
-
-
-# Various UI Runtime Options
-
-Various {{ RTO_FILE }} affect the user interface.
-Some are documented below.
-
-
-## Fix Ruby Positioning (For Legacy Anki Versions)
-{{ feature_version("0.11.0.0") }}
-
-If the furigana appears higher than normal on your card,
-the following runtime option serves as a quick fix to lower the furigana:
-
-```
-{
-  "fix-ruby-positioning": ...
-}
-```
-
-See the pictures below to compare between furigana positions.
-
-=== "Higher than Normal"
-    {{ img("", "assets/furigana/qt5.png") }}
-
-=== "Quick Fix"
-    {{ img("", "assets/furigana/quickfix.png") }}
-
-=== "Normal"
-    {{ img("", "assets/furigana/normal.png") }}
-
-
-### Why this happens
-
-There are a few reasons why this can happen:
-
-1. Your Anki version is 2.1.49 or below.
-1. Your Anki version is 2.1.50 and above, but using the older Qt5 version.
-1. You are using AnkiMobile.
-
-If you have this issue with the desktop version of Anki,
-it is recommended that you update a version with Qt6 support.
-This will allow the furigana to behave as expected.
-
-If you are unable to do that for any reason, or you are using AnkiMobile,
-this option serves as a quick *but imperfect* fix to make the furigana lower.
-This fix is imperfect because it adds even more spacing to the left and right than normal
-if the furigana text is too long.
-
-
-
-
-
-<br>
-
-
-## Automatically Open Collapsed Fields
-
-Collapsed fields are collapsed by default.
-These fields can be set to be automatically opened.
-
-```
-{
-  "modules": {
-    "customize-open-fields": {
-      ...
-    }
-  }
-}
-```
-
-??? example "Example Config *(click here)*"
-    ```
-    "customize-open-fields": {
-      "enabled": false,
-
-      // Force a field to be always open
-      "open": [
-        "Secondary Definition"
-      ],
-
-      // Opens the specified collapsable field if the card is new.
-      "open-on-new-enabled": {
-        "type": "pc-mobile",
-        "pc": true,
-        "mobile": false
-      },
-
-      "open-on-new": [
-        "Extra Info"
-      ]
-    }
-    ```
-
-=== "Default"
-    {{ img("", "assets/open_fields/closed.png") }}
-
-=== "Using example config (new card)"
-    {{ img("", "assets/open_fields/open.png") }}
-
-=== "Using example config (non-new card)"
-    {{ img("", "assets/open_fields/partially_open.png") }}
-
-
-## Greyed Out Empty Fields
-
-Collapsable fields that are empty are usually not shown at all.
-This runtime option allows them to be shown (but greyed out) when empty.
-```
-{
-  "greyed-out-collapsable-fields-when-empty": ...
-}
-```
-
-=== "Empty fields greyed out (`true`)"
-    {{ img("", "assets/greyed_out_fields/grey.png") }}
-
-=== "Empty fields not shown (`false`, default)"
-    {{ img("", "assets/greyed_out_fields/hidden.png") }}
-
-
-
-
 # Conclusion
-Outside of the user interface, the note has plenty of fields you can use
-to further modify the card. Head over to the [Field Reference](fieldref.md) page to see just that.
+This page shows various aspects of the user interface, but says
+little about actually modifying it.
+Head over to the [UI Customization](uicustomization.md) page to see just that.
 
 

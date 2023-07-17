@@ -1,0 +1,98 @@
+{
+  // toggles whether the runtime options should be read from a file or not.
+  "hardcodedRuntimeOptions": true,
+
+  //"alwaysFilledFields": [],
+  //"neverFilledFields": [],
+
+  //"externalLinksPosition": "Extra Info",
+  //"externalLinksPosition": {
+  //  _type: "cardType",
+  //  args: {
+  //    cardType: "pa_sent",
+  //  },
+  //  resultTrue: "Primary Definition",
+  //  resultFalse: "Extra Info",
+  //},
+
+  //"externalLinksPosition": "Primary Definition",
+
+  "externalLinks": {
+
+    "image-search": {
+      iconType: "image",
+      iconImageLight: "_icon_image_black.svg",
+      iconImageDark:  "_icon_image_white.svg",
+      url: "https://www.google.co.jp/search?q={{text:Word}}&tbm=isch",
+      hoverDisplay: "google.co.jp (Image search)",
+    },
+
+    "zokugo-dict.com": {
+      iconType: "text",
+      iconText: "俗",
+      url: "http://search.zokugo-dict.com/search.cgi?charset=utf&q={{text:Word}}",
+      //hoverDisplay: "日本語俗語辞書",
+    },
+
+    // Used with elizagamedev's "Textbender" android app, to allow the user
+    //  to open the sentence in Yomichan's search bar within android
+    // See: https://github.com/elizagamedev/android-textbender
+    // NOTE: This button will only be visible on android devices.
+    "yomichan-textbender-sentence": {
+      iconType: "text",
+      //iconText: "ﾖﾐ",
+      iconText: "文",
+      //iconText: "Ｔ",
+      //iconText: "読",
+      url: "textbender://x?x={{text:Sentence}}",
+      hoverDisplay: "Sentence Yomichan (textbender)",
+    },
+
+    // Same as the above, but opens the bolded definition (or the entire primary definition
+    // if no bold exists)
+    "yomichan-textbender-definition": {
+      iconType: "text",
+      iconText: "読",
+      //iconText: "Ｔ",
+      //iconText: "読",
+      url: "textbender://x?x={{text:PrimaryDefinition}}",
+      hoverDisplay: "Definition Yomichan (textbender)",
+    },
+
+  },
+
+
+  // Option to have custom CSS.
+  "cssFolders": [
+    "base",
+    "responsive-font",
+    "responsive",
+    "dictionaries",
+    "editor-fields",
+    "sentence-max-width",
+
+    "theme",
+    "extra",
+  ],
+
+
+  // Allows the user to customize the displayed words on the card,
+  // while specifying fallback languages if the language doesn't have the key/pair value.
+  //"displayLanguages": ["en"],
+  "displayLanguages": ["jp", "en"],
+
+
+  // ==========================================================================
+  // = fullSentenceRuby =
+  // ==========================================================================
+
+  // valid options: "hover", "click", "both", "always", "never"
+  "fullSentenceRuby.displayMode": "click",
+  // valid options: "opacity", "font-size",
+  "fullSentenceRuby.fillMode": "font-size",
+  // valid options: true, false
+  "fullSentenceRuby.fillModeFontSizeTransition": true,
+
+  // ==========================================================================
+}
+

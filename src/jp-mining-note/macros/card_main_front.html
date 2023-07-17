@@ -1,0 +1,17 @@
+{# card_main_front #}
+
+{% macro card_main_front(card_html) %}
+
+<main class="card-main card-main--front">
+
+  <div class="expression-wrapper" id="display_wrapper">
+
+    {% filter indent(4) %}
+    {{ card_html }}
+    {% endfilter %}
+
+  </div>
+
+</main>
+
+{% endmacro %}

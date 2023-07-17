@@ -20,6 +20,359 @@ by simply installing a new version of the .apkg package,
 and must use `./install.py --update`.
 
 
+## [0.12.0.0] - 2022-12-??
+
+#### BREAKING
+- Added fields:
+    - `AltDisplayWord`
+    - `AltDisplayPASentenceCard`
+    - `AltDisplayAudioCard`
+    - `IsHintCard`
+    - `IsSentenceFirstCard`
+    - `IsAudioCard`
+    - `SeparateSentenceAudioCard`
+    - `YomichanWordTags`
+    - `CardCache`
+- Renamed fields:
+    - `SeparateClozeDeletionCard` -> `SeparateAudioCard`
+    - `AltDisplay` -> `AltDisplaySentence`
+
+- Removed lenience calculation (height of the text box is no longer calculated) due to an internal javascript bug that I can't figure out how to resolve
+
+- Options rework: Your current runtime options file will be completely replaced,
+    and any previously-set options must be set again
+    [See here for more info](). (TODO)
+
+#### Features
+
+- Themes:
+    - Proper way of defining user settings in a more portable way
+    - Allows custom html, CSS, compile options & runtime options
+        - NOTE: currently doesn't allow custom javascript / typescript
+    - See `themes` folder for some examples
+
+- Mobile (and other screen sizes) now have 1st class support
+    - Completely reworked the mobile design (TODO link?)
+        - Info circle shows as a dialog instead of a popup, on mobile
+        - Blockquotes are shown in togglable tags rather than collapsible fields
+        - Image now shows to the right of the word, and play buttons to the bottom left of the card
+    - Fixed silence playing not working on Ankidroid
+    - Uses system fonts for Ankidroid in order to make loading times sane
+    - Added a height media query to make the card smaller for lower screen resolutions
+    - `cache.ts` was added to allow caching of kanji hover and word indicator results in the card itself
+        - This means that kanji hover and word indicators have results on mobile!
+    - Made kanji hover and word indicator results show better on mobile (via a popup at the bottom half of the screen)
+
+- Backend Javascript rework: (TODO)
+    - Javascript has been finally ported to Typescript & webpack
+    - Added unit testing for various modules
+    - .map files are available for all cards for debugging purposes
+        (and to "prove" that the minified javascript comes from the correct source)
+
+- Builder & Options rework:
+    - Flattened all compile options and runtime options.
+    - Moved compile options to its own json file
+    - Most config files now use .json5 for human readability purposes (and can be switched with json for portability)
+        - Removed deprecated importlib in favor of these json config files
+    - Added `_modifyActions` in `runtime_opts.json` (not in `_jpmn-options.js`) so one can edit lists and dicts
+        without having to replace the entire runtime option
+
+- JPMN Manager
+    - A small Anki add-on was released specifically to install and update jp-mining-note.
+        This prevents people from having to install Python and run scripts through command line.
+
+- Added styles to the editor view:
+    - Merge some editor fields into the same row
+    - Group together related fields by separating them with a slightly larger gap
+    - Moved a bunch of fields around to work with the newly grouped together fields
+
+- Primary definition picture rework:
+    - Cleaned up CSS and made CSS a lot more readable
+    - Added ability to override the position of the picture through tags
+    - Picture can now be positioned above the definition
+    - Lenience value is now removed due to a bug I can't seem to fix (height px could not be read)
+    - Increased the size of the PrimaryDefinitionPicture img by default if there is no text in PrimaryDefinition
+
+- Sentence Parser:
+    - Added the `autoHighlightWord` module, to [automatically highlight the word](https://aquafina-water-bottle.github.io/jp-mining-note/ui/#automatic-word-highlighting) if the word isn't highlighted
+        - Works on both the display sentence and furigana sentence
+        - Thanks to [Marv](https://github.com/MarvNC/JP-Resources#anki-automatically-highlight-in-sentence) for the idea and base implementation
+    - Added option to fix the div list problem for sentences
+    - Added better support for parsing the full sentence (from sentUtils)
+        - i.e. searches the full sentence to remove quotes.
+    - Added better compile and runtime options for how quotes are displayed / not displayed
+
+- Auto Pitch Accent:
+    - Pitch accent color groups are now applied to the graphs on each individual word
+    - AJTWordPitch field can now be read to extract the pitch accent position info
+        - This means that the field can be used as a pitch accent color group as a last resort fallback
+    - Tweaked the pitch accent display so the downstep is a bit more obvious
+    - Added support for automatic detection of kifuku accents on verbs (using `YomichanWordTags`)
+    - Added an option to show the reading without pitch accent info if no pitch accent info was found
+    - Words in the pitch accent should no longer wrap in between a word unexpectedly
+    - Pitch accent coloring now affects the accent in the definitions by default
+    - Pitch accent coloring is now shown in tooltips (kanji hover / word indicators)
+    - Tone of certain colors were slightly changed so they stand out a bit more
+
+- New Card Types:
+    - Hint Sentence (`IsHintCard`)
+        - Adds the sentence below the vocab (hover and click cards are also affected)
+        - TODO link
+    - Sentence First Sentence (`IsSentenceFirstCard`)
+        - Adds the word below the sentence (so the reader must read the full sentence, but only tests on the word)
+        - TODO link
+    - Audio (`IsAudioCard`)
+        - Allows testing of the entire sentence, or just the word
+        - TODO link
+
+- Pitch accent indicator:
+    - Pitch accent indicator has been moved to the middle of the header (right above the word)
+    - Ideally, pitch accent indicator should be to the left of the word as before (so the user can see it first, then test accordingly). However, this incurred too much dev time to support (many strange edge cases had to be supported, such as making sentences look good, etc.) and since it's a feature that I imagine most people don't use, I decided to move it to the header (even if it's a subpar solution) since it's much easier to maintain there.
+    - Removed lots of html / css bloat pertaining to this pitch accent indicator
+
+- Frequency display changes:
+    - Frequency changed to show summary (the FreqSort field) by default instead of listing all frequencies
+    - Added a dropdown feature for frequencies when there are too many frequencies
+        - For the current display mode (`summary`), hides all other frequencies in the dropdown
+        - For the legacy display mode (`list-all`), collapses after 4-6
+    - Added "unknown" display on default values (where the value itself is hidden on mobile)
+
+- Info Circle:
+    - Added spacing between options in the info circle
+    - Added clear cache option in info circle options (disabled by default)
+    - Added tags display (default: only shown on the back side)
+        - These can be clicked on to search for the tag
+        - All data tags (tags used to modify the look of the card) are greyed by default
+    - Display the card version here for mobile now
+
+- Other:
+    - Added runtime options to simplify the definitions as an alternative to CSS
+        - TODO link
+    - Added language display options to the card (currently English and Japanese are available)
+        - TODO link
+    - Added compile options to specify how ruby can be displayed in the full sentence
+        - TODO link
+    - CSS at the bottom of the styles sheet is now preserved between updates
+    - Added styling for inline `<code>` blocks. For example, the following sentence taken from the rust book
+        is now formatted nicely:
+        ```
+        新しい言語を学ぶ際に、<code>Hello, world!</code>というテキストを画面に<b>出力</b>する小さなプログラムを書くことは伝統的なことなので、ここでも同じようにしましょう！
+        ```
+    - Kanji hover now searches sentences if there aren't enough results to be shown from just words.
+        This is togglable with `kanjiHover.searchSentences`.
+    - Word indicators now load on the front side of the card instead of the back
+    - Custom scss folders can now be defined in overrides and themes
+    - Constrained width of display sentence to be similar to the full sentence
+    - Improved the readability kanjis a bit:
+        - Made some fonts a tiny bit bigger: glossary, words in kanji hover / word indicators
+        - Un-bolded things on mobile, to make the characters more readable on the smaller display.
+    - Many, many, many other small features and bug fixes.
+        Because there are so many, these are not listed here for brevity.
+
+
+#### 0.12.0.0 Pre-release Changelog
+
+<details>
+<summary> Pre-release 12 </summary>
+
+- **Features**:
+    - Improved importing scripts a bit (split pictures, distribute furigana)
+    - Added linked folder tabs
+    - Added an option to display the image if it's supposed to be display, and collapsed if it's supposed to be collapsed. Primary use is for support with the jitenbot dictionaries.
+
+- **Fixes**:
+    - Explicitly ignore removing the first line for jitenbot ditionaries as the styling is incompatible
+
+</details>
+
+
+
+
+<details>
+<summary> Pre-release 11 </summary>
+
+- **Features (Breaking)**:
+    - Removed `tooltips.sortMethod` (no longer a planned feature, moved to github issue #TODO)
+    - Removed `websocketUtils` (been deprecated for a while and is now properly removed)
+    - Removed `kanjHover.activateOn` runtime option (the only other available value lags the card quite a bit)
+    - Removed `tooltips.query.nonNew.hidden` (now combined with `tooltips.query.nonNew.removed`) due to code bloat for a not very useful feature
+
+- **Features**:
+    - Made info circle mobile dialog togglable with `infoCircleUtils.mobileDialog` (and fallback to the default if JS fails)
+    - What audio is autoplayed on the backside of the card is now togglable
+    - Properly implemented `kanjiHover.searchSentences`
+    - Added some options to only simplify definitions on certain blockquotes
+    - Primary definition can be collapsible as a runtime option
+    - Added `deckName` option value
+    - Added (untested) `split_audio` batch command
+    - GlobalEventManager (images are now resized automatically on window resize)
+
+- **Fixes**:
+    - AnkiConnect now uses `127.0.0.1` instead of `localhost` to workaround a performance issue on Windows + Python
+    - Show one frequency value instead of 4 on mobile by default (if `FrequencySort` is empty)
+    - Card type not properly showing on the left corner
+
+</details>
+
+<details>
+<summary> Pre-release 10 </summary>
+
+- **Features (Breaking)**:
+    - Renamed `freqUtils.displayMode` value `list-all` to `list`
+    - Renamed `freqUtils.listAll.*` to `freqUtils.list.*`
+    - Removed debug options `logger.debug.onlyShowCertainModules` and `logger.debug.onlyShowCertainModules.modules`
+
+- **Features**:
+    - Added a `pa-none` tag to force not coloring the card with any pitch accent color
+    - Added .map files for all cards
+    - Support for multi sentences (sentences separated with multiple newlines)
+    - `freqUtils.list.max` can now be `-1` to have an unbounded maxiumum (always shows all frequencies)
+
+- **Fixes**:
+    - Corrected `0.10.0.0` initial fields
+    - Backing up files debug message no longer uses relative path to prevent some strange Windows error
+    - Removed Array.at() because Qt5 Anki doesn't support it
+    - Added .map files for all cards
+
+</details>
+
+
+<details>
+<summary> Pre-release 9 </summary>
+
+- **Features**:
+    - Made some fonts a tiny bit bigger: glossary, words in kanji hover / word indicators
+    - Un-bolded the kanji in kanji hover
+    - Both are in order to make the kanjis more readable
+    - New default (commented out) external link: textbender on bolded definition text only
+    - Added javascript partials for devs to insert custom js wherever they want
+
+- **Fixes**:
+    - Sentence comparsion no longer checks for newlines, because AJT Japanese does not respect
+        multiple `div` tags + newlines
+    - Auto highlight now can highlight only one word
+
+</details>
+
+
+<details>
+<summary> Pre-release 8 </summary>
+
+- **Fixes**:
+    - (regression) Properly ignore error messages in `logger.error.ignore`
+    - Incorrectly highlighting certain words as 起伏 (`vt` and `vi` tags were causing this highlight)
+
+</details>
+
+
+<details>
+<summary> Pre-release 7 </summary>
+
+- **Features**:
+    - Made error message more detailed, specifically so AnkiMobile can have display all necessary info
+
+- **Fixes**:
+    - `console.warn` and `console.error` breaking AnkiMobile (they are now disabled by default)
+
+</details>
+
+
+
+<details>
+<summary> Pre-release 6 </summary>
+
+- **Features**:
+    - `--override-styling` flag for `install.py` to override user CSS
+    - Card cache script now supports command line arguments, making it usable to the public
+    - Constrained width of display sentence to be similar to the full sentence
+    - `cardCache.enabled` RTO (`CardCache` is now disabled on PC by default)
+    - `_modifyActions` in `runtime_opts.json` (not in `_jpmn-options.js`) so one can edit lists and dicts
+        without having to replace the entire runtime option
+
+- **Fixes**:
+    - Un-bolded more things on mobile
+    - Audio buttons are now completely hidden on AnkiMobile
+    - `fixRubyPositioning.enabled` is now `false` for all devices (to fix AnkiMobile's uncentered furigana)
+    - Card refreshes now persist changes to kanji hover and word indicators for the session
+    - Keys in "overrides" RTO can now be properly overwritten with `runtime_opts.json` files
+
+</details>
+
+
+
+
+<details>
+<summary> Pre-release 5 </summary>
+
+- **Features**:
+    - Added custom CSS section at the bottom of the template, that should be preserved between updates
+    - Runtime options are automatically replaced on 0.12.0.0 update
+    - Added warning when `SentenceReading` is not the same as `Reading`
+
+- **Fixes**:
+    - Sentence parser now doesn't add quotes on empty sentences (even if the mode is to add quotes)
+    - Removed newlines in mobile popup
+    - Removed bold weight in mobile popup
+    - Kanji hover on mobile display with ruby text but no kanji no longer shows raw html
+    - Ignore 2.1.62 error
+
+
+</details>
+
+
+<details>
+<summary> Pre-release 4 </summary>
+
+- This pre-release primarily changes some internals with how word indicators work,
+    but should not have any outward affecting changes. As always, please let me know
+    if anything looks off.
+
+- **Features**:
+    - Implemented caching word indicators with cache.ts
+    - Reworked mobile tooltip (kanji hover, word indicators):
+        - Added close button
+        - Height is automatically fitted to the content
+        - Additional height is added to the main card to allow scrolling past the tooltip
+        - Kanji and word indicator is highlighted on selection
+    - cache.ts now writes for every 10 cards (just in case)
+
+
+</details>
+
+
+<details>
+<summary> Pre-release 3 </summary>
+
+- **Fixes**:
+    - Fixed `img-yomichan-no-styling` not working as expected (it got stylized as a user image instead)
+    - Temporarily made info circle links point to pre-release docs instead of the standard docs, to prevent confusion
+    - Fixed ignoring wrong SentenceReading warning
+
+
+</details>
+
+
+
+<details>
+<summary> Pre-release 2 </summary>
+
+- **Features**:
+    - Info circle shows as a dialog instead of a popup (mobile only)
+    - Added source map files to main card type, for easier debugging of production files
+    - Added "data tags", i.e. tags that are greyed out in the info circle
+    - Added runtime options to simplify the definitions as an alternative to CSS
+
+- **Fixes**:
+    - Custom scss folders are now applied in the correct order
+    - Frequencies popup no longer cuts off to the right on mobile
+    - Frequencies popup now has a smaller max width, to hopefully not takeup the entire width of the mobile screen
+    - Unbolded some text on mobile, to avoid lines in the kanji looking squished together
+
+</details>
+
+
+
+
 ## [0.11.0.4] - 2023-04-10
 #### Fixes
 - Fixed the default config to now ignore two errors:
@@ -72,7 +425,8 @@ with the following:
 
 ## [0.11.0.1] - 2022-11-20
 #### Fixes
-- Fixed `TIME_PERFORMANCE` not defined for click cards
+- Fixed `TIME_PERFORMANCE` not defined error for click cards
+
 
 
 ## [0.11.0.0] - 2022-11-19
@@ -152,23 +506,6 @@ with the following:
 - Added a debug div within the info circle to display monospaced debug messages
 - Added additional css to be able to remove the "(N/A)" display
 
-#### Update Notes (0.11.0.0)
-- Update Yomichan's 'Anki Card Templates' section.
-    - See [here](https://aquafina-water-bottle.github.io/jp-mining-note/updating/#updating-yomichan-templates)
-      for instructions on how to update Anki Card Templates.
-- Update Yomichan's 'Anki Card format' section WordReadingHiragana: `(empty)` -> `{jpmn-word-reading-hiragana}`.
-    - See [here](https://aquafina-water-bottle.github.io/jp-mining-note/updating/#updating-yomichans-anki-card-format)
-      for instructions on how to update Anki Card Format.
-- If you are using the nsfw-toggle function, the option name was changed
-  from `nsfw-toggle` to `image-blur`. Please change it in your runtime options
-  to continue using it.
-  [Example config](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js)
-- The way keybinds are specified has been changed (to allow keys to still function as expected
-  even with CapsLock enabled.)
-  Keybinds will no longer work until you update the runtime options values.
-  For example, update `n` to `KeyN`.
-  [Example config](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js)
-
 
 ## [0.10.3.0] - 2022-10-21
 
@@ -221,8 +558,8 @@ Note: changing the layout of the changelog from this point forward.
     - highlight a dictionary to override the PrimaryDefinition
     - highlight a section of the definition to override the PrimaryDefinition + bold it
         - if cannot find highlighted section, fallsback to normal selection-text
-- `keybinds-enabled` compile-time option
-- `hardcoded-runtime-options` compile-time option
+- `keybinds-enabled` compile option
+- `hardcoded-runtime-options` compile option
 
 #### Fixes
 - `_field.css` not being included on export
@@ -269,13 +606,13 @@ Note: changing the layout of the changelog from this point forward.
 Primarily a back-end only update.
 
 #### Added
-- re-implemented compile time options for always-filled and never-filled
-- comment at the top of all cards with the compile-time options
+- re-implemented compile options for always-filled and never-filled
+- comment at the top of all cards with the compile options
 
 #### Changed
 - cleaning up the code:
     - moved javascript code out into their own `modules` folder under `templates`
-      (and included them in the compile time options)
+      (and included them in the compile options)
         - added example module main.js
     - generalized "open extra info on new" into its own module
     - turned the logger definition a class, and changed the global logger object from `logger` to `LOGGER`

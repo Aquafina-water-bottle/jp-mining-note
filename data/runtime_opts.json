@@ -1,0 +1,414 @@
+{
+  "enableAnkiconnectFeatures": true,
+  "hybridSentenceOpenOnPlaySentence": true,
+  "clickCardRevealSentenceOnBackSide": true,
+  "audioPlaybackMode": "default",
+  "logger.debugLevel": 6,
+  "logger.toConsole": true,
+  "logger.debugConsoleLevel": 3,
+  "logger.warn.ignore": [
+    "(sentenceParser) Following sentence was stripped of div elements",
+    "(tb:sentenceParser) Following sentence was stripped of div elements",
+    "(sentenceParser) Automatically highlighted word in ",
+    "(tb:sentenceParser) Automatically highlighted word in ",
+    "SentenceReading is not filled out. Using Sentence field instead."
+  ],
+  "logger.error.ignore": [
+    "ReferenceError: EFDRC is not defined"
+  ],
+  "logger.error.ignoreRegex": [
+    {
+      "pattern": "^TypeError: Cannot read properties of null \\(reading 'style'\\)\n    at (nc|Ar) \\(http://127.0.0.1:\\d+/_anki/js/reviewer\\.js:7:(113091|112035)\\)$",
+      "flags": null
+    }
+  ],
+  "keybinds.enabled": true,
+  "keybinds.toggleHybridSentence": [
+    "KeyN"
+  ],
+  "keybinds.toggleHighlightWord": [
+    "KeyN"
+  ],
+  "keybinds.toggleFrontFullSentenceDisplay": [
+    "Quote"
+  ],
+  "keybinds.playSentenceAudio": [
+    "KeyP"
+  ],
+  "keybinds.playWordAudio": [
+    "KeyW"
+  ],
+  "keybinds.toggleHintDisplay": [
+    "Period"
+  ],
+  "keybinds.toggleSecondaryDefinitionsDisplay": [
+    "Digit8"
+  ],
+  "keybinds.toggleAdditionalNotesDisplay": [
+    "Digit9"
+  ],
+  "keybinds.toggleExtraDefinitionsDisplay": [
+    "Digit0"
+  ],
+  "keybinds.toggleExtraInfoDisplay": [
+    "BracketLeft"
+  ],
+  "mainCardUtils.enabled": true,
+  "sentenceParser.enabled": true,
+  "sentenceParser.fixDivList.enabled": true,
+  "sentenceParser.autoHighlightWord.enabled": true,
+  "sentenceParser.checkSentenceReadingEqualsSentence": true,
+  "sentenceParser.quotes.quoteOpen": "\u300c",
+  "sentenceParser.quotes.quoteClose": "\u300d",
+  "sentenceParser.quotes.matches": [
+    {
+      "open": "\u300c",
+      "close": "\u300d"
+    },
+    {
+      "open": "\u300e",
+      "close": "\u300f"
+    }
+  ],
+  "sentenceParser.fullSent.quotes.processMode": "remove",
+  "sentenceParser.fullSent.quotes.processMode.searchMulti": true,
+  "sentenceParser.fullSent.quotes.displayMode.quoted": "block",
+  "sentenceParser.fullSent.quotes.displayMode.unquoted": "no-indent",
+  "sentenceParser.display.quotes.processMode": "add",
+  "sentenceParser.display.quotes.processMode.searchMulti": true,
+  "sentenceParser.altDisplay.quotes.processMode": "as-is",
+  "sentenceParser.altDisplay.quotes.processMode.searchMulti": true,
+  "sentenceParser.display.quotes.displayMode.quoted": "block",
+  "sentenceParser.display.quotes.displayMode.unquoted": "no-indent",
+  "sentenceParser.display.quotes.processMode.tagOverride.add": [
+    "quote-add",
+    "jpmn-quote-add"
+  ],
+  "sentenceParser.display.quotes.processMode.tagOverride.remove": [
+    "quote-remove",
+    "jpmn-quote-remove"
+  ],
+  "sentenceParser.display.quotes.processMode.tagOverride.asIs": [
+    "quote-as-is",
+    "jpmn-quote-as-is"
+  ],
+  "sentenceParser.display.quotes.processMode.tagOverride.none": [
+    "quote-no-processing",
+    "jpmn-quote-no-processing"
+  ],
+  "sentenceParser.display.quotes.displayMode.quoted.tagOverride.block": [
+    "quote-disp-quoted-block",
+    "jpmn-quote-disp-quoted-block"
+  ],
+  "sentenceParser.display.quotes.displayMode.quoted.tagOverride.flow": [
+    "quote-disp-quoted-flow",
+    "jpmn-quote-disp-quoted-flow"
+  ],
+  "sentenceParser.display.quotes.displayMode.unquoted.tagOverride.indented": [
+    "quote-disp-unquoted-indent",
+    "jpmn-quote-disp-unquoted-indent"
+  ],
+  "sentenceParser.display.quotes.displayMode.unquoted.tagOverride.noIndent": [
+    "quote-disp-unquoted-noIndent",
+    "jpmn-quote-disp-unquoted-no-indent"
+  ],
+  "sentenceParser.display.quotes.displayMode.unquoted.tagOverride.rightShifted": [
+    "quote-disp-unquoted-rightShifted",
+    "jpmn-quote-disp-unquoted-right-shifted"
+  ],
+  "sentenceParser.multi.quotes.displayMode.quoted": "block",
+  "sentenceParser.multi.quotes.displayMode.unquoted": "right-shifted",
+  "sentenceParser.removeFinalPeriod.validPeriods": "\uff61\u3002\uff0e\\.",
+  "sentenceParser.removeFinalPeriod.fullSent.quoted": true,
+  "sentenceParser.removeFinalPeriod.fullSent.unquoted": false,
+  "sentenceParser.removeFinalPeriod.display.quoted": true,
+  "sentenceParser.removeFinalPeriod.display.unquoted": false,
+  "sentenceParser.removeFinalPeriod.altDisplay.quoted": false,
+  "sentenceParser.removeFinalPeriod.altDisplay.unquoted": false,
+  "autoPitchAccent.enabled": true,
+  "autoPitchAccent.searchForAJTWord": true,
+  "autoPitchAccent.readingDisplayMode": "katakana",
+  "autoPitchAccent.showReadingIfNoPitch": false,
+  "autoPitchAccent.paPositions.displayMode": "selected-result",
+  "autoPitchAccent.paPositions.defaultConnector": "\u30fb",
+  "autoPitchAccent.paOverride.separators": [
+    "\u30fb",
+    "\u3001"
+  ],
+  "autoPitchAccent.paOverride.downstepMarkers": [
+    "\uff3c"
+  ],
+  "autoPitchAccent.paOverride.heibanMarkers": [
+    "\uffe3"
+  ],
+  "autoPitchAccent.paOverride.heibanMarkerRequired": true,
+  "autoPitchAccent.paOverride.kifukuOveride": [
+    -1
+  ],
+  "autoPitchAccent.paOverride.detectKifukuFromWordTags": true,
+  "autoPitchAccent.coloredPitchAccent.enabled": false,
+  "autoPitchAccent.coloredPitchAccent.color.wordReadingPitchOverline": true,
+  "autoPitchAccent.coloredPitchAccent.color.wordReadingKanji": true,
+  "autoPitchAccent.coloredPitchAccent.color.testedContent": true,
+  "autoPitchAccent.coloredPitchAccent.color.fullSentence": true,
+  "autoPitchAccent.coloredPitchAccent.color.definitions": true,
+  "autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.paPositions": true,
+  "autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.paOverride.integer": true,
+  "autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.paOverride.text": false,
+  "autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.ajtWordPitch": true,
+  "imgStylizer.enabled": true,
+  "imgStylizer.setMainImageFromTags": [],
+  "imgStylizer.mainImage.resizeHeightMode": "auto-height",
+  "imgStylizer.mainImage.resizeHeightFixedValue": 210,
+  "imgStylizer.mainImage.resizeOnMobile": true,
+  "imgStylizer.mainImage.blur.enabled": false,
+  "imgStylizer.mainImage.blur.tags": [
+    "NSFW",
+    "nsfw",
+    "-NSFW"
+  ],
+  "imgStylizer.mainImage.blur.startState": "only-tagged",
+  "imgStylizer.glossary.primaryDef.enabled": true,
+  "imgStylizer.glossary.primaryDef.mode.yomichan": "collapse",
+  "imgStylizer.glossary.primaryDef.mode.user": "collapse",
+  "imgStylizer.glossary.primaryDef.mode.general.tagOverride.none": [
+    "img-no-styling",
+    "jpmn-img-no-styling"
+  ],
+  "imgStylizer.glossary.primaryDef.mode.general.tagOverride.collapse": [
+    "img-collapse",
+    "jpmn-img-collapse"
+  ],
+  "imgStylizer.glossary.primaryDef.mode.general.tagOverride.float": [
+    "img-float",
+    "jpmn-img-float"
+  ],
+  "imgStylizer.glossary.primaryDef.mode.yomichan.tagOverride.none": [
+    "img-yomichan-no-styling",
+    "jpmn-img-yomichan-no-styling"
+  ],
+  "imgStylizer.glossary.primaryDef.mode.yomichan.tagOverride.collapse": [
+    "img-yomichan-collapse",
+    "jpmn-img-yomichan-collapse"
+  ],
+  "imgStylizer.glossary.primaryDef.mode.yomichan.tagOverride.float": [
+    "img-yomichan-float",
+    "jpmn-img-yomichan-float"
+  ],
+  "imgStylizer.glossary.primaryDef.mode.user.tagOverride.none": [
+    "img-user-no-styling",
+    "jpmn-img-user-no-styling"
+  ],
+  "imgStylizer.glossary.primaryDef.mode.user.tagOverride.collapse": [
+    "img-user-collapse",
+    "jpmn-img-user-collapse"
+  ],
+  "imgStylizer.glossary.primaryDef.mode.user.tagOverride.float": [
+    "img-user-float",
+    "jpmn-img-user-float"
+  ],
+  "imgStylizer.glossary.floatImg.enabled": true,
+  "imgStylizer.glossary.floatImg.position": "auto",
+  "imgStylizer.glossary.floatImg.overrideTags.bottom": [
+    "img-bottom",
+    "jpmn-img-bottom"
+  ],
+  "imgStylizer.glossary.floatImg.overrideTags.top": [
+    "img-top",
+    "jpmn-img-top"
+  ],
+  "imgStylizer.glossary.floatImg.overrideTags.right": [
+    "img-right",
+    "jpmn-img-right"
+  ],
+  "imgStylizer.glossary.other.enabled": true,
+  "imgStylizer.glossary.dictsOverride.mode.yomichan": {
+    "\u6545\u4e8b\u30fb\u3053\u3068\u308f\u3056\u30fb\u6163\u7528\u53e5\u30aa\u30f3\u30e9\u30a4\u30f3": "match-yomichan",
+    "\u56db\u5b57\u719f\u8a9e\u8f9e\u5178\u30aa\u30f3\u30e9\u30a4\u30f3": "match-yomichan",
+    "\u56fd\u8a9e\u8f9e\u5178\u30aa\u30f3\u30e9\u30a4\u30f3": "match-yomichan",
+    "\u5927\u8f9e\u6797\u3000\u7b2c\u56db\u7248": "match-yomichan",
+    "\u65b0\u660e\u89e3\u56fd\u8a9e\u8f9e\u5178\u3000\u7b2c\u516b\u7248": "match-yomichan"
+  },
+  "kanjiHover.enabled": true,
+  "kanjiHover.searchSentences": true,
+  "kanjiHover.overrideOptions.tooltips": {},
+  "wordIndicators.enabled": true,
+  "wordIndicators.getResultsFront": true,
+  "wordIndicators.overrideOptions.tooltips": {
+    "tooltips.displayPitchAccentOnHoverOnly": false
+  },
+  "mobileUtils.enabled": true,
+  "infoCircleUtils.enabled": true,
+  "infoCircleUtils.mobileDialog": true,
+  "infoCircleUtils.showTagsMode": "back",
+  "infoCircleUtils.dataTags": [
+    "line-hide",
+    "jpmn-line-hide",
+    "line-hide-1st",
+    "jpmn-line-hide-1st",
+    "line-show",
+    "jpmn-line-show",
+    "line-show-1st",
+    "jpmn-line-show-1st",
+    "line-hide-2nd",
+    "jpmn-line-hide-2nd",
+    "line-show-2nd",
+    "jpmn-line-show-2nd",
+    "list-hide",
+    "jpmn-hide-hide",
+    "list-show",
+    "jpmn-list-show",
+    "quote-add",
+    "jpmn-quote-add",
+    "quote-remove",
+    "jpmn-quote-remove",
+    "quote-as-is",
+    "jpmn-quote-as-is",
+    "quote-no-processing",
+    "jpmn-quote-no-processing",
+    "quote-disp-quoted-block",
+    "jpmn-quote-disp-quoted-block",
+    "quote-disp-quoted-flow",
+    "jpmn-quote-disp-quoted-flow",
+    "quote-disp-unquoted-indent",
+    "jpmn-quote-disp-unquoted-indent",
+    "quote-disp-unquoted-noIndent",
+    "jpmn-quote-disp-unquoted-no-indent",
+    "quote-disp-unquoted-rightShifted",
+    "jpmn-quote-disp-unquoted-right-shifted",
+    "img-no-styling",
+    "jpmn-img-no-styling",
+    "img-collapse",
+    "jpmn-img-collapse",
+    "img-float",
+    "jpmn-img-float",
+    "img-yomichan-no-styling",
+    "jpmn-img-yomichan-no-styling",
+    "img-yomichan-collapse",
+    "jpmn-img-yomichan-collapse",
+    "img-yomichan-float",
+    "jpmn-img-yomichan-float",
+    "img-user-no-styling",
+    "jpmn-img-user-no-styling",
+    "img-user-collapse",
+    "jpmn-img-user-collapse",
+    "img-user-float",
+    "jpmn-img-user-float",
+    "img-bottom",
+    "jpmn-img-bottom",
+    "img-top",
+    "jpmn-img-top",
+    "img-right",
+    "jpmn-img-right",
+    "\u5e73\u677f",
+    "heiban",
+    "\u982d\u9ad8",
+    "atamadaka",
+    "\u4e2d\u9ad8",
+    "nakadaka",
+    "\u5c3e\u9ad8",
+    "odaka",
+    "\u8d77\u4f0f",
+    "kifuku"
+  ],
+  "freqUtils.enabled": true,
+  "freqUtils.displayMode": "summary",
+  "freqUtils.list.showSummaryMode": "if-frequencies-empty",
+  "freqUtils.list.max": 4,
+  "freqUtils.list.overflow": 0,
+  "freqUtils.summary.defaultValues": [
+    "999999",
+    "9999999",
+    "99999999",
+    "1000000",
+    "10000000"
+  ],
+  "fixRubyPositioning.enabled": false,
+  "checkDuplicateKey.enabled": true,
+  "blockquotes.enabled": true,
+  "blockquotes.hideEmpty": true,
+  "blockquotes.collapsePrimaryDefinition": false,
+  "blockquotes.open.enabled": false,
+  "blockquotes.open.primaryDefinition": false,
+  "blockquotes.open.secondaryDefinition": false,
+  "blockquotes.open.additionalNotes": false,
+  "blockquotes.open.extraDefinitions": false,
+  "blockquotes.open.extraInfo": false,
+  "blockquotes.openOnNew.enabled": false,
+  "blockquotes.openOnNew.primaryDefinition": false,
+  "blockquotes.openOnNew.secondaryDefinition": false,
+  "blockquotes.openOnNew.additionalNotes": false,
+  "blockquotes.openOnNew.extraDefinitions": false,
+  "blockquotes.openOnNew.extraInfo": false,
+  "blockquotes.folderTab.enabled": true,
+  "blockquotes.folderTab.mode": "unique",
+  "blockquotes.folderTab.linkedTabs": "12-3-4-5",
+  "blockquotes.folderTab.showDotWhenEmpty": false,
+  "blockquotes.simplifyDefinitions.enabled": false,
+  "blockquotes.simplifyDefinitions.primaryDefinition.enabled": true,
+  "blockquotes.simplifyDefinitions.secondaryDefinition.enabled": true,
+  "blockquotes.simplifyDefinitions.extraDefinitions.enabled": true,
+  "blockquotes.simplifyDefinitions.hideFirstLineMode": "first-line",
+  "blockquotes.simplifyDefinitions.dictsOverride.hideFirstLineMode": {
+    "JMdict (English)": "none",
+    "JMdict": "none",
+    "JMdict Extra": "none",
+    "Nico/Pixiv": "none",
+    "\u6545\u4e8b\u30fb\u3053\u3068\u308f\u3056\u30fb\u6163\u7528\u53e5\u30aa\u30f3\u30e9\u30a4\u30f3": "none",
+    "\u56db\u5b57\u719f\u8a9e\u8f9e\u5178\u30aa\u30f3\u30e9\u30a4\u30f3": "none",
+    "\u56fd\u8a9e\u8f9e\u5178\u30aa\u30f3\u30e9\u30a4\u30f3": "none",
+    "\u5927\u8f9e\u6797\u3000\u7b2c\u56db\u7248": "none",
+    "\u65b0\u660e\u89e3\u56fd\u8a9e\u8f9e\u5178\u3000\u7b2c\u516b\u7248": "none"
+  },
+  "blockquotes.simplifyDefinitions.removeListMode": "on-singular",
+  "blockquotes.simplifyDefinitions.removeListMode.tagOverride.always": [
+    "list-hide",
+    "jpmn-hide-hide"
+  ],
+  "blockquotes.simplifyDefinitions.removeListMode.tagOverride.never": [
+    "list-show",
+    "jpmn-list-show"
+  ],
+  "blockquotes.simplifyDefinitions.tagOverride.primaryDefinition.hideFirstLine": [
+    "line-hide",
+    "jpmn-line-hide",
+    "line-hide-1st",
+    "jpmn-line-hide-1st"
+  ],
+  "blockquotes.simplifyDefinitions.tagOverride.primaryDefinition.showFirstLine": [
+    "line-show",
+    "jpmn-line-show",
+    "line-show-1st",
+    "jpmn-line-show-1st"
+  ],
+  "blockquotes.simplifyDefinitions.tagOverride.secondaryDefinition.hideFirstLine": [
+    "line-hide-2nd",
+    "jpmn-line-hide-2nd"
+  ],
+  "blockquotes.simplifyDefinitions.tagOverride.secondaryDefinition.showFirstLine": [
+    "line-show-2nd",
+    "jpmn-line-show-2nd"
+  ],
+  "refreshCard.enabled": true,
+  "tooltips.displayPitchAccent": true,
+  "tooltips.displayPitchAccentOnHoverOnly": true,
+  "tooltips.clickWordToBrowse": true,
+  "tooltips.highlightWordInSentence": false,
+  "tooltips.query.nonNew.base": "-is:new OR (is:suspended is:new flag:3)",
+  "tooltips.query.nonNew.removed": "is:suspended flag:1",
+  "tooltips.query.new.base": "is:new",
+  "tooltips.query.new.removed": "is:suspended (flag:1 OR flag:3)",
+  "tooltips.categoryMax.nonNew.oldest": 2,
+  "tooltips.categoryMax.nonNew.newest": 2,
+  "tooltips.categoryMax.new.oldest": 2,
+  "tooltips.categoryMax.new.newest": 0,
+  "tooltips.overrideOptions.sentenceParser": {
+    "sentenceParser.fullSent.quotes.processMode": "add"
+  },
+  "tooltips.overrideOptions.autoPitchAccent": {
+    "autoPitchAccent.coloredPitchAccent.color.wordReadingKanji": false,
+    "autoPitchAccent.coloredPitchAccent.color.fullSentence": false
+  },
+  "cardCache.enabled": true,
+  "asyncManager.initialDelay": 50
+}

@@ -1,0 +1,5 @@
+{% for field in ALL_FIELDS %}
+{%- if field.ignore_field_exists != True %}
+<div id="hidden_field_exists_{{field.name}}">{% call IF(field.name) %}1{% endcall %}</div>
+{%- endif -%}
+{%- endfor %}

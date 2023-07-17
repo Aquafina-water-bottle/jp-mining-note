@@ -1,0 +1,21 @@
+{
+  "neverFilledFields": [
+    "PAShowInfo", "PATestOnlyWord", "PADoNotTest",
+    "PASeparateWordCard", "PASeparateSentenceCard", "AltDisplayPASentenceCard",
+    "SeparateClozeDeletionCard",
+    "IsClickCard", "IsHoverCard", "IsSentenceCard", "IsTargetedSentenceCard", "IsHintCard",
+  ],
+
+  "fullSentenceRuby.displayMode": "click",
+  "fullSentenceRuby.fillMode": "font-size",
+  "fullSentenceRuby.fillModeFontSizeTransition": true,
+
+  "cssFolders": [
+    "base",
+    "dictionaries",
+    "theme",
+    "extra"
+  ],
+
+}
+

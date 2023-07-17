@@ -1,0 +1,103 @@
+{
+  "enableAnkiconnectFeatures": {
+    "type": "isPC",
+    "resultTrue":  true, // is PC
+    "resultFalse": false, // not not PC (mobile)
+  },
+
+  // This is an extended version of:
+  // (cardType == pa_sent or card_type == cloze_deletion)
+  //"audioPlaybackMode": {
+  //  // TODO: implement or statement and use it here
+  //  "type": "cardType",
+  //  "args": {
+  //    "op": "===",
+  //    "cardType": "pa_sent",
+  //  },
+  //  "resultTrue": "sentence",
+  //  "resultFalse": {
+  //    "type": "cardType",
+  //    "args": {
+  //      "op": "===",
+  //      "cardType": "cloze_deletion",
+  //    },
+  //    "resultTrue": "sentence",
+  //    "resultFalse": "default",
+  //  },
+  //},
+
+  "sentenceParser.quotes.quoteOpen": {
+    "type": "cardType",
+    "args": {
+      "op": "===",
+      "cardType": "pa_sent",
+    },
+    "resultTrue":  "『",
+    "resultFalse": "「",
+  },
+
+  "sentenceParser.quotes.quoteClose": {
+    "type": "cardType",
+    "args": {
+      "op": "===",
+      "cardType": "pa_sent",
+    },
+    "resultTrue":  "』",
+    "resultFalse": "」",
+  },
+
+  "blockquotes.folderTab.enabled": {
+    "type": "viewportWidthBreakpoint",
+    "args": {
+      "op": "<=",
+      "value": "combinePicture",
+    },
+    "resultTrue": true,
+    "resultFalse": false,
+  },
+
+  //"fixRubyPositioning.enabled": {
+  //  "type": "isiPhoneiPad",
+  //  "resultTrue": true, // it seems like the AnkiMobile release only supports qt5 as of writing this
+  //  "resultFalse": false,
+  //},
+
+  "cardCache.enabled": {
+    "type": "isMobile",
+    "resultTrue":  true,
+    "resultFalse": false,
+  },
+
+  // console.warn and console.error are not defined on AnkiMobile!!!
+  // Any calls to those will crash javascript with no error message!!
+  "logger.toConsole": {
+    "type": "isAnkiMobile",
+    "resultTrue": false,
+    "resultFalse": true,
+  },
+
+
+  "infoCircleUtils.mobileDialog": {
+    "type": "isAnkiMobile",
+    "resultTrue": false,
+    "resultFalse": true,
+  },
+
+  "freqUtils.list.max": {
+    "type": "isMobile",
+    "resultTrue":  1,
+    "resultFalse": 4,
+  },
+
+
+  "blockquotes.collapsePrimaryDefinition": {
+    "type": "cardType",
+    "args": {
+      "op": "===",
+      "cardType": "cloze_deletion",
+    },
+    "resultTrue":  true,
+    "resultFalse": false,
+  },
+
+}

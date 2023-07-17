@@ -350,7 +350,9 @@ templates/out.html
 templates/output/
 config.py
 config/config.py
-config/user_jpmn_opts.jsonc
+config/user_jpmn_opts*.json*
+config/user_jpmn_opts.json
+config/config.json*
 build/
 templates/scss/*.css
 
@@ -370,6 +372,12 @@ tools/tests/jinja/tests/tmp/
 .ccls-cache/
 src/scss/aquafina_extra/
 src/modules/aquafina-extra/
+src/ts/consts.ts
+src/ts/test/templates/
+src/_js/
+config/temp/
+src/svg/folder-tab/unused/
+
 
 # Created by Windows when setting up python / Dependecies
 Scripts/
@@ -377,3 +385,5 @@ Scripts/
 # Technically the directory should be overwritten in opts, but not everyone does that
 overrides/*
 !overrides/.gitkeep
+
+themes/parfait/

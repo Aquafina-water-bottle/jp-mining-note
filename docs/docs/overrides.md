@@ -1,4 +1,10 @@
 
+!!! warning
+    This entire section will be **completely overhauled** in version 0.12.0.0,
+    meaning that this information will be completely changed when that version releases.
+    See the `dev` branch on Github if you want to see the work in progress.
+
+
 # Overview
 
 An easy way to override and extend parts of the card templates is by using an

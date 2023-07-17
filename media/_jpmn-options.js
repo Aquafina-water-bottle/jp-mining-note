@@ -64,7 +64,7 @@ var JPMNOpts = (function (my) {
 
       "modules": {
 
-        // "enabled" is not featured here, as it is enabled/disabled via compile time options only.
+        // "enabled" is not featured here, as it is enabled/disabled via compile options only.
         "time-performance": {
           "debug-level": 4,
           "precision": 3,

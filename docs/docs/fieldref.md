@@ -1,6 +1,10 @@
 
-This page is dedicated showing
-how to edit the note fields to change the card to your liking.
+This page is dedicated showing how to edit the note fields to change the card to your liking.
+
+
+!!! note
+    If you want to edit the user interface for all cards,
+    see the [UI Customization](uicustomization.md) page.
 
 
 # Definitions
@@ -12,11 +16,6 @@ If it is not filled, then the card will be a word card.
 To fill a field automatically, see
 [here](faq.md#how-do-i-change-the-default-value-of-a-binary-field){:target="_blank"}.
 
-<!--
-To "toggle" a binary field means to either fill the value if is not filled yet,
-or to remove the value if it is filled.
-In other words, it means to flip the value of the field between empty and filled.
--->
 
 **PA:** Short for "Pitch Accent".
 
@@ -60,18 +59,23 @@ where the tested content is simply the word.
 To change the card to a sentence card, fill the `IsSentenceCard` binary field.
 
 === "Vocab card"
-    {{ img("vocab card example", "assets/nisemono_word.png") }}
+    {{ img("vocab card example", "assets/fieldref/word.png") }}
 === "Sentence card"
-    {{ img("sentence card example", "assets/nisemono_sentence.png") }}
+    {{ img("sentence card example", "assets/fieldref/sentence.png") }}
 
 
 ## AltDisplay: Changing the Displayed Content
+<!-- TODO: real use cases that I use:
+    - bolding specific parts in TSCs (say, to test a particular sentence)
+    - replacing words with full kanji form
+    - furigana for names
+-->
 Vocab cards show the `Word` field and sentence cards show the `Sentence` fields by default.
 However, you can modify what is exactly shown in the front by using the `AltDisplay` field.
 
 === "Newline"
     <figure markdown>
-      {{ img("altdisplay with newline", "assets/nisemono_altdisplay_newline.png") }}
+      {{ img("altdisplay with newline", "assets/fieldref/altdisplay_newline.png") }}
       <figcaption>
         The previous sentence card looks a little ugly,
         because the sentence splits off at a strange point.
@@ -81,7 +85,7 @@ However, you can modify what is exactly shown in the front by using the `AltDisp
 
 === "Last sentence only"
     <figure markdown>
-      {{ img("altdisplay with only last sentence", "assets/nisemono_altdisplay_last_sent.png") }}
+      {{ img("altdisplay with only last sentence", "assets/fieldref/altdisplay_last_sent.png") }}
       <figcaption>
         Alternatively, we can simply test the last sentence, by removing the first sentence.
       </figcaption>
@@ -101,7 +105,6 @@ For example, the card below has the following HTML:
 上条[かみじょう] 恭介[きょうすけ]君のことお<b>慕い</b>してましたの
 ```
 
-{{ img("altdisplay with furigana", "assets/altdisplay_furigana.gif") }}
 
 <br>
 
@@ -126,33 +129,18 @@ For example, the card below has the following HTML:
 
 
 
-## Hints
-Finally, you can include a customized hint to show at the front of the card, by using the `Hint` field.
-This will show as a collapsible field at the front of card.
-
-If you do not want the hint to be hidden by default, you can use the `HintNotHidden` field instead.
-
-=== "Hint"
-    {{ img("hint field demo", "assets/hint.gif") }}
-=== "HintNotHidden"
-    {{ img("HintNotHidden field demo", "assets/hint_not_hidden.png") }}
-
----
-
 
 
 # Modifying the Back Side
 
 The main two fields that one can add text to is
 `PrimaryDefinition` and `AdditionalNotes`.
-Bolding anything in these sections will highlight the word in a light yellow tint,
-to make the bold stand out more.
+Bolding anything in these sections will highlight the word in a light yellow (or blue in light mode) tint,
+to make the bolded text stand out more.
 
-??? example "Example Bold *(click here)*"
-    {{ img("", "assets/nisemono_modify_back_side.png") }}
+{{ img("", "assets/fieldref/bold.png") }}
 
 <br>
-
 
 ## `PrimaryDefinition` field
 The `PrimaryDefinition` field contains the main content, and should be the main field to edit
@@ -165,101 +153,25 @@ if one wants to put down more notes about the card.
 The `AdditionalNotes` field is useful if you want to write down even more notes,
 but keep it in a collapsible field to reduce vertical space.
 
-Here are some ways you can use this field:
+Here are some suggestions on how you can use this field:
 
 * Recording the source where the scene came from
 * Adding custom notes on the scene's context
 * Recording the sentences surrounding the mined sentence
 
-In general, this field should be used for any info that is not crutial
+In general, this field should be used for any info that is not crucial
 to understanding the tested content.
 
-<br>
 
 
-## Modifying Images and Pitch Accent
+## Modifying Images & Pitch Accent
 As there are plenty of ways to modify images and pitch accent,
 they are discussed in their respective pages:
 
-* [Images](images.md)
-* [Pitch Accent](autopa.md)
+* [Images](images.md) (`Picture` and `PrimaryDefinitionPicture`)
+* [Pitch Accent](autopa.md) (`PAOverride` and `PAOverrideText`)
 
 ---
-
-
-
-
-
-# Testing Pitch Accent
-This note type provides many options to target exactly what parts of pitch accent
-you want to test yourself on.
-By default, pitch accent is not tested.
-
-To test for pitch accent, fill the `PAShowInfo` field.
-You should see a circle to the left of the word or sentence.
-
-
-
-## Pitch Accent Indicator
-This circle you see is called the "Pitch Accent Indicator", or "PA Indicator" for short.
-How this card indicates what pitch accent is tested is by the PA indicator's color.
-
-
-{{ img("pitch accent indicators", "assets/pa_indicators.png") }}
-
-
-Here are what the colors represent:
-
-* **Green:** The *entire sentence* is tested.
-* **Blue:** Only the *word* is tested.
-* **Red:** Pitch accent should *not be tested* in any way.
-
-If you ever forget what the colors mean, you can hover your mouse over the circle to
-get a description of what is being tested.
-
-Alternatively, you can look at the top right of the screen and look at the value after the `/`.
-
-{{ img("pitch accent indicator hover demo", "assets/pa_indicator_hover.gif") }}
-
-
-!!! note
-    If the tested content is a sentence (card), but you want to only test for word pitch accent,
-    you would not be able to see the word normally.
-    To see the word that is tested, there is a button to toggle whether the word is highlighted or not.
-    The content that is highlighted is exactly what is bolded in the `Sentence`
-    (or `AltDisplay` / `AltDisplayPASentenceCard`) field, which is the added word by default.
-
-    {{ img("show word button demo", "assets/show_word_button.gif") }}
-
-
-## Selecting the Pitch Accent
-
-The following shows how to fill in the proper fields to test pitch accent:
-
-
-| Filled fields | PA Indicator | Separated Cards |
-|-|-|-|
-| (None, default) | (Doesn't exist) |     |
-| `PAShowInfo` | Green (sentence) or blue (word), <br> depending on the tested content |     |
-| `PAShowInfo` & <br> `PADoNotTest` | Red (not tested) |     |
-| `PAShowInfo` & <br> `PATestOnlyWord` | Blue (word) |     |
-| `PAShowInfo` & <br> `PASeparateWordCard` | Red (not tested) | Word |
-| `PAShowInfo` & <br> `PASeparateSentenceCard` | Blue (word) | Sentence |
-| `PAShowInfo` & <br> `PASeparateWordCard` & <br> `PASeparateSentenceCard` | Red (not tested) | Word & Sentence |
-
-To clarify some of the above:
-
-* By default, if only `PAShowInfo` is filled, then the entire display is tested
-    * For vocab cards, targeted sentence cards, and hybrid vocab cards,
-      only the word PA is tested (PA indicator: blue).
-    * For sentence cards and hybrid sentence,
-      the entire sentence PA is tested (PA indicator: green).
-* To test just the word pitch accent, fill the `PATestOnlyWord` field.
-* To create completely separate cards to just test pitch accent on,
-  use the fields `PASeparateSentenceCard` and/or `PASeparateWordCard`.
-* If a PA word card is created, then the default card does not test pitch accent.
-  Similarly, if a PA sentence card is created, then the default card only tests the word pitch accent.
-
 
 
 ## Modifying Pitch Accent Sentence Cards
@@ -269,25 +181,6 @@ It works similarly to `AltDisplay`, and takes priority over `AltDisplay`
 in the PA sentence card.
 
 
-
-## Colored Quotes Instead of PA Indicator
-(TODO)
-
-
-Runtime Options:
-
-```
-"modules": {
-  "sent-utils": {
-    "pa-indicator-color-quotes": ...
-  }
-}
-```
-
-TODO picture comparisons between word PA indicator in quotes / word PA with PA indicator
-
-
----
 
 
 
@@ -315,13 +208,6 @@ a warning will appear on cards that have a duplicate key.
 Similarly to the `Key` field, this field will not be used in any card template.
 In other words, this is a place where you can write down notes without affecting the card itself.
 
-<!--
-## `Picture` field
-As an aside, you can put text in this field instead of a picture, and it should still work.
-This is useful if you forgot to add the picture, or just don't want to add the picture
-in the first place.
--->
-
 <br>
 
 ## `FrequencySort` field
@@ -333,21 +219,11 @@ Visit the aformentioned link (and scroll down to `Usage`)
 to see how to sort and review your cards by frequency.
 
 
-<br>
-
-## Cloze Deletion Cards
-Cloze Deletion cards are, simply put, "fill-in-the-blank cards".
-This allows you to create cards that tests word audio or sentence audio.
-
-To create a cloze deletion card, simply fill in the `SeparateClozeDeletionCard` field.
-The words that are hidden are exactly the words that are bolded in the `Sentence` (or `AltDisplay`) field.
-
-To create a sentence audio card, copy/paste the sentence into `AltDisplay`, and bold the entire `AltDisplay` field (say, with `ctrl+a` and `ctrl+b`).
-There's currently no shortcut to creating a sentence audio card.
-
-TODO: IsSentenceCard -> tests entire sentence, not filled -> currently as is
-
-{{ img("cloze deletion card", "assets/cloze_deletion.png") }}
+!!! note
+    I personally use this field by re-ordering only some of the most common words in my deck,
+    and then separating it with a step of 1.
+    This ensures that every card in the deck will eventually be reached.
 
 
+---
 

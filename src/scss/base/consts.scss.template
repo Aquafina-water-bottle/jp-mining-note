@@ -1,0 +1,7 @@
+$bp-enlarge-max-width-backside: {{ COMPILE_OPTIONS("breakpoints.width.enlargeMaxWidth").item() }}px; // TODO use
+$bp-display-sentence-shrink: {{ COMPILE_OPTIONS("breakpoints.width.displaySentenceShrink").item() }}px;
+$bp-display-sentence-remove-newlines: {{ COMPILE_OPTIONS("breakpoints.width.displaySentenceRemoveNewlines").item() }}px;
+$bp-max-width-backside: {{ COMPILE_OPTIONS("breakpoints.width.maxWidthBackside").item() }}px;
+$bp-combine-picture: {{ COMPILE_OPTIONS("breakpoints.width.combinePicture").item() }}px;
+
+$bp-tablet-height: {{ COMPILE_OPTIONS("breakpoints.height.tablet").item() }}px;

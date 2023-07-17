@@ -1,30 +1,38 @@
 from __future__ import annotations
 
 import re
-import sys
 import copy
 import json
-import shutil
 import os.path
 import argparse
-import importlib.util
+import datetime
 import urllib.request
 import urllib.error
 
 from pathlib import Path
-from typing import TYPE_CHECKING, Callable, Any, Iterable
+from typing import Callable, Any, Iterable, Optional, TypedDict, Literal
 
-import note_files
+from json_handler import JsonHandler
+
+USER_CONFIG_PATH = "config/config.json5"
+DEFAULT_CONFIG_PATH = "config/default_config.json5"
+TIME_FORMAT = "%Y-%m-%d-%H-%M-%S"
+
+rx_GET_VERSION = re.compile(
+    r"JP Mining Note: Version (\d+\.\d+\.\d+\.\d+(-prerelease-\d+)?)"
+)
 
 
-if TYPE_CHECKING:
-    import types
+JSON = dict[str, Any]
 
-EXAMPLE_CONFIG_PATH = "config/example_config.py"
-DEFAULT_CONFIG_PATH = "config/config.py"
 
-rx_GET_VERSION = re.compile(r"JP Mining Note: Version (\d+\.\d+\.\d+\.\d+)")
+class OptsDict(TypedDict):
+    user: JSON
+    themes: JSON
+    default: JSON
 
+
+OptsDictKey = Literal["user", "themes", "default"]
 
 
 cached_config = None
@@ -56,21 +64,38 @@ def add_args(parser: argparse.ArgumentParser):
         default=None,
         help="(dev option) custom input version to be used instead of the current version in the "
         "existing Anki note"
-        #help="Installs an older version of the card. "
-        #"This option only works on first install, and not when updating the note.",
+        # help="Installs an older version of the card. "
+        # "This option only works on first install, and not when updating the note.",
     )
 
     group.add_argument(
         "--dev-output-version",
         type=str,
         default=None,
-        help="(dev option) custom output version to be used instead of version.txt"
+        help="(dev option) custom output version to be used instead of version.txt",
+    )
+
+    group.add_argument(
+        "--dev-read-json5",
+        action="store_true",
+        default=False,
+        help="(dev option) read json5 config files instead of json files",
+    )
+
+    group.add_argument(
+        "--dev-emit-json",
+        action="store_true",
+        default=False,
+        help="(dev option) emits json files whenever reading a json5 file",
     )
 
 
-def get_args(*args: Callable[[argparse.ArgumentParser], None]) -> argparse.Namespace:
+def get_args(
+    *add_args_funcs: Callable[[argparse.ArgumentParser], None]
+) -> argparse.Namespace:
+    # exit_on_error is False if custom args are given
     parser = argparse.ArgumentParser()
-    for add_args_func in args:
+    for add_args_func in add_args_funcs:
         add_args_func(parser)
     return parser.parse_args()
 
@@ -81,9 +106,12 @@ class Config:
     and to provide ease-of-access methods to access chains of key/value pairs
     """
 
-    def __init__(self, data: Any, path: list[int | str] = []):
+    def __init__(
+        self, data: Any, path: list[int | str] = [], card_info: Optional[Config] = None
+    ):
         self.data = data
         self.path = copy.deepcopy(path)
+        self.card_info = card_info
 
     def container(self) -> dict | list:
         assert isinstance(self.data, dict) or isinstance(self.data, list)
@@ -101,9 +129,42 @@ class Config:
         assert isinstance(self.data, dict)
         return self.data.get(key, default)
 
+    def item_opt_value(self, item):
+        """
+        should be the compile option equivalent of runtime option values,
+        just a lot more limited
+
+        NOTE: does NOT work with consts.ts!!!
+        Removing this feature for now since it seems impossible to support with recompiling for
+        EACH card type + side, which severly increases build time...
+        """
+        # if (
+        #     self.card_info is not None
+        #     and isinstance(item, dict)
+        #     and (item_type := item.get("_type", None)) is not None
+        # ):
+        #     if item_type == "cardType": # TODO: operators? ==, !=, etc.
+        #         if item["args"]["cardType"] == self.card_info("card-type").item():
+        #             key = "resultTrue"
+        #         else:
+        #             key = "resultFalse"
+        #         return self.item_opt_value(item[key])
+        #     elif item_type == "cardSide":
+        #         if item["args"]["cardSide"] == self.card_info("card-side").item():
+        #             key = "resultTrue"
+        #         else:
+        #             key = "resultFalse"
+        #         return self.item_opt_value(item[key])
+        #     else:
+        #         raise RuntimeError(f"invalid type: {item_type} on item {item}")
+        # else:
+        #     return item
+        return item
+
     def item(self, javascript=False) -> Any:
+        data = self.item_opt_value(self.data)
         if not javascript:
-            return self.data
+            return data
         var = self.data
         if var is True:
             return "true"
@@ -123,17 +184,17 @@ class Config:
     def dict_values(self) -> Iterable[Config]:
         assert isinstance(self.data, dict)
         for key in self.data.keys():
-            yield Config(self.data[key], self.path + [key])
+            yield Config(self.data[key], self.path + [key], self.card_info)
 
     def dict_items(self) -> Iterable[tuple["str", Config]]:
         assert isinstance(self.data, dict)
         for key in self.data.keys():
-            yield key, Config(self.data[key], self.path + [key])
+            yield key, Config(self.data[key], self.path + [key], self.card_info)
 
     def list_items(self) -> Iterable[Config]:
         assert isinstance(self.data, list)
         for i, item in enumerate(self.data):
-            yield Config(item, self.path + [i])
+            yield Config(item, self.path + [i], self.card_info)
 
     def __call__(self, *keys: str | int) -> Config:
         """
@@ -169,48 +230,16 @@ class Config:
             current_config = Config(
                 result,
                 path=current_config.path + [key],
+                card_info=self.card_info,
             )
 
         return current_config
 
     def get_path(self):
-        return '.'.join([str(x) for x in self.path])
+        return ".".join([str(x) for x in self.path])
 
     def __repr__(self):
         return f"Config({self.get_path()})"
-
-
-# https://stackoverflow.com/a/41595552
-def import_source_file(fname: str, modname: str) -> "types.ModuleType":
-    """
-    Import a Python source file and return the loaded module.
-
-    Args:
-        fname: The full path to the source file.  It may container characters like `.`
-            or `-`.
-        modname: The name for the loaded module.  It may contain `.` and even characters
-            that would normally not be allowed (e.g., `-`).
-    Return:
-        The imported module
-
-    Raises:
-        ImportError: If the file cannot be imported (e.g, if it's not a `.py` file or if
-            it does not exist).
-        Exception: Any exception that is raised while executing the module (e.g.,
-            :exc:`SyntaxError).  These are errors made by the author of the module!
-    """
-    # https://docs.python.org/3/library/importlib.html#importing-a-source-file-directly
-    spec = importlib.util.spec_from_file_location(modname, fname)
-    if spec is None:
-        raise ImportError(f"Could not load spec for module '{modname}' at: {fname}")
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[modname] = module
-    try:
-        assert spec.loader is not None
-        spec.loader.exec_module(module)
-    except FileNotFoundError as e:
-        raise ImportError(f"{e.strerror}: {fname}") from e
-    return module
 
 
 # taken from https://github.com/FooSoft/anki-connect#python
@@ -222,7 +251,7 @@ def invoke(action: str, **params):
     requestJson = json.dumps(request(action, **params)).encode("utf-8")
     response = json.load(
         urllib.request.urlopen(
-            urllib.request.Request("http://localhost:8765", requestJson)
+            urllib.request.Request("http://127.0.0.1:8765", requestJson)
         )
     )
     if len(response) != 2:
@@ -236,38 +265,207 @@ def invoke(action: str, **params):
     return response["result"]
 
 
-def get_config_data_from_path(file_path: str) -> dict[str, Any]:
-    module = import_source_file(file_path, "config")
-    if module is None:
-        raise Exception("Module is None and cannot be imported")
-    if not hasattr(module, "CONFIG"):
-        raise Exception("CONFIG variable is not defined in the config file")
+def defaults(*dicts: dict, strict=False):
+    """
+    Gets keys, with the highest priority being the first dictionary.
+    This is basically Lodash's _.defaults() method, as this only goes one layer deep
 
-    return module.CONFIG
+    `strict` means that it will error if the key was not found in the last dictionary
+    """
 
-def get_config_from_path(file_path: str) -> Config:
-    config_data = get_config_data_from_path(file_path)
+    result = {}
+    for d in dicts:
+        for k, v in d.items():
+            if strict and k not in dicts[-1]:
+                print(json.dumps(dicts[-1], indent=2))
+                raise KeyError(f"{k} not in default options")
 
-    config = Config(config_data, path=["root"])
-    return config
+            if k not in result:
+                result[k] = v
+    return result
 
 
-def get_note_opts(config: Config, as_config=False) -> Config | str:
+def _get_opts_all(name, config: Config, json_handler: JsonHandler) -> OptsDict:
+    # attempts to get note options from the following places:
+    # - config
+    # - theme
+    # - default (error if not found)
 
-    opts_file = config("opts-path").item()
     root_folder = get_root_folder()
-    opts_path = os.path.join(root_folder, "config", opts_file)
 
-    with open(opts_path, encoding="utf-8") as f:
-        contents = f.read()
+    # gets default settings
+    default_opts_file = os.path.join(root_folder, "data", f"{name}_opts.json5")
+    default_opts = json_handler.read_file(default_opts_file)
+    # with open(default_opts_file, encoding="utf-8") as f:
+    #    default_opts = pyjson5.load(f)
 
-    if as_config:
-        # import put here so certain scripts can be ran without external dependencies
-        from json_minify import json_minify
+    # gets theme settings
+    theme_folder = config("theme-folder").item()
+    theme_opts = {}
+    if theme_folder is not None:
+        theme_opts_file = os.path.join(
+            root_folder, "themes", theme_folder, f"{name}_opts.json5"
+        )
+        if os.path.isfile(theme_opts_file):
+            theme_opts = json_handler.read_file(theme_opts_file)
+            # with open(theme_opts_file, encoding="utf-8") as f:
+            #    theme_opts = pyjson5.load(f)
 
-        return Config(json.loads(json_minify(contents)))
+    # gets user settings
+    user_opts = {}
+    user_opts_file = os.path.join(root_folder, config(f"{name}-options-path").item())
+    if os.path.isfile(user_opts_file):
+        user_opts = json_handler.read_file(user_opts_file)
+        # with open(user_opts_file, encoding="utf-8") as f:
+        #    user_opts = pyjson5.load(f)
 
-    return contents
+    # TODO convert this to some sort of actual object instead of a dict?
+    return {
+        "user": user_opts,
+        "themes": theme_opts,
+        "default": default_opts,
+    }
+
+
+def get_runtime_opts_all(config: Config, json_handler: JsonHandler):
+    return _get_opts_all("runtime", config, json_handler)
+
+
+def get_compile_opts_all(config: Config, json_handler: JsonHandler):
+    return _get_opts_all("compile", config, json_handler)
+
+
+def apply_modify_action(dst: dict[str, Any], opt: str, action: JSON):
+    """
+    modifies dst in place with various actions.
+    NOTE: not 100% general. To make 100% general, "option" -> "path"
+        and should be a list of strings
+    """
+    type = action["type"]
+
+    if type == "set":  # dictionary set
+        key = action["key"]
+        value = action["value"]
+
+        assert isinstance(dst[opt], dict)
+        dst[opt][key] = value
+
+    elif type == "delete":  # dictionary pop
+        key = action["key"]
+
+        assert isinstance(dst[opt], dict)
+        if key in dst[opt]:
+            dst[opt].pop()
+
+    if type == "add":  # list add
+        index = action["index"]
+        value = action["value"]
+
+        assert isinstance(dst[opt], list)
+        if index is not None:
+            dst[opt].insert(index, value)
+        else:
+            dst[opt].push(value)  # applies at the end
+
+    if type == "add-all":  # list add
+        values = action["values"]
+        assert isinstance(dst[opt], list)
+        dst[opt].extend(values)
+
+    elif type == "remove":  # list remove
+        value = action["value"]
+
+        assert isinstance(dst[opt], list)
+        if value in dst[opt]:
+            dst[opt].remove(value)
+
+
+def apply_runtime_opts(
+    all_opts: OptsDict,
+    key: OptsDictKey,
+    dst: dict[str, Any],
+    overrides: dict[str, Any],
+    error_if_unknown_key: bool = False,
+):
+    """
+    applies all runtime options from src -> dst (modifies in place)
+    - also applies all overrides found from src -> overrides (modifies in place)
+    - dst can be an empty dictionary, so things from src are applied properly
+    - TODO: get "_modifyActions" working
+        - can modify lists and dictionaries in place
+        - should be key -> list, i.e. _modifyActions: { "kanjiHover.enabled": [ ... ] }
+        - logic should be implemented in compile-time for optimization, but also
+            implemented in JS for usage in the true _jpmn-options.js file
+    """
+
+    def _is_override_value(val):
+        return isinstance(val, dict) and "type" in val
+
+    src = all_opts[key]
+    for k, v in src.items():
+        if _is_override_value(v):
+            if key == "default":
+                raise RuntimeError(f"default key cannot be override {k}: {v}")
+            overrides[k] = v
+        elif k in overrides and key != "default":
+            overrides[k] = v
+        elif k == "_modifyActions":
+            for k2, v2 in v.items():
+                for action in v2:
+                    apply_modify_action(dst, k2, action)
+        else:
+            if error_if_unknown_key and k not in dst:
+                print(all_opts["default"])
+                raise KeyError(f"{k} not in default options (but was defined in {key})")
+
+            dst[k] = v
+
+
+def get_rto_overrides(json_handler: JsonHandler):
+    root_folder = get_root_folder()
+    rto_overrides_file = os.path.join(root_folder, "data", f"rto_overrides.json5")
+    return json_handler.read_file(rto_overrides_file)
+
+
+def get_runtime_opts(config: Config, json_handler: JsonHandler) -> Config:
+    # requires separation of { type: ... } (override) values into the "overrides", for typescript to work
+    # overrides section is separately combined
+    # NOTE: existing keys in overrides should be correctly overwwritten by themes/user RTOs!
+
+    all_runtime_opts = get_runtime_opts_all(config, json_handler)
+    rto_overrides = get_rto_overrides(json_handler)
+
+    # extra should NOT have "overrides"
+    result_opts = {}
+    apply_runtime_opts(all_runtime_opts, "default", result_opts, rto_overrides)
+    if config(
+        "theme-override-user-options"
+    ).item():  # themes is added last => theme has highest priority
+        apply_runtime_opts(all_runtime_opts, "user", result_opts, rto_overrides)
+        apply_runtime_opts(all_runtime_opts, "themes", result_opts, rto_overrides)
+    else:
+        apply_runtime_opts(all_runtime_opts, "themes", result_opts, rto_overrides)
+        apply_runtime_opts(all_runtime_opts, "user", result_opts, rto_overrides)
+
+    result_opts["_overrides"] = rto_overrides
+
+    return Config(result_opts)
+
+
+def get_compile_opts(config: Config, json_handler: JsonHandler) -> Config:
+    compile_opts = get_compile_opts_all(config, json_handler)
+    if config("theme-override-user-options").item():
+        vals = (compile_opts["themes"], compile_opts["user"], compile_opts["default"])
+    else:
+        vals = (compile_opts["user"], compile_opts["themes"], compile_opts["default"])
+
+    return Config(defaults(*vals, strict=True))
+
+
+def handle_custom_version(ver: str) -> str:
+    # if ver == "latest":
+    #    return str(NOTE_CHANGES[0].version)
+    return ver
 
 
 def get_version(args) -> str:
@@ -276,7 +474,7 @@ def get_version(args) -> str:
     """
 
     if args.dev_output_version is not None:
-        return args.dev_output_version
+        return handle_custom_version(args.dev_output_version)
 
     root_folder = get_root_folder()
     with open(os.path.join(root_folder, "version.txt")) as f:
@@ -290,32 +488,44 @@ def note_is_installed(note_name) -> bool:
     return note_name in result
 
 
-def get_version_from_anki(args) -> str:
+def get_version_from_template_side(template_side: str, error=False) -> str | None:
+    match = rx_GET_VERSION.search(template_side)
+
+    if match is None:
+        if error:
+            raise RuntimeError("Cannot find jpmn version from template side")
+        else:
+            return None
+    return match.group(1)
+
+
+def get_version_from_anki(
+    model_name: str, dev_input_version: Optional[str] = None
+) -> str:
     """
     gets version of the jp mining note from the installed note in anki
     """
 
-    if args.dev_input_version is not None:
-        return args.dev_input_version
-
-    nf_config = get_note_config()
+    if dev_input_version is not None:
+        return handle_custom_version(dev_input_version)
 
     result = invoke(
         "modelTemplates",
-        modelName=nf_config("model-name").item(),
+        modelName=model_name,
     )
 
     assert result.keys()
 
     # doesn't matter which card it is
-    what = list(result.values())[0]["Front"]
-    match = rx_GET_VERSION.search(what)
+    # TODO: check all sides before erroring
+    side = list(result.values())[0]["Front"]
+    jpmn_version = get_version_from_template_side(side)
 
-    assert match is not None
-    return match.group(1)
+    assert jpmn_version is not None
+    return jpmn_version
 
 
-def get_config(args: argparse.Namespace) -> Config:
+def get_config(args: argparse.Namespace, json_handler: JsonHandler) -> Config:
     """
     creates the config file from the example config if it doesn't exist
     """
@@ -324,35 +534,43 @@ def get_config(args: argparse.Namespace) -> Config:
     if cached_config is not None:
         return cached_config
 
-    file_path = args.config_file
+    root_folder = get_root_folder()
 
-    tools_folder = os.path.dirname(os.path.abspath(__file__))
-    root_folder = os.path.join(tools_folder, "..")
-
-    example_config_path = os.path.join(root_folder, EXAMPLE_CONFIG_PATH)
+    override_path = args.config_file
+    user_config_path = os.path.join(root_folder, USER_CONFIG_PATH)
     default_config_path = os.path.join(root_folder, DEFAULT_CONFIG_PATH)
 
-    if file_path is None:
-        file_path = default_config_path
+    user_config_json = {}
+    default_config_json = json_handler.read_file(default_config_path)
 
-        if args.release:
-            file_path = example_config_path
-            print(f"Building release: using the example config...")
+    # first condition: overidden config
+    # second condition: release build uses default config (unless overidden for some reason)
+    #   and tests to see if the user config exists in the first place
+    # otherwise, no user config exists -> use the default only
+    if override_path is not None:
+        user_config_json = json_handler.read_file(override_path)
+    elif not args.release and os.path.isfile(user_config_path):
+        user_config_json = json_handler.read_file(user_config_path)
 
-        elif not os.path.isfile(default_config_path):
-            print(f"Creating the config file under '{file_path}'...")
-            if not os.path.isfile(example_config_path):
-                raise Exception("Example config file does not exist")
-            shutil.copy(example_config_path, default_config_path)
+    # simple override
+    config_json = defaults(user_config_json, default_config_json, strict=True)
+    config = Config(config_json, path=["root"])
 
-    config = get_config_from_path(file_path)
     cached_config = config
     return config
 
 
+def create_json_handler(args: argparse.Namespace):
+    # we emit json by default on release builds
+    return JsonHandler(
+        args.dev_read_json5, True if args.release else args.dev_emit_json
+    )
 
-def get_note_config() -> Config:
-    return Config(note_files.NOTE_DATA)
+
+def get_note_data(json_handler: JsonHandler) -> Config:
+    path = os.path.join(get_root_folder(), "data/note_data.json5")
+    data = json_handler.read_file(path)
+    return Config(data)
 
 
 def gen_dirs(file_path: str):
@@ -368,9 +586,23 @@ def get_root_folder() -> str:
     """
 
     tools_folder = os.path.dirname(os.path.abspath(__file__))
-    root_folder = os.path.join(tools_folder, "..")
+    root_folder = os.path.realpath(os.path.join(tools_folder, ".."))
 
     return root_folder
+
+
+def javascript_format(data):
+    if data is True:
+        return "true"
+    elif data is False:
+        return "false"
+    elif data is None:
+        return "null"
+    elif isinstance(data, str):
+        return '"' + data.replace("\\", "\\\\").replace('"', '\\"') + '"'
+    elif isinstance(data, dict) or isinstance(data, list):
+        return json.dumps(data)
+    return str(data)
 
 
 def assert_ankiconnect_running():
@@ -380,6 +612,10 @@ def assert_ankiconnect_running():
         raise Exception(
             "Ankiconnect is not running. Is Anki open, and is Ankiconnect installed and enabled?"
         )
+
+
+def get_time_str():
+    return datetime.datetime.now().strftime(TIME_FORMAT)
 
 
 if __name__ == "__main__":

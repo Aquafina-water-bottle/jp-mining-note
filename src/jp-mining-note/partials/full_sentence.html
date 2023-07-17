@@ -1,13 +1,63 @@
 {# impl #}
-<div class="center-box-1 full-sentence">
-  <div class="center-box-2">
-    <div class="highlight-bold" id="full_sentence">
-      {% call IF("SentenceReading") %}
-        {{ T("furigana:SentenceReading") }}
-      {% endcall %}
-      {% call IFNOT("SentenceReading") %}
-        {{ T("Sentence") }}
-      {% endcall %}
-    </div>
+
+{% set _disp_mode = COMPILE_OPTIONS("fullSentenceRuby.displayMode").item() %}
+
+<!-- NOTE: sentence-unquoted-display-no-indent is automatically removed if javascript is ran.
+  It is dependent on runtime options. -->
+
+{% call IF("SentenceReading") %}
+<div class="full-sentence-center">
+  {#<div class="full-sentence-gradient"></div>#}
+  <input
+    type="checkbox"
+    class="full-sentence-toggle hidden"
+    id="full_sentence_toggle"
+    {% if _disp_mode == "hover" or _disp_mode == "always" %}
+    disabled="disabled"
+    {% endif %}
+  >
+  <label class="
+        full-sentence highlight-bold sentence-unquoted-display-no-indent
+        {% if _disp_mode == "hover" or _disp_mode == "both" %}
+        full-sentence--ruby-hover
+        {% endif %}
+        {% if _disp_mode == "click" or _disp_mode == "both" %}
+        full-sentence--ruby-toggle
+        {% endif %}
+        {% if _disp_mode == "never" %}
+        hide-ruby
+        {% endif %}
+        {% if COMPILE_OPTIONS("fullSentenceRuby.fillMode").item() == "opacity" %}
+        full-sentence--ruby-opacity
+        {% else %}
+        full-sentence--ruby-size
+        {% endif %}
+        {% if COMPILE_OPTIONS("fullSentenceRuby.fillModeFontSizeTransition").item() %}
+        full-sentence--ruby-size-transition
+        {% endif %}
+      "
+      for="full_sentence_toggle"
+      id="full_sentence">
+
+    {{ utils.quote_open -}}
+    <span>
+      {{- T("furigana:SentenceReading") -}}
+    </span>
+    {{- utils.quote_close }}
+
+  </label>
+</div>
+{% endcall %}
+
+{# so ruby classes do not affect things without ruby #}
+{% call IFNOT("SentenceReading") %}
+<div class="full-sentence-center">
+  <div class="full-sentence highlight-bold sentence-unquoted-display-no-indent" id="full_sentence">
+    {{ utils.quote_open -}}
+    <span>
+      {{- T("Sentence") -}}
+    </span>
+    {{- utils.quote_close }}
   </div>
 </div>
+{% endcall %}

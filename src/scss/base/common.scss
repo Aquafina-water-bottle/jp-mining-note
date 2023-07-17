@@ -1,14 +1,44 @@
 
-$bp-display-sentence-shrink: 1600px;
-$bp-display-sentence-remove-newlines: 1300px;
-$max-width-backside: 850px;
-$bp-combine-picture: 620px;
+$font-backup-serif:
+          "Noto Serif CJK JP",
+          "Noto Serif JP",
+          "Noto Serif",
+          "Droid Serif",
+          "Roboto Slab",
+          "IPAPMincho",
+          "HanaMinA",
+          "HanaMinB",
+          serif;
+
+$font-backup-sans:
+          "Noto Sans CJK JP",
+          "Noto Sans JP",
+          "Noto Sans",
+          "Source Han Sans JP",
+          "IPAPGothic",
+          "VL PGothic",
+          "Koruri",
+          "Hiragino Sans",
+          "ヒラギノ角ゴ ProN W3",
+          "Hiragino Kaku Gothic ProN",
+          "メイリオ",
+          "Meiryo",
+          "Osaka",
+          "MS PGothic"
+          "Open Sans",
+          "Droid Sans",
+          "Ubuntu",
+          "Roboto",
+          sans-serif;
+
+
+
 //$bp-adjust-play-buttons: 400px;
 
 @use "sass:math";
 
 
-/* stolen from mkdocs material */
+// stolen from mkdocs material
 @function px2rem($size, $base: 16px) {
   @if unit($size) == px {
     @if unit($base) == px {
@@ -27,27 +57,54 @@ $bp-combine-picture: 620px;
   --pa-brightness-reduce: 60%;
   --word-font-size: #{px2rem(80px)};
   --sentence-font-size: #{px2rem(52px)};
-  --pa-indicator-word-font-size: #{px2rem(52px)};
-  --pa-indicator-sent-font-size: #{px2rem(45px)};
+  --hint-font-size: #{px2rem(20px)};
+  --hint-reveal-font-size: #{px2rem(16px)};
+  --vertical-sentence-font-size: #{px2rem(35px)};
+  --picture-font-size: #{px2rem(40px)}; /* font size if text is used in place of the Picture field */
+  //--pa-indicator-word-font-size: #{px2rem(52px)};
+  //--pa-indicator-sent-font-size: #{px2rem(45px)};
 
   --description-font-size: #{px2rem(20px)};
   --description-footer-font-size: #{px2rem(9px)};
 
   --reading-font-size: #{px2rem(55px)};
   --reading-pitch-font-size: #{px2rem(23px)};
+  --reading-bold-pitch-font-size: 0.7em;
   --full-sentence-font-size: #{px2rem(28px)};
 
-  --glossary-font-size: #{px2rem(18px)};
+  --glossary-font-size: #{px2rem(20px)};
   --glossary-font-size--smaller: #{px2rem(15px)};
+
+  --vertical-display-margin-top: #{px2rem(16px)};
+  --vertical-display-header-height-calc: #{px2rem(40px)};
 
   /* TODO dynamic solution */
   --tooltip-max-width: 600px;
   --tooltip-font-size: #{px2rem(14px)};
+  --tooltip-font-size--debug: #{px2rem(12px)};
 
-  --dark-mode-accent: #fffd9e;
+  /* DO NOT CHANGE --data-* variables */
+  --data-dark-mode-accent: #fffd9e;
+  --data-light-mode-accent: #4660f1;
+
+  --data-tooltip-source-hover-color: #5f5f5f;
+
+  --data-tooltip-source-accent-color: var(--data-light-mode-accent);
+  --data-tooltip-source-accent-hover-color: #6679de;
+  /* DO NOT CHANGE THE ABOVE --data-* VARIABLES */
 
   --zoom: 1;
 
+  --pa-overline-height-above-text: 0px;
+  --pa-overline-downstep-padding: 3px;
+  --pa-overline-thickness: 2px;
+  --pa-overline-downstep-height: 0.4em;
+  --pa-overline-downstep-left-offset: 1px;
+
+
+  --dh-right-image-gap: 35px; /* is also used as a padding to the left for mobile */
+  --dh-right-image-max-height: 210px; // NOTE: dynamically gotten with javascript and ignored
+  --mobile-border: 0.5rem;
 
   /* external links */
   --external-links-icon-size: 20px;
@@ -56,11 +113,30 @@ $bp-combine-picture: 620px;
   --external-links-max-icons-per-row: 5; /* assumes one character or one image per icon */
   --external-links-box-shadow: 1px 1px 2px;
 
-  --info-circle-settings-svg-size: 16px;
-
   /* PrimaryDefinitionPicture fields */
+  --primary-def-picture-gap: 5px;
+  --primary-def-picture-border-radius: 3px;
   --primary-def-picture-max-width: 300px;
   --primary-def-picture-max-height: 150px;
+  --primary-def-picture-scale-no-def: 1.3;
+
+  /* footer */
+  --mobile-footer-height-size: 70px; /* TODO change dynamically and remove variable */
+  --footer-height: calc(var(--mobile-footer-height-size) + (2 * var(--mobile-border)));
+
+  /* folder tab */
+  --folder-tab-svg-size: 20px;
+  --folder-tab-button-size: 26px;
+  --folder-tab-margin-left: 10px;
+  --folder-tab-width: 130px;
+  --folder-tab-height: 26px;
+
+  /* mobile-popup */
+  --mobile-popup-border: 16px;
+
+  /* other */
+  --info-circle-settings-svg-size: 16px;
+  --bold-font-weight: bold; /* affects full sentence and definitions */
 
   /* light mode specific */
   --text-color:                 black;
@@ -80,8 +156,16 @@ $bp-combine-picture: 620px;
   --text-odaka:                 #009e1c; /* 尾高, green */
   --text-kifuku:                #7e53c4; /* 起伏, purple */
 
-  --accent:                     #4660f1;
+  --text-tooltips-heiban:       var(--text-heiban);
+  --text-tooltips-atamadaka:    #ff3131;
+  --text-tooltips-nakadaka:     #ff974d;
+  --text-tooltips-odaka:        var(--text-odaka);
+  --text-tooltips-kifuku:       var(--text-kifuku);
+
+  --accent:                     var(--data-light-mode-accent);
   --background-darken:          rgba(0, 0, 0, 0.05);
+  --tooltip-behind-darken:      rgba(0, 0, 0, 0.15);
+  --code-background-darken:     rgba(0, 0, 0, 0.05);
   --tooltip-background-darken:  hsla(0, 0%, 100%, 0.98);;
 
   --pa-overline-color:          var(--accent);
@@ -93,17 +177,22 @@ $bp-combine-picture: 620px;
   //--highlight-bold-shadow:      initial;
   --highlight-bold-color:       var(--accent);
 
+  --external-links-background: #FFFFFF;
   --external-links-box-shadow-color: #464646;
   --similar-words-box-shadow-color: #464646;
 
+  --glossary-image-hover-border: 1px 1px 3px var(--text-color--1);
+
   --card-description-color:     var(--text-color--4);
 
-  --info-circle-hover-color: #5f5f5f;
+  --info-circle-hover-color: var(--data-tooltip-source-hover-color);
+  --frequencies-overflow-hover-color: var(--data-tooltip-source-hover-color);
 
-  /* slightly different shade of blue */
-  --info-circle-leech-color: #3983ff;
-  --info-circle-leech-hover-color: #6679de;
+  --info-circle-leech-color: var(--data-tooltip-source-accent-color);
+  --info-circle-leech-hover-color: var(--data-tooltip-source-accent-hover-color);
   --info-circle-leech-text-color: var(--info-circle-leech-color);
+
+  --info-circle-tag-bg-color: #eeeeee;
 
   --info-circle-warning-color: #ff8700;
   --info-circle-warning-hover-color: #ffb341;
@@ -113,17 +202,35 @@ $bp-combine-picture: 620px;
   --info-circle-error-hover-color: #ff8381;
   --info-circle-error-text-color: var(--info-circle-error-color);
 
+  --word-indicator-icon-color: var(--text-color--3);
+  --word-indicator-icon-hover-color: var(--data-tooltip-source-hover-color);
+  --word-indicator-icon-new-color: var(--accent);
+  --word-indicator-icon-new-hover-color: var(--data-tooltip-source-accent-hover-color);
+
   --pa-indicator-sentence-color: #4cd200;
-  --pa-indicator-word-color: var(--accent);
+  --pa-indicator-word-color: var(--data-light-mode-accent);
   --pa-indicator-none-color: #ec3a2d;
 
   --hybrid-underline-color: black;
 
   --image-hover-brightness: 85%;
   --icon-click-brightness: 85%;
+
+  /* font families */
+
+  --jp-serif: notoserif, #{$font-backup-serif};
+  --jp-sans: notosans, #{$font-backup-sans};
 }
 
 @mixin night_mode_vars {
+  /* DO NOT CHANGE --data-* variables */
+  --data-tooltip-source-hover-color: #bdbdbd;
+
+  --data-tooltip-source-accent-color: var(--data-dark-mode-accent);
+  --data-tooltip-source-accent-hover-color: #e5e386;
+  /* DO NOT CHANGE THE ABOVE --data-* VARIABLES */
+
+
   --text-color:                 white;
   --text-color--1:              hsla(0, 0%, 67.5%, 1);
   --text-color--2:              hsla(0, 0%, 67.5%, 1);
@@ -133,13 +240,21 @@ $bp-combine-picture: 620px;
   --text-color-link-hover:      #1390dd;
 
   --text-heiban:                #59b2ff; /* 平板, blue */
-  --text-atamadaka:             #ff6666; /* 頭高, red */
+  --text-atamadaka:             #ee4b56; /* 頭高, red */
   --text-nakadaka:              #ff9b54; /* 中高, orange */
   --text-odaka:                 #67e47d; /* 尾高, green */
   --text-kifuku:                #af85f4; /* 起伏, purple */
 
-  --accent:                     var(--dark-mode-accent);
+  --text-tooltips-heiban:       var(--text-heiban);
+  --text-tooltips-atamadaka:    var(--text-atamadaka);
+  --text-tooltips-nakadaka:     var(--text-nakadaka);
+  --text-tooltips-odaka:        var(--text-odaka);
+  --text-tooltips-kifuku:       var(--text-kifuku);
+
+  --accent:                     var(--data-dark-mode-accent);
   --background-darken:          rgba(0, 0, 0, 0.12);
+  --tooltip-behind-darken:      rgba(0, 0, 0, 0.25);
+  --code-background-darken:     rgba(0, 0, 0, 0.18);
   --tooltip-background-darken:  rgba(0, 0, 0, 0.9);
 
   --pa-overline-color:          var(--accent);
@@ -149,17 +264,23 @@ $bp-combine-picture: 620px;
   //--highlight-bold-shadow:      initial;
   --highlight-bold-color:       var(--accent);
 
+  --external-links-background: none;
   --external-links-box-shadow-color: #000000;
   --similar-words-box-shadow-color: #000000;
 
+  --glossary-image-hover-border: 1px 1px 3px black;
+
   --card-description-color:     var(--text-color--4);
 
-  --info-circle-hover-color: #bdbdbd;
+  --info-circle-hover-color: var(--data-tooltip-source-hover-color);
+  --frequencies-overflow-hover-color: var(--data-tooltip-source-hover-color);
 
   /* slightly different shade of yellow */
-  --info-circle-leech-color: var(--accent);
-  --info-circle-leech-hover-color: #e5e386;
+  --info-circle-leech-color: var(--data-tooltip-source-accent-color);
+  --info-circle-leech-hover-color: var(--data-tooltip-source-accent-hover-color);
   --info-circle-leech-text-color: var(--info-circle-leech-color);
+
+  --info-circle-tag-bg-color: #222222;
 
   --info-circle-warning-color: #ff8d0d;
   --info-circle-warning-hover-color: #f9c24e;
@@ -168,6 +289,11 @@ $bp-combine-picture: 620px;
   --info-circle-error-color: #f53b39;
   --info-circle-error-hover-color: #fe7776;
   --info-circle-error-text-color: var(--info-circle-error-hover-color);
+
+  --word-indicator-icon-color: var(--text-color--3);
+  --word-indicator-icon-hover-color: var(--data-tooltip-source-hover-color);
+  --word-indicator-icon-new-color: var(--accent);
+  --word-indicator-icon-new-hover-color: var(--data-tooltip-source-accent-hover-color);
 
   --pa-indicator-sentence-color: #62ff73;
   --pa-indicator-word-color: #34dbef;
@@ -208,16 +334,17 @@ $bp-combine-picture: 620px;
   .downstep {
     color: var(--pa-overline-color);
     position: relative;
+    margin-right: var(--pa-overline-downstep-padding);
   }
   .downstep:before {
-    content: '';
-    width: 2px;
-    height: 18%;
+    content: "";
+    width: var(--pa-overline-thickness);
+    height: var(--pa-overline-downstep-height);
     background: var(--pa-overline-color);
     position: absolute;
     display: block;
-    top: 0px;
-    left: 0px;
+    top: var(--pa-overline-height-above-text);
+    left: var(--pa-overline-downstep-left-offset);
   }
 
 
@@ -228,14 +355,20 @@ $bp-combine-picture: 620px;
   }
   .pitchoverline:after {
     content: '';
-    width: 100%;
-    height: 2px;
+    // the subtraction is so the two rectangles don't overlap
+    // (causes a visible chagnge in brightness when bolded / opacity filter is applied)
+    width: calc(100% + var(--pa-overline-downstep-padding) - var(--pa-overline-thickness));
+    height: var(--pa-overline-thickness);
     background: var(--pa-overline-color);
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: var(--pa-overline-height-above-text);
+    left: 0px;
   }
 
+
+  .pitchterm {
+    white-space: nowrap;
+  }
 
 
   .nopron {
@@ -255,39 +388,21 @@ $bp-combine-picture: 620px;
 @mixin bold-pitch {
 
   b {
+    --pa-overline-height-above-text: -1px;
+    --pa-overline-downstep-padding: 2px;
+    --pa-overline-thickness: 1px;
+    --pa-overline-downstep-left-offset: 1px;
+
     font-weight: normal;
     filter: opacity(30%);
-    font-size: 15px;
-  }
-
-  b .pitchoverline:after {
-    content: '';
-    width: 100%;
-    height: 1px;
-    background: var(--pa-overline-color);
-    position: absolute;
-    top: -1px;
-    right: -1px;
-  }
-
-  b .downstep:before {
-    content: '';
-    width: 1px;
-    height: 25%;
-    background: var(--pa-overline-color);
-    /*filter: brightness(var(--pa-brightness-reduce));*/
-    position: absolute;
-    display: block;
-    top: -1px;
-    left: 0px;
+    font-size: var(--reading-bold-pitch-font-size);
   }
 
 }
 
 
 @mixin bold_highlight {
-  //text-shadow:  var(--highlight-bold-shadow);
-  color:        var(--highlight-bold-color);
+  color: var(--highlight-bold-color);
 }
 
 
@@ -295,6 +410,6 @@ $bp-combine-picture: 620px;
   @return calc(var(--external-links-icon-size) * $n + ($n - 1) * var(--external-links-gap));
 }
 
-/* stolen from discord's inspect element css */
+// stolen from discord's inspect element css
 $monospace-fonts: Consolas,Andale Mono WT,Andale Mono,Lucida Console,Lucida Sans Typewriter,DejaVu Sans Mono,Bitstream Vera Sans Mono,Liberation Mono,Nimbus Mono L,Monaco,Courier New,Courier,monospace;
 

@@ -1,0 +1,34 @@
+{# macros #}
+
+{% from "macros/global.html" import T, IF, IFNOT, END with context %}
+
+{% macro def_header(border_class="", word_pitch_class="") %}
+
+<div class="def-header
+    {% call IF("Picture") %}def-header--has-img{% endcall %}
+    {% call IFNOT("Picture") %}def-header--no-img{% endcall %}
+    "
+    id="def_header">
+
+  <!-- everything on the left side -->
+  {# border_class can be "dh-left--blue-border" #}
+  <div class="dh-left {{ border_class }}" id="dh_left">
+
+    {% filter indent(4) %}
+
+    {% include "jp-mining-note/partials/word_indicators.html" %}
+
+    {% include "jp-mining-note/partials/word_pitch.html" %}
+
+    {% endfilter %}
+
+  </div>
+
+  <!-- everything on the right side -->
+  {#{% filter indent(2) %}
+  {% include "jp-mining-note/partials/image.html" %}
+  {% endfilter %}#}
+
+</div>
+
+{% endmacro %}

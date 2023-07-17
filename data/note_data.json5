@@ -1,0 +1,202 @@
+{
+  // - read from (root)/templates/(note name)
+  // - written to (root)/(build folder)/(note name)
+  // - css is read from (root)/templates/scss/(note name).scss
+  // - release mode copes to (root)/(note name) folder
+
+  "id": "jp-mining-note",
+    "model-name": "JP Mining Note",
+    "js-prefix": "jpmn",
+    "templates": {
+      "main": {
+        "name": "Mining Card",
+      },
+      "pa_sent": {
+        "name": "PA Sentence Card",
+      },
+      "pa_word": {
+        "name": "PA Word Card",
+      },
+      "cloze_deletion": { // TODO rename!
+        "name": "Cloze Deletion Card",
+      },
+    },
+    //"scss-files": [
+    //    "style.scss"
+    //    "editor.scss"
+    //    "field.scss"
+    //],
+    "build": [
+      // TODO document this schema!
+
+      // - read from (root)/src
+      // - written to (root)/(build folder)
+      // - release mode copies to (root)
+      // - input-dir of "build" roots input dir to (root)/(build folder)
+      //   instead of the default (root)/src
+
+      //{
+      //    "input-file": "scss/field.scss",
+      //    "output-file": "_field.css",
+      //    "type": "scss",
+      //},
+
+      //{
+      //    "input-file": "scss",
+      //    "output-file": "tmp/scss",
+      //    "type": "copy",
+      //    "to-release": false,
+      //},
+
+
+    // typescript is built directly in make.py generate_cards
+    //{
+    //  "input-file": "ts/consts.ts.template",
+    //    "output-file": "../src/ts/consts.ts",
+    //    "type": "jinja",
+    //    "to-release": false,
+    //},
+
+
+    {
+      "input-file": "",
+      "output-file": "tmp/scss",
+      "type": "copy-scss",
+      "to-release": false,
+    },
+
+    {
+      "input-file": "scss/base/consts.scss.template",
+      "output-file": "tmp/scss/base/consts.scss",
+      "type": "jinja",
+      "to-release": false,
+    },
+
+    {
+      "input-file": "scss/style.scss",
+      "output-file": "tmp/scss/style.scss",
+      "type": "jinja",
+      "to-release": false,
+    },
+    {
+      "input-file": "tmp/scss/style.scss",
+      "output-file": "jp-mining-note/style.css",
+      "type": "scss",
+      "input-dir": "build",
+    },
+
+    {
+      "input-file": "scss/field.scss",
+      "output-file": "tmp/scss/field.scss",
+      "type": "jinja",
+      "to-release": false,
+    },
+    {
+      "input-file": "tmp/scss/field.scss",
+      "output-file": "media/_field.css",
+      "type": "scss",
+      "input-dir": "build",
+    },
+
+    {
+      "input-file": "scss/editor.scss",
+      "output-file": "tmp/scss/editor.scss",
+      "type": "jinja",
+      "to-release": false,
+    },
+    {
+      "input-file": "tmp/scss/editor.scss",
+      "output-file": "media/_editor.css",
+      "type": "scss",
+      "input-dir": "build",
+    },
+
+    // TODO glob copy
+    // TODO other cards!
+    // TODO how to handle custom javascript?
+    {
+      "input-file": "_js/jpmn_main_back.js.map",
+      "output-file": "media/_jpmn_main_back.js.map",
+      "type": "copy",
+    },
+    {
+      "input-file": "_js/jpmn_main_front.js.map",
+      "output-file": "media/_jpmn_main_front.js.map",
+      "type": "copy",
+    },
+    {
+      "input-file": "_js/jpmn_pa_word_back.js.map",
+      "output-file": "media/_jpmn_pa_word_back.js.map",
+      "type": "copy",
+    },
+    {
+      "input-file": "_js/jpmn_pa_word_front.js.map",
+      "output-file": "media/_jpmn_pa_word_front.js.map",
+      "type": "copy",
+    },
+    {
+      "input-file": "_js/jpmn_pa_sent_back.js.map",
+      "output-file": "media/_jpmn_pa_sent_back.js.map",
+      "type": "copy",
+    },
+    {
+      "input-file": "_js/jpmn_pa_sent_front.js.map",
+      "output-file": "media/_jpmn_pa_sent_front.js.map",
+      "type": "copy",
+    },
+    {
+      "input-file": "_js/jpmn_cloze_deletion_back.js.map",
+      "output-file": "media/_jpmn_cloze_deletion_back.js.map",
+      "type": "copy",
+    },
+    {
+      "input-file": "_js/jpmn_cloze_deletion_front.js.map",
+      "output-file": "media/_jpmn_cloze_deletion_front.js.map",
+      "type": "copy",
+    },
+
+    {
+      "input-file": "jp-mining-note/_jpmn-options.js",
+      "output-file": "media/_jpmn-options.js",
+      "type": "copy",
+    },
+    ],
+    "media-install": {
+      "static": [
+        // assumption: these don't have to be built from media-build
+        "_silence.wav",
+      // "GenEiKoburiMin6-R.ttf",
+      "NotoSansJP-Regular.otf",
+      "NotoSansJP-Bold.otf",
+      "NotoSerifJP-Regular.otf",
+      "NotoSerifJP-Bold.otf",
+
+      // TODO install folder
+      "_icon_jpdb_darkmode.png",
+      "_icon_jpdb_lightmode.png",
+      "_icon_jisho_darkmode.png",
+      "_icon_jisho_lightmode.png",
+      "_icon_image_black.svg",
+      "_icon_image_white.svg",
+      ],
+      "dynamic": [
+        "_editor.css",
+        "_field.css",
+
+        // all card types must be manually updated here unfortunately
+        // TODO automatically update all cards
+        "_jpmn_main_front.js.map",
+        "_jpmn_main_back.js.map",
+        "_jpmn_pa_sent_front.js.map",
+        "_jpmn_pa_sent_back.js.map",
+        "_jpmn_pa_word_front.js.map",
+        "_jpmn_pa_word_back.js.map",
+        "_jpmn_cloze_deletion_front.js.map",
+        "_jpmn_cloze_deletion_back.js.map",
+      ],
+      "options": [
+        "_jpmn-options.js",
+      ],
+    },
+}
+

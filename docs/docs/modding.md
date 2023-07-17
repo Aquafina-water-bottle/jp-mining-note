@@ -1,13 +1,4 @@
 
-<!--
-# Introduction
-This page describes all the ways of modding your note,
-and goes into depth on the ways you can mod your note
-**without losing your changes** between updates.
-
--->
-
-
 # Modding (The Obvious Way)
 Throughout the documentation and within the templates alone, you will likely
 see warning messages to not edit the templates directly unless you are willing
@@ -16,7 +7,7 @@ to lose your changes when you update the note.
 The most obvious way to mod the note is directly in the pre-built template downloaded.
 If you are completely fine with losing your changes upon each update,
 and don't want to take advantages of certain tools that comes with this note
-(such as compile-time options),
+(such as compile options),
 then you can simply edit the template and ignore the rest of this page.
 
 ---

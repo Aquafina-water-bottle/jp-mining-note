@@ -1,81 +1,63 @@
-{# gamer #}
+{# base back #}
 
 {%- from "macros/global.html" import T, IF, IFNOT, END with context -%}
 {%- import "macros/utils.html" as utils with context -%}
 
-{%- from "jp-mining-note/macros.html" import def_header with context -%}
+{%- from "jp-mining-note/macros/def_header.html" import def_header with context -%}
+{%- from "jp-mining-note/macros/card_header.html" import card_header with context -%}
+{%- from "jp-mining-note/macros/card_main_back.html" import card_main_back with context -%}
+{%- from "jp-mining-note/macros/card_footer.html" import card_footer with context -%}
 
+{# DO NOT DELETE THIS #}
 {% include "jp-mining-note/partials/compile_options_comment.html" %}
 
+{% include "jp-mining-note/partials/hidden_back.html" %}
 
-{% include "jp-mining-note/partials/frequencies.html" %}
+{{ utils.include_js_if_nonempty("jp-mining-note/partials/js/pre.js") }}
 
 
-<script>
-{% block top_javascript %}
-{% include "jp-mining-note/logger.js" %}
+{% set _card_type %}
+{% block card_type %}
 {% endblock %}
-</script>
+{% endset %}
 
-<script onerror="optionsNotFound();" src="_jpmn-options.js"></script>
-
-
-<!-- hidden fields
-     used instead of inserting a template directly into javascript code
-     in order to prevent escaping errors (e.g. if the field contains a `"`)
--->
-<div class="hidden">
-  <div id="hidden_key">{{ T('Key') }}</div>
-  <div id="hidden_pa_positions">{{ T('PAPositions') }}</div>
-  <div id="hidden_word">{{ T('Word') }}</div>
-  <div id="hidden_word_reading">{{ T('WordReading') }}</div>
-  <div id="hidden_word_reading_hiragana">{{ T('WordReadingHiragana') }}</div>
-  <div id="hidden_ajt_word_pitch">{{ T('AJTWordPitch') }}</div>
-  <div id="hidden_pa_override">{{ T('PAOverride') }}</div>
-  <div id="hidden_pa_override_text">{{ T('PAOverrideText') }}</div>
-  <div id="hidden_sentence">{{ T('Sentence') }}</div>
-
-  <!-- THIS IS A HACK to ensure the "_field.css" and "_editor.css" file is included upon Anki export -->
-  <img src="_field.css">
-  <img src="_editor.css">
-</div>
-
-
-
-<div class="card-description">
-{% filter indent(width=2) %}
-
-  <span class="card-description__card-type">
-  {% block card_type %}
-  {% endblock %}
-  </span>
-
-  {% include "jp-mining-note/partials/info_circle.html" %}
-
-  {% include "jp-mining-note/partials/version.html" %}
-
-{% endfilter %}
-</div>
-
-
+{% set _card_html_top %}
 {% block card_html_top %}
 {% endblock %}
+{% endset %}
 
-{% include "jp-mining-note/partials/answer_border.html" %}
-
-
+{% set _card_html_bottom %}
 {% block card_html_bottom %}
 
-{{ def_header() }}
+  {% filter indent(2) %}
+  {{ def_header() }}
+  {% endfilter %}
 
-<div id="back_side" class="back-side">
+  <div class="back-side-restrict-width">
 
-{% include "jp-mining-note/partials/full_sentence.html" %}
-{% include "jp-mining-note/partials/all_definitions.html" %}
+    {% filter indent(4) %}
+    {% include "jp-mining-note/partials/full_sentence.html" %}
+    {% include "jp-mining-note/partials/all_definitions.html" %}
+    {% endfilter %}
+
+  </div>
 
 {% endblock %}
+{% endset %}
 
-</div> <!-- backside -->
+<div class="{% include "jp-mining-note/partials/jpmn_class_list.html" %}" id="jpmn">
+
+  {% filter indent(4) %}
+  {{ card_header(True, _card_type) }}
+
+  {{ card_main_back(_card_html_top, _card_html_bottom) }}
+  {% endfilter %}
+
+  {% filter indent(2) %}
+  {{ card_footer() }}
+  {% endfilter %}
+
+</div> <!-- card-wrapper -->
 
 
 <!--
@@ -93,12 +75,8 @@
 
 <div class="popup-menu" id="popup_menu"></div>
 
-<script>
-{% block javascript %}
-{% endblock %}
-</script>
+{% include "jp-mining-note/partials/mobile_popup.html" %}
 
-
-
-
+<!-- the script must be placed at the very bottom for it to work with ankidroid -->
+{% include "jp-mining-note/partials/javascript.html" %}
 

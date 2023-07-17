@@ -1,0 +1,42 @@
+{
+  // toggles whether the runtime options should be read from a file or not.
+  "hardcodedRuntimeOptions": true,
+
+  // default card is vocab card, so all binary fields are useless
+  "alwaysFilledFields": [],
+  "neverFilledFields": [
+    "IsSentenceCard", "IsTargetedSentenceCard", "IsClickCard", "IsHoverCard",
+    "IsHintCard", "PAShowInfo", "PATestOnlyWord", "PADoNotTest",
+    "PASeparateWordCard", "PASeparateSentenceCard", "SeparateClozeDeletionCard",
+  ],
+
+
+
+  "enableModule.keybinds":                false,
+
+  "enableModule.sentenceParser":               false,
+  "enableModule.sentenceParser.autoHighlight": false,
+
+  "enableModule.autoPitchAccent":         false,
+
+  "enableModule.imgStylizer":             true, // very much recommended to have in general
+  "enableModule.imgStylizer.imageBlur":   false,
+
+  "enableModule.asyncScheduler":          false,
+  "enableModule.asyncScheduler.front":    false,
+  "enableModule.kanjiHover":              false,
+  "enableModule.wordIndicators":          false,
+  "enableModule.checkDuplicateKey":       false,
+
+  "enableModule.webSocketUtils":          false,
+  "enableModule.collapseDictionaries":    false,
+  "enableModule.openCollapsedFields":     false,
+  "enableModule.freqUtils":               false,
+
+  "enableModule.mobileUtils":             false,
+  "enableModule.infoCircleUtils":         false,
+  "enableModule.fixRubyPositioning":      false,
+
+}
+
+

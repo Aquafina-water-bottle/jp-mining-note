@@ -1,0 +1,22 @@
+/* weird hack to remove the last br that always appears for some reason */
+anki-editable[field=Sentence] > br:last-of-type {
+  content: "";
+}
+
+anki-editable[field=Sentence]:after {
+  content: "";
+  position: absolute;
+  left: 30em;
+  background: var(--text-color--4);
+  height: 100%;
+  top: 0px;
+  width: 1px;
+  z-index: -1;
+}
+
+/* https://stackoverflow.com/a/10822168 */
+/* see comment: However, if you have a normal parent div with a background, the lower element will be hidden. In this case, give the parent relative positioning and a z-index of 1 */
+anki-editable[field=Sentence] {
+  z-index: 1;
+  position: relative;
+}

@@ -1,0 +1,54 @@
+{# header macro #}
+
+{% macro card_header(show_frequencies, _card_type) %}
+
+<header class="card-header">
+
+  <!-- placed before everything else so we can interact with the info circle! -->
+  {% if CARD_INFO('card-type').item() == "main" %}
+    <div class="pa-indicator">
+      {% call IF("PAShowInfo") %}
+      <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
+        class="pa-indicator__svg">
+        <circle class="pa-indicator__circle"
+            cx="25" cy="25" r="25"
+            >
+          <title></title>
+        </circle>
+      </svg>
+      {% endcall %} {# IF PAShowInfo #}
+    </div>
+  {% endif %}
+
+  <div class="card-description-right">
+
+    {% filter indent(4) %}
+    {% if show_frequencies %}
+    {% include "jp-mining-note/partials/frequencies.html" %}
+    {% endif %}
+    {% endfilter %}
+
+  </div>
+
+  <div class="card-description">
+
+    <span class="card-description__card-type">
+    {% filter indent(4) %}
+    {{ _card_type }}
+    {% endfilter %}
+    </span>
+
+    {% filter indent(4) %}
+    {% include "jp-mining-note/partials/info_circle.html" %}
+
+    {% include "jp-mining-note/partials/version.html" %}
+
+    {% include "jp-mining-note/partials/info_circle_word_indicators.html" %}
+    {% endfilter %}
+
+
+  </div>
+
+</header>
+
+{% endmacro %}

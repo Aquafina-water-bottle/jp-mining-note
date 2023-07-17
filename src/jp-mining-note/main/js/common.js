@@ -3,54 +3,31 @@
 /// {% set functions %}
 
 function hybridClick() {
-  {% if "time-performance" in modules.keys() %}
-  TIME_PERFORMANCE.start("hybridClick");
-  {% endif %}
+  const toggleEle = document.getElementById("hybrid_click_toggle");
+  if (toggleEle !== null) {
+    toggleEle.checked = !toggleEle.checked;
+  }
+}
 
-  const hSent = document.getElementById("hybrid-sentence");
-  const hWord = document.getElementById("hybrid-word");
-  const svgEle = document.getElementById("flag_box_svg");
-  const paInd = document.getElementById("pa_indicator");
-  //const circ = document.getElementById("pa_indicator_circle");
 
-  if (hSent.classList.contains("override-display-inline-block")) {
-    // currently showing sentence, change to word
-    hWord.classList.toggle("override-display-none", false);
-    hSent.classList.toggle("override-display-inline-block", false);
-    paInd.classList.toggle("pa-indicator--sentence", false)
-    //if (circ !== null) {
-    //  circ.setAttributeNS(null, "cx", "25");
-    //  circ.setAttributeNS(null, "cy", "15");
-    //}
+{% if "keybinds" in modules.keys() %}
 
-    // re-adds if colored quotes exist
-    if (svgEle !== null && hSent.hasAttribute("data-color-quotes")) {
-      svgEle.style.display = "initial";
+  function sentenceKeybinds(e) {
+    if (KEYBINDS.hasKey(e, {{ utils.opt("modules", "keybinds", "toggle-hybrid-sentence") }})) {
+      hybridClick();
     }
 
-  } else {
-    // currently showing word, change to sentence
-    hWord.classList.toggle("override-display-none", true);
-    hSent.classList.toggle("override-display-inline-block", true);
-    paInd.classList.toggle("pa-indicator--sentence", true)
-    //if (circ !== null) { // sentence
-    //  //if (hSent.innerText.length > 0 && hSent.innerText[0] === "「") {
-    //  if (hSent.children.length >= 1 && hSent.children[0].innerHTML.includes("「")) {
-    //    circ.setAttributeNS(null, "cx", "35");
-    //    circ.setAttributeNS(null, "cy", "11");
-    //  }
-    //}
-
-    // removes if colored quotes exist
-    if (svgEle !== null && hSent.hasAttribute("data-color-quotes")) {
-      svgEle.style.display = "none";
+    if (KEYBINDS.hasKey(e, {{ utils.opt("modules", "keybinds", "toggle-highlight-word") }})) {
+      let paButton = document.getElementById("pa_button");
+      if (paButton !== null) {
+        toggleHighlightWord();
+      }
     }
   }
 
-  {% if "time-performance" in modules.keys() %}
-  TIME_PERFORMANCE.stop("hybridClick");
-  {% endif %}
-}
+  KEYBINDS.addFunc("sentenceKeybinds", sentenceKeybinds);
+
+{% endif %}
 
 
 // required for the sentence utils module
@@ -76,11 +53,11 @@ var paIndicator = (function () {
   my.className = "pa-indicator-color--" + my.type;
 
   if (my.type === "none") {
-    my.tooltip = "Do not test"
+    my.tooltip = "{{ TRANSLATOR.get('pa-indicator-do-not-test') }}"
   } else if (my.type == "word") {
-    my.tooltip = "Word"
+    my.tooltip = "{{ TRANSLATOR.get('pa-indicator-word') }}"
   } else { // sentence
-    my.tooltip = "Sentence"
+    my.tooltip = "{{ TRANSLATOR.get('pa-indicator-sentence') }}"
   }
 
   return my;
@@ -91,52 +68,28 @@ var paIndicator = (function () {
 /// {% endset %}
 
 
-/// {% set keybind_settings %}
-
-keys = {{ utils.opt("keybinds", "toggle-hybrid-sentence") }};
-if (keys !== null && keys.includes(e.code)) {
-  let hSent = document.getElementById("hybrid-sentence");
-  let hWord = document.getElementById("hybrid-word");
-  if (hSent !== null && hWord !== null) {
-    hybridClick();
-  }
-}
-
-keys = {{ utils.opt("keybinds", "toggle-highlight-word") }};
-if (keys !== null && keys.includes(e.code)) {
-  let paButton = document.getElementById("pa-button");
-  if (paButton !== null) {
-    toggleHighlightWord();
-  }
-}
-
-/// {% endset %}
-
-
 
 
 /// {% set run %}
 {
-
-  /// {% call IF("IsClickCard") %}
-  let d = document.getElementById("display");
-  d.onclick = hybridClick;
-  /// {% endcall %}
-
 
   /// {% call IF("PAShowInfo") %}
   // ============================
   //  Word pitch indicator color
   // ============================
   // done in javascript to simplify templating logic
-  let circ = document.getElementById("pa_indicator_circle");
-  let svgTitle = document.getElementById("svg_title");
+  // could be multiple pa-indicator objects in the html, queries all
 
-  if (svgTitle !== null) {
-    svgTitle.textContent = "PA: " + paIndicator.tooltip;
+  const paIndicators = document.querySelectorAll(".pa-indicator");
+  for (const paInd of paIndicators) {
+
+    let circ = paInd.children[0].children[0];
+    let svgTitle = circ.children[0];
+
+    svgTitle.textContent = "{{ TRANSLATOR.get('pa-indicator-prefix') }}" + paIndicator.tooltip;
+    circ.classList.add(paIndicator.className);
   }
 
-  circ.classList.add(paIndicator.className);
   /// {% endcall %}
 }
 /// {% endset %}

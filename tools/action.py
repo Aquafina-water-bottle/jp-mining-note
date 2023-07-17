@@ -17,6 +17,11 @@ class Action(ABC):
     def run(self, **args):
         pass
 
+    # I have to define it for every object??? just having it here doesn't work
+    # pretty sure it has to do with dataclass somehow
+    # def __hash__(self) -> int:
+    #    return hash(id(self))
+
 
 @dataclass
 class UserAction(Action):
@@ -57,6 +62,9 @@ class SetField(Action):
 
         return invoke("multi", actions=actions)
 
+    def __hash__(self) -> int:
+        return hash(id(self))
+
 
 @dataclass
 class RenameField(Action):
@@ -78,6 +86,9 @@ class RenameField(Action):
             newFieldName=self.new_field_name,
         )
 
+    def __hash__(self) -> int:
+        return hash(id(self))
+
 
 @dataclass
 class MoveField(Action):
@@ -98,6 +109,9 @@ class MoveField(Action):
                 fieldName=self.field_name,
                 index=self.index,
             )
+
+    def __hash__(self) -> int:
+        return hash(id(self))
 
 
 @dataclass
@@ -125,6 +139,9 @@ class AddField(Action):
             index=index,
         )
 
+    def __hash__(self) -> int:
+        return hash(id(self))
+
 
 @dataclass
 class DeleteField(Action):
@@ -142,6 +159,29 @@ class DeleteField(Action):
             fieldName=self.field_name,
         )
 
+    def __hash__(self) -> int:
+        return hash(id(self))
+
+
+@dataclass
+class ChangeFieldFontSize(Action):
+    field_name: str
+    font_size: int
+
+    def __post_init__(self):
+        raise NotImplementedError()
+
+        # self.ankiconnect_actions = {"modelFieldAdd", "modelFieldNames"}
+        self.ankiconnect_actions = set()
+        self.description = f"(TODO) Sets the font size of field `{self.field_name}` to {self.font_size}"
+        self.edits_cards = True
+
+    def run(self, **args):
+        raise NotImplementedError()
+
+    def __hash__(self) -> int:
+        return hash(id(self))
+
 
 @dataclass
 class YomichanTemplatesChange(UserAction):
@@ -153,6 +193,9 @@ class YomichanTemplatesChange(UserAction):
         self.edits_cards = False
         self.unique = True
         self.ankiconnect_actions = set()
+
+    def __hash__(self) -> int:
+        return hash(id(self))
 
 
 @dataclass
@@ -171,6 +214,9 @@ class YomichanFormatChange(UserAction):
         self.unique = False
         self.ankiconnect_actions = set()
 
+    def __hash__(self) -> int:
+        return hash(id(self))
+
 
 @dataclass
 class AJTPitchAccentConfigChange(UserAction):
@@ -185,6 +231,9 @@ class AJTPitchAccentConfigChange(UserAction):
         self.unique = False
         self.ankiconnect_actions = set()
 
+    def __hash__(self) -> int:
+        return hash(id(self))
+
 
 @dataclass
 class AJTFuriganaconfigChange(UserAction):
@@ -198,6 +247,9 @@ class AJTFuriganaconfigChange(UserAction):
         self.edits_cards = False
         self.unique = False
         self.ankiconnect_actions = set()
+
+    def __hash__(self) -> int:
+        return hash(id(self))
 
 
 @dataclass
@@ -216,7 +268,12 @@ class BatchUpdate(Action):
                 self.batch_func()
             except Exception:
                 traceback.print_exc()
-                print("Batch update failed. Please report this to the developer! Skipping error...")
+                print(
+                    "Batch update failed. Please report this to the developer! Skipping error..."
+                )
+
+    def __hash__(self) -> int:
+        return hash(id(self))
 
 
 @dataclass
@@ -227,6 +284,9 @@ class NoteToUser(UserAction):
         self.edits_cards = False
         self.unique = False
         self.ankiconnect_actions = set()
+
+    def __hash__(self) -> int:
+        return hash(id(self))
 
 
 if __name__ == "__main__":

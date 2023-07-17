@@ -9,8 +9,8 @@
 {# {{#<name>}} ... {{/<name>}} #}
 {% macro IF(name) -%}
 {%- if caller is defined -%}
-  {%- if name in COMPILE_OPTIONS("never-filled-fields").list() -%} {# nothing #}
-  {%- elif name in COMPILE_OPTIONS("always-filled-fields").list() -%}
+  {%- if name in COMPILE_OPTIONS("neverFilledFields").list() -%} {# nothing #}
+  {%- elif name in COMPILE_OPTIONS("alwaysFilledFields").list() -%}
   {{- caller() -}}
   {%- else -%}
   {{ "{" }}{{ "{" }}{{ "#" }}{{ name }}{{ "}" }}{{ "}" }}
@@ -25,8 +25,8 @@
 {# {{^<name>}} ... {{/<name>}} #}
 {% macro IFNOT(name) -%}
 {%- if caller is defined -%}
-  {%- if name in COMPILE_OPTIONS("always-filled-fields").list() -%} {# nothing #}
-  {%- elif name in COMPILE_OPTIONS("never-filled-fields").list() -%}
+  {%- if name in COMPILE_OPTIONS("alwaysFilledFields").list() -%} {# nothing #}
+  {%- elif name in COMPILE_OPTIONS("neverFilledFields").list() -%}
   {{- caller() -}}
   {%- else -%}
   {{ "{" }}{{ "{" }}{{ "^" }}{{ name }}{{ "}" }}{{ "}" }}

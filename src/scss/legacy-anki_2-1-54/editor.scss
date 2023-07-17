@@ -1,0 +1,14 @@
+$_field-gap: 5px;
+$_larger-field-gap: 30px;
+
+:root {
+  --field-gap: #{$_field-gap};
+  --larger-field-gap-top: #{$_larger-field-gap - $_field-gap};
+  --larger-field-gap-bottom: 0px;
+
+  --field-group-border: none;
+}
+
+.nightMode {
+  --field-group-border: none;
+}

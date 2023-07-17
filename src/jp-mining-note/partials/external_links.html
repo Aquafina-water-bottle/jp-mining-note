@@ -1,21 +1,23 @@
 {# impl #}
 
-{% for id, val in COMPILE_OPTIONS("external-links").dict().items() %}
+{% for id, val in COMPILE_OPTIONS("externalLinks").dict().items() %}
 
-  {% set hover_value = val["hover-display"] if "hover-display" in val else id %}
+  {% set hover_value = val["hoverDisplay"] if "hoverDisplay" in val else id %}
   <a data-details="{{ id }}" data-suppress-link-hover="true" href="{{ val["url"] }}" title="{{ hover_value }}">
 
-  {% if val["icon-type"] == "image" %}
-    <img data-do-not-convert="do-not-convert"
-         class="show-on-light-mode-only"
-         src="{{ val["icon-image-light"] }}">
-    <img data-do-not-convert="do-not-convert"
-         class="show-on-dark-mode-only"
-         src="{{ val["icon-image-dark"] }}">
-  {% else %}
-    {# assumed == text #}
-    {{ val["icon-text"] }}
-  {% endif %}
+    <div class="glossary__external-links-inner">
+      {%- if val["iconType"] == "image" -%}
+        <img data-do-not-convert="do-not-convert"
+             class="show-on-light-mode-only"
+             src="{{ val["iconImageLight"] }}">
+        <img data-do-not-convert="do-not-convert"
+             class="show-on-dark-mode-only"
+             src="{{ val["iconImageDark"] }}">
+      {%- else -%}
+        {# assumed == text #}
+        {{- val["iconText"] -}}
+      {%- endif -%}
+    </div>
 
   </a>
 

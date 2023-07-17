@@ -1,7 +1,9 @@
-{# test #}
+{# base #}
 
 {%- from "macros/global.html" import T, IF, IFNOT, END with context -%}
 {%- import "macros/utils.html" as utils with context -%}
+{%- from "jp-mining-note/macros/card_header.html" import card_header with context -%}
+{%- from "jp-mining-note/macros/card_main_front.html" import card_main_front with context -%}
 
 {%- if note.field_restrict is defined and note.field_restrict -%}
 {%- for x in note.field_restrict -%}
@@ -9,60 +11,47 @@
 {% endfor -%}
 {%- endif -%}
 
+{# DO NOT DELETE THIS #}
 {% include "jp-mining-note/partials/compile_options_comment.html" %}
 
+{% include "jp-mining-note/partials/hidden_front.html" %}
 
-<script>
-{% block top_javascript %}
-{% include "jp-mining-note/logger.js" %}
+{{ utils.include_js_if_nonempty("jp-mining-note/partials/js/pre.js") }}
+
+
+{% set _card_type %}
+{% block card_type %}
 {% endblock %}
-</script>
+{% endset %}
 
-{% if not COMPILE_OPTIONS("hardcoded-runtime-options").item() %}
-<script onerror="optionsNotFound();" src="_jpmn-options.js"></script>
-{% endif %} {# COMPILE_OPTIONS("hardcoded-runtime-options").item() #}
-
-<div class="hidden">
-  <div id="hidden_key">{{ T('Key') }}</div>
-  <div id="hidden_word_reading">{{ T('WordReading') }}</div>
-  <div id="hidden_sentence">{{ T('Sentence') }}</div>
-</div>
-
-
-
-<div class="card-description">
-{% filter indent(width=2) %}
-
-  <span class="card-description__card-type">
-  {% block card_type %}
-  {% endblock %}
-  </span>
-
-  {% include "jp-mining-note/partials/info_circle.html" %}
-
-  {% include "jp-mining-note/partials/version.html" %}
-
-{% endfilter %}
-</div>
-
-
+{% set _card_html %}
 {% block card_html %}
 {% endblock %}
+{% endset %}
+
+<div class="{% include "jp-mining-note/partials/jpmn_class_list.html" %}" id="jpmn">
+
+  {% filter indent(2) %}
+
+  {{ card_header(False, _card_type) }}
+
+  {{ card_main_front(_card_html) }}
+
+  {% endfilter %}
+
+</div> <!-- card-wrapper -->
+
 
 <div class="popup-menu" id="popup_menu"></div>
 
-<script>
-{% block javascript %}
-{% endblock %}
-</script>
+{% include "jp-mining-note/partials/mobile_popup.html" %}
 
-
-
+<!-- the script must be placed at the very bottom for it to work with ankidroid -->
+{% include "jp-mining-note/partials/javascript.html" %}
 
 {% if note.field_restrict is defined and note.field_restrict -%}
 {%- for x in note.field_restrict | reverse -%}
 {{ END(x) }}
 {% endfor -%}
 {%- endif -%}
-
 

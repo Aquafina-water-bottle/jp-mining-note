@@ -8,11 +8,6 @@
 /// {% endblock %}
 
 
-/// {% block js_keybind_settings %}
-{{ super() }}
-{{ js_common.keybind_settings }}
-/// {% endblock %}
-
 
 /// {% block js_run %}
 {{ super() }}
@@ -20,7 +15,9 @@
 
 // make sure the sentence is already 'clicked'
 /// {% call IF("IsClickCard") %}
-hybridClick()
+if ({{ utils.opt("click-card-sentence-reveal-on-back-side") }}) {
+  hybridClick()
+}
 /// {% endcall %}
 
 /// {% endblock %}

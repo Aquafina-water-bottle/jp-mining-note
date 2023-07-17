@@ -1,0 +1,392 @@
+/*
+
+"fields" can be gotten directly from:
+
+$ curl localhost:8765 -X POST -d '{"action": "modelFieldNames", "version": 6, "params": {"modelName": "JP Mining Note"} }'
+
+
+action:
+  { type: "string", params: ... }
+  - params can either be a list or dictionary
+  - passed into python as *vargs or **kwargs, depending on the params type
+  - params is optional
+
+- each note change has 3 params:
+  - version: string "number.number.number.number"
+  - actions: list of above
+  - fields: list strings, or exactly "SAME" (to say unchanged from below)
+
+
+*/
+
+{
+  // starting as an object so it's valid json
+  "note_changes": [
+
+    // ========================================================================
+
+    {
+      version: "0.12.0.0",
+      actions: [
+        { type: "MoveField", params: [ "SeparateClozeDeletionCard", 24 ] },
+        { type: "MoveField", params: [ "Hint", 13 ] },
+        { type: "MoveField", params: [ "HintNotHidden", 14 ] },
+        { type: "RenameField", params: [ "SeparateClozeDeletionCard", "SeparateAudioCard" ] },
+        { type: "RenameField", params: [ "AltDisplay", "AltDisplaySentence" ] },
+        { type: "AddField", params: [ "AltDisplayWord", 10 ] },
+        { type: "AddField", params: [ "AltDisplayPASentenceCard", 12 ] },
+        { type: "AddField", params: [ "AltDisplayAudioCard", 13 ] },
+        { type: "MoveField", params: [ "IsTargetedSentenceCard", 18 ] },
+        { type: "AddField", params: [ "IsHintCard", 21 ] },
+        { type: "AddField", params: [ "IsSentenceFirstCard", 22 ] },
+        { type: "AddField", params: [ "IsAudioCard", 23 ] },
+        { type: "AddField", params: [ "SeparateSentenceAudioCard", 30 ] },
+        { type: "MoveField", params: [ "PASilence", 39 ] },
+        { type: "MoveField", params: [ "WordReadingHiragana", 39 ] },
+        { type: "AddField", params: [ "YomichanWordTags", 40 ] },
+        { type: "AddField", params: [ "CardCache", 44 ] },
+
+        // TODO update this!
+        {
+          type: "NoteToUser", params: [
+            "Required changes: https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/setupchanges/#v0-12-0-0"
+          ]
+        },
+
+
+      ],
+
+      post_actions: [
+
+        {
+          type: "BatchUpdate", params: {
+            batch_func: "set_font_sizes",
+            ankiconnect_actions: [
+              "modelFieldNames",
+              "modelFieldSetFontSize",
+              "multi",
+            ],
+            description: "Sets the font sizes for all fields to the expected font size",
+          }
+        },
+
+        {
+          type: "BatchUpdate", params: {
+            batch_func: "set_fonts_to_key_font",
+            ankiconnect_actions: [
+              "modelFieldFonts",
+              "modelFieldNames",
+              "modelFieldSetFont",
+              "multi",
+            ],
+            description: "Sets the font for all fields to the font of the Key field",
+          }
+        },
+
+
+        {
+          type: "BatchUpdate", params: {
+            batch_func: "replace_runtime_options_file",
+            ankiconnect_actions: [
+              "storeMediaFile",
+            ],
+            description: "Makes a backup and replaces the existing user runtime options file",
+          }
+        },
+
+      ],
+
+      fields: ["Key", "Word", "WordReading", "PAOverride", "PAOverrideText", "AJTWordPitch", "PrimaryDefinition", "PrimaryDefinitionPicture", "Sentence", "SentenceReading", "AltDisplayWord", "AltDisplaySentence", "AltDisplayPASentenceCard", "AltDisplayAudioCard", "AdditionalNotes", "Hint", "HintNotHidden", "IsSentenceCard", "IsTargetedSentenceCard", "IsClickCard", "IsHoverCard", "IsHintCard", "IsSentenceFirstCard", "IsAudioCard", "PAShowInfo", "PATestOnlyWord", "PADoNotTest", "PASeparateWordCard", "PASeparateSentenceCard", "SeparateAudioCard", "SeparateSentenceAudioCard", "Picture", "WordAudio", "SentenceAudio", "PAGraphs", "PAPositions", "FrequenciesStylized", "FrequencySort", "PASilence", "WordReadingHiragana", "YomichanWordTags", "SecondaryDefinition", "ExtraDefinitions", "UtilityDictionaries", "CardCache", "Comment"],
+    },
+
+
+    // ========================================================================
+
+
+    {
+      version: "0.11.0.0",
+      actions: [
+
+        { type: "AddField", params: [ "WordReadingHiragana", 29 ] },
+        { type: "AddField", params: [ "PrimaryDefinitionPicture", 6 ] },
+        { type: "AddField", params: [ "PAOverrideText", 4 ] },
+
+        {
+          type: "BatchUpdate", params: {
+            batch_func: "fill_word_reading_hiragana_field",
+            ankiconnect_actions: [
+              "findNotes",
+              "notesInfo",
+              "multi",
+              "updateNoteFields",
+            ],
+            description: "Automatically fills the `WordReadingHiragana` field",
+          }
+        },
+
+        {
+          type: "BatchUpdate", params: {
+            batch_func: "separate_pa_override_field",
+            ankiconnect_actions: [
+              "findNotes",
+              "notesInfo",
+              "multi",
+              "updateNoteFields",
+            ],
+            description: "Separates the `PAOverride` field to `PAOverride` and `PAOverrideText` as appropriate",
+          }
+        },
+
+        { type: "YomichanTemplatesChange", },
+
+        { type: "YomichanFormatChange", params: [
+          "WordReadingHiragana", "(empty)", "{jpmn-word-reading-hiragana}"
+        ] },
+
+        // TODO update this!
+        {
+          type: "NoteToUser", params: [
+            "Update Notes Permalink: TODO"
+          ]
+        },
+
+      ],
+
+      fields: [ "Key", "Word", "WordReading", "PAOverride", "PAOverrideText", "AJTWordPitch", "PrimaryDefinition", "PrimaryDefinitionPicture", "Sentence", "SentenceReading", "AltDisplay", "AltDisplayPASentenceCard", "AdditionalNotes", "IsSentenceCard", "IsClickCard", "IsHoverCard", "IsTargetedSentenceCard", "PAShowInfo", "PATestOnlyWord", "PADoNotTest", "PASeparateWordCard", "PASeparateSentenceCard", "SeparateClozeDeletionCard", "Hint", "HintNotHidden", "Picture", "WordAudio", "SentenceAudio", "PAGraphs", "PAPositions", "PASilence", "WordReadingHiragana", "FrequenciesStylized", "FrequencySort", "SecondaryDefinition", "ExtraDefinitions", "UtilityDictionaries", "Comment", ]
+
+    },
+
+
+    // ========================================================================
+
+    {
+      version: "0.10.2.0",
+      actions: [
+
+        {
+          type: "BatchUpdate", params: {
+            batch_func: "standardize_frequencies_styling",
+            ankiconnect_actions: [
+              "findNotes",
+              "notesInfo",
+              "multi",
+              "updateNoteFields",
+            ],
+            description: "Updates the FrequenciesStylized field to match the styling of all the other stylized Yomichan fields (PAGraphs, PAPositions)",
+          }
+        },
+
+      ],
+
+      fields: "SAME",
+    },
+
+
+
+    // ========================================================================
+
+    {
+      version: "0.10.0.0",
+      actions: [
+
+        { type: "RenameField", params: [ "WordPitch", "AJTWordPitch" ] },
+        { type: "AddField", params: [ "PAOverride", 3 ] },
+        { type: "AddField", params: [ "PAPositions", 27 ] },
+        { type: "MoveField", params: [ "AJTWordPitch", 4 ] },
+
+        { type: "YomichanFormatChange", params: [
+          "PAPositions", "(empty)", "{jpmn-pitch-accent-positions}"
+        ] },
+
+      ],
+
+      fields: [
+        "Key",
+        "Word",
+        "WordReading",
+        "PAOverride",
+        "AJTWordPitch",
+        "PrimaryDefinition",
+        "Sentence",
+        "SentenceReading",
+        "AltDisplay",
+        "AltDisplayPASentenceCard",
+        "AdditionalNotes",
+        "IsSentenceCard",
+        "IsClickCard",
+        "IsHoverCard",
+        "IsTargetedSentenceCard",
+        "PAShowInfo",
+        "PATestOnlyWord",
+        "PADoNotTest",
+        "PASeparateWordCard",
+        "PASeparateSentenceCard",
+        "SeparateClozeDeletionCard",
+        "Hint",
+        "HintNotHidden",
+        "Picture",
+        "WordAudio",
+        "SentenceAudio",
+        "PAGraphs",
+        "PAPositions",
+        "PASilence",
+        "FrequenciesStylized",
+        "FrequencySort",
+        "SecondaryDefinition",
+        "ExtraDefinitions",
+        "UtilityDictionaries",
+        "Comment",
+      ],
+    },
+
+
+
+
+
+
+
+    // ========================================================================
+
+    {
+      version: "0.9.1.0",
+      actions: [
+
+        { type: "MoveField", params: [ "PAShowInfo", 14 ] },
+        { type: "MoveField", params: [ "PASeparateWordCard", 18 ] },
+        { type: "MoveField", params: [ "PASeparateSentenceCard", 18 ] },
+        { type: "AddField", params: [ "FrequencySort", 28 ] },
+
+        { type: "SetField", params: [ "PASilence", "[sound:_silence.wav]" ] },
+
+        { type: "YomichanTemplatesChange" },
+        { type: "YomichanFormatChange", params: [
+          "FrequencySort", "(empty)", "{jpmn-min-freq}"
+        ] },
+
+      ],
+
+      fields: [
+        "Key",
+        "Word",
+        "WordReading",
+        "WordPitch",
+        "PrimaryDefinition",
+        "Sentence",
+        "SentenceReading",
+        "AltDisplay",
+        "AltDisplayPASentenceCard",
+        "AdditionalNotes",
+        "IsSentenceCard",
+        "IsClickCard",
+        "IsHoverCard",
+        "IsTargetedSentenceCard",
+        "PAShowInfo",
+        "PATestOnlyWord",
+        "PADoNotTest",
+        "PASeparateWordCard",
+        "PASeparateSentenceCard",
+        "SeparateClozeDeletionCard",
+        "Hint",
+        "HintNotHidden",
+        "Picture",
+        "WordAudio",
+        "SentenceAudio",
+        "PAGraphs",
+        "PASilence",
+        "FrequenciesStylized",
+        "FrequencySort",
+        "SecondaryDefinition",
+        "ExtraDefinitions",
+        "UtilityDictionaries",
+        "Comment",
+      ],
+    },
+
+
+
+
+    // ========================================================================
+
+    {
+      version: "0.9.0.0",
+      actions: [
+
+        {
+          type: "BatchUpdate", params: {
+            batch_func: "add_downstep_inner_span_tag",
+            ankiconnect_actions: [
+              "findNotes",
+              "notesInfo",
+              "multi",
+              "updateNoteFields",
+            ],
+            description: "Updates the WordPitch field to work with the new AJT Pitch Accent config settings",
+          }
+        },
+
+        { type: "SetField", params: [ "PASilence", "[sound:_silence.wav]" ] },
+
+        { type: "YomichanTemplatesChange" },
+        { type: "YomichanFormatChange", params: [
+          "PASilence", "[sound:silence.wav]", "[sound:_silence.wav]"
+        ] },
+
+        {
+          type: "NoteToUser", params: [
+            "Update Notes Permalink: TODO"
+          ]
+        },
+
+      ],
+
+      fields: "SAME",
+    },
+
+
+    // ========================================================================
+
+
+    {
+      version: "0.0.0.0",
+      actions: [
+      ],
+
+      fields: [
+        "Key",
+        "Word",
+        "WordReading",
+        "WordPitch",
+        "PrimaryDefinition",
+        "Sentence",
+        "SentenceReading",
+        "AltDisplay",
+        "AltDisplayPASentenceCard",
+        "AdditionalNotes",
+        "IsSentenceCard",
+        "IsClickCard",
+        "IsHoverCard",
+        "IsTargetedSentenceCard",
+        "PASeparateWordCard",
+        "PASeparateSentenceCard",
+        "PAShowInfo",
+        "PATestOnlyWord",
+        "PADoNotTest",
+        "SeparateClozeDeletionCard",
+        "Hint",
+        "HintNotHidden",
+        "Picture",
+        "WordAudio",
+        "SentenceAudio",
+        "PAGraphs",
+        "PASilence",
+        "FrequenciesStylized",
+        "SecondaryDefinition",
+        "ExtraDefinitions",
+        "UtilityDictionaries",
+        "Comment",
+      ],
+    },
+
+
+  ]
+}

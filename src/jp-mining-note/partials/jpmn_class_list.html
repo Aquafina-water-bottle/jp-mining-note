@@ -1,0 +1,4 @@
+jpmn jpmn--{{CARD_INFO('card-side').item()}} jpmn--{{CARD_INFO('card-type').item()}}
+{% for field in ALL_FIELDS %}
+{%- if field.binary_field %} {% call IF(field.name) %} jpmn-field--{{field.name}} {% endcall %} {% endif -%}
+{% endfor %}

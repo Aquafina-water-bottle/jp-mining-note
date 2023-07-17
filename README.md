@@ -1,6 +1,6 @@
 # jp-mining-note
 
-**jp-mining-note** (JPMN) is an Anki card template for studying Japanese,
+**jp-mining-note** (JPMN) is a highly customizable Anki card template for studying Japanese,
 designed to be visually appealing and simple to use without sacrificing functionality.
 Easily paired with most automatic card creation workflows,
 this aims to make your experience with Anki as smooth as possible.
@@ -13,7 +13,7 @@ Note that this project is still in its early stages.
 Better support across systems and more features are planned for the future.
 
 
-# Demos
+## Demos
 
 <!--
 - hover over furigana
@@ -69,18 +69,19 @@ Card creation:
 </details>
 
 
-# Known Limitations
-* No support for mobile. (Support for Ankidroid is planned for the future, but with no ETA.)
+## Known Limitations
+* Mobile support is slowly being worked on, but is currently unstable.
+    The mobile interface is still not finalized.
 
-# Get Started
-See the documentation [here](https://aquafina-water-bottle.github.io/jp-mining-note/).
+## Get Started
+See the documentation and setup procedure [**here**](https://aquafina-water-bottle.github.io/jp-mining-note/).
 
-# Other Info
-Tested on Anki 2.1.54 (Qt6), Linux (Ubuntu) & Windows.
+## Other Info
+Tested on Anki 2.1.61 (Qt6), Linux (Ubuntu) & Windows.
 
 It is recommended you use the latest version of Anki if possible.
 
-# License
+## License
 MIT. Go insane.
 
 

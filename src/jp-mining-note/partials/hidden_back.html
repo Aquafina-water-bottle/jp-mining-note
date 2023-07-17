@@ -1,0 +1,19 @@
+{# hidden keys for back side #}
+
+<!-- hidden fields
+     used instead of inserting a template directly into javascript code
+     in order to prevent escaping errors (e.g. if the field contains a `"`)
+-->
+<div class="hidden">
+  <div id="deck" deck_name="{{ T('Deck') }}"></div> <!-- to work with fsrs -->
+
+  {% filter indent(2) %}
+  {% include "jp-mining-note/partials/hidden/all_fields.html" %}
+
+  {% include "jp-mining-note/partials/hidden/field_values.html" %}
+
+  {% include "jp-mining-note/partials/hidden/card_info.html" %}
+  {% endfilter %}
+</div>
+
+

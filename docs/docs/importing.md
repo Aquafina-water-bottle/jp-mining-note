@@ -22,9 +22,11 @@ as well as present a small example for Anime Cards.
 Additionally, although you maybe able to import most of the card,
 it is unlikely that you will have complete 100% full
 functionality after importing the notes.
+<!--
 The biggest example is frequency list information,
-as it requires special HTML + css formatting that can only be specified
+as it requires special HTML + CSS formatting that can only be specified
 in the Yomichan Templates section.
+-->
 
 ---
 
@@ -33,22 +35,13 @@ in the Yomichan Templates section.
 
 Before doing anything that affects your Anki collection in a major way
 (for example, basically everything on this page),
-please make a [complete backup](faq.md#how-do-i-backup-my-anki-data){:target="_blank"} of your collection.
+please make a [complete backup](faq.md#how-do-i-backup-my-anki-data) of your collection.
 
 
 !!! note
     Transferring your previous notes shouldn't change your media files at all.
     However I recommend exporting **with media** just in case, so long as you have the disk space for it.
 
-
-<!--
-As explained further below, you will likely need to batch edit your newly imported notes.
-There are two ways you can do this:
-
-1. If you have `python`, then you're already set.
-2. Otherwise, you require a batch editing add-on. I recommend
-    [this one](https://ankiweb.net/shared/info/291119185).
--->
 
 ---
 
@@ -63,12 +56,12 @@ To do this, follow the proceeding steps:
 
 2. Select all the cards that you want to switch.
 
-    !!! note "Tip"
-        `ctrl+a` selects all cards in the browser.
+    !!! tip "Tip"
+        ++ctrl+a++ selects all cards in the browser.
 
 3. Right click the selection →  `Notes` →  `Change Note Type...`
 
-![type:video](assets/anki/change_notetype.mp4)
+![type:video](assets/importing/change_notetype.mp4)
 
 ---
 
@@ -85,32 +78,36 @@ However, here are a few tips:
     To import this correctly into JPMN, make sure JPMN's `Key` and `Word` field are exactly
     your old card's `Word` field.
 
+1. The `WordReading` field should ideally be a simplified furigana format.
+    For example, if the word is 成り立つ, this field should be 「成[な]り 立[た]つ」.
+    If you do not have any field that resembles this, use the kana reading (なりたつ) or true furigana
+    (<ruby>成<rt>な</rt></ruby>り<ruby>立<rt>た</rt></ruby>つ), and continue with the steps below.
+
 1. Leave `AJTWordPitch` and `SentenceReading` empty.
 
-    These fields can be empty as the AJT plugins
+    These fields can be empty as AJT Japanese
     can batch generate both word pitches and sentence furigana.
 
 1. You may have some word pitch fields already in your card.
     Pitch accent graphs should be mapped to `PAGraphs`, and
     pitch accent positions should be mapped to `PAPositions`.
 
-    Note that if you plan to use [colored pitch accent](autopa.md#colored-pitch-accent)
-    on old cards, you must have a pitch accent positions field.[^2]
-
 1. `FrequencySort` maps to the frequency value used to sort by frequency, which works exactly
     the same as Marv's `Frequency` field as documented in
-    [this](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency)
-    page.
+    [Marv's Resources page](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency).
 
-1. If you have a field that stores the source of the media, you can likely map that to `AdditionalNotes`.
+1. If you have a field that stores the source of the media, I recommend mapping that to `AdditionalNotes`
+    or `Comment`.
 
 1. I recommend **not** setting `FrequenciesStylized` to anything, even if you have a field for
     frequency lists[^1].
 
+1. When in doubt, look at the format in the example notes.
+
 
 [^1]: `FrequenciesStylized` uses a custom set of handlebars to
     store the frequency info in a way that css styles can be easily applied without javascript.
-    This differs heavily from the `{frequencies}` marker provided by Yomichan.
+    This differs heavily from the `{frequencies}` helper provided by Yomichan.
     Mapping an existing field that stores frequencies using `{frequencies}`
     to `FrequenciesStylized`
     will result in **incorrect display of data**.
@@ -124,21 +121,12 @@ However, here are a few tips:
     If you know of a way or would like to help me out with doing this, please let me know!
 
 
-[^2]: The current implementation of colored pitch accent cannot detect the pitch accent position
-    from the svg graph, nor from the automatically generated pitch accent from `AJT Pitch Accent`.
-    If you do not have a pitch accent positions field,
-    the only way to have colored pitch accent on old cards
-    is by manually setting the position for all affected cards.
-
-    Of course, any new cards should have automatically generated pitch accent positions,
-    so long as you have a Yomichan pitch accent dictionary installed.
-
 
 An example with [Anime cards](https://animecards.site/ankicards/) is shown below.
 
-??? example "Example for Anime Cards *(click here)*"
+??? example "Example for Anime Cards <small>(click here)</small>"
 
-    {{ anime_cards_table() | indent(4) }}
+    {{ fields_table("jp-mining-note fields", "Anime Cards Fields", "anime_cards_import") | indent(4) }}
 
     !!! note
         Anything not specified should be set to `(Nothing)`
@@ -149,13 +137,13 @@ An example with [Anime cards](https://animecards.site/ankicards/) is shown below
 # Batch Editing
 After switching your notes, you will have to do the following few steps:
 
-## (1) Correctly Formatting `Sentence` Field
+## 1. Correctly Formatting `Sentence` Field { #correctly-formatting-sentence-field }
 
 If your sentence fields have been highlighted in a way that isn't using `<b>`,
 then it will be incompatable with JPMN by default.
 
 To see what the formatting of the sentence is,
-[view the raw HTML](faq.md#how-do-i-edit-the-fields-raw-html){:target="_blank"}
+[view the raw HTML](faq.md#how-do-i-edit-the-fields-raw-html)
 of the `Sentence` field.
 
 Sentences are usually formatted in one of three ways, as shown below:
@@ -171,8 +159,12 @@ Sentences are usually formatted in one of three ways, as shown below:
 
 
 === "(2) Nothing is highlighted"
-    If the tested content is not highlighted in any way, there is unfortunately no easy
-    way to add highlighting to existing sentences.
+    The note comes with a feature to
+    [automatically highlight the word](ui.md#automatic-word-highlighting)
+    within the sentence.
+    However, this is an imperfect solution,
+    and there is currently no easy way to add accurate highlighting to existing sentences.
+
     **As there is nothing to do, you can skip this step**.
 
     **Example:**
@@ -190,7 +182,7 @@ Sentences are usually formatted in one of three ways, as shown below:
     今日も、なんか、昼<span style="color: #ffc2c7">爆睡</span>してしまったんので…
     ```
 
-    ??? example "Instructions to port formatted sentences *(click here)*"
+    ??? example "Instructions to port formatted sentences <small>(click here)</small>"
 
         !!! note
             You may want to make another backup before doing the following, just in case.
@@ -230,10 +222,10 @@ Sentences are usually formatted in one of three ways, as shown below:
                     "`Sentence`",
                 )) | indent(12) }}
 
-            ??? example "Example image *(click here)*"
+            ??? example "Example image <small>(click here)</small>"
 
                 <figure markdown>
-                {{ img("The above table in Anki", "assets/anki/fix_formatted_sentences.png") }}
+                {{ img("The above table in Anki", "assets/importing/fix_formatted_sentences.png") }}
                 </figure>
 
         4. **Verify.**
@@ -248,207 +240,51 @@ Sentences are usually formatted in one of three ways, as shown below:
             [here](https://docs.ankiweb.net/searching.html?highlight=regex#regular-expressions)
             to see Anki's official documentation on regex.
 
-<br>
 
 
-## (2) Batch generate pitch accents and sentence furigana
+## 2. Cleanup Other Fields { #cleanup-other-fields }
+{{ feature_version("0.12.0.0") }}
 
-![type:video](assets/anki/batch_editing.mp4)
-
-
-1. Head to the Card Browser window:
-
-    > Main Window →  `Browse`
-
-2. Select all of your newly imported notes.
-
-    !!! note "Tip"
-        The following query should reveal all of your newly imported notes.
-        Make sure you include the double quotes in the query search.
-        ```
-        "note:JP Mining Note"
-        ```
-        Afterwards, you can do `ctrl+a` to select all of the resulting cards.
-
-3. Head over to:
-
-    > `Edit` (top left corner) →  `Bulk-add pitch accents`.
-
-4. Again, head over to:
-
-    > `Edit` (top left corner) →  `Bulk-add furigana`.
-
-
-<br>
-
-
-## (3) Batch Set `PASilence` Field
-
-This will ensure all `PASilence` are filled correctly.
-See [here](faq.md#what-is-the-point-of-the-pasilence-field) to understand what this field does.
-
-1. Head to the Card Browser window.
-1. Right click a card, and then head to:
-
-    > `Notes` →  `Find and Replace...`
-
-1. Set the fields to the following:
-
-    {{ gen_regex_table(RegexTableArgs(
-            "`.*`",
-            "`[sound:_silence.wav]`",
-            "`PASilence` <sup>(IMPORTANT! Do not forget this field!)</sup>",
-            selected_notes_only=False,
-        )) | indent(4) }}
-
-    ??? example "Example image *(click here)*"
-        <figure markdown>
-        {{ img("The above table in Anki", "assets/anki/bulk_add_silencewav.png") }}
-        </figure>
+Run the following {{ BATCH_CMD }}:
+```aconf
+cleanup
+```
 
 <!--
-_
+TODO: cleanup command on new notes only / with a specified query
 -->
 
-<!--
+Expected this batch command to take quite a bit of time,
+especially on collections containing many thousands of cards.
+This is because the batch command does quite a bit behind the scenes:
 
-The following step differs if you are using `python` or the Batch Note Editing Add-on.
-
-
-=== "Batch Editing Add-On"
-
-    Within Anki, do the following:
-
-    - Head over to `Edit` (top left corner) →  `Batch Edit...`.
-    - Set the content to be `[sound:_silence.wav]`.
-    - Set the field to be `PASilence`.
-    - Click on **Replace**.
-
-    See the official add-on video [here](https://youtu.be/iCZzcSnAeH4?t=31)
-    for an example of how to do this.
+- Corrects `WordReading` if it is ruby text or regular text.
+- Backfills `WordReadingHiragana`.
+- Backfills `PASilence`.
+- Moves extra pictures in the `Picture` field into the `PrimaryDefinitionPicture` field.
+    - Note that this requires `beautifulsoup4` installed (`pip install beautifulsoup4`).
+        This is installed by default on Anki, so this will be properly ran if the batch command
+        was ran with JPMN Manager.
+- Moves extra audio in the `WordAudio` field into the `SentenceAudio` field.
 
 
-=== "Python"
-    ```
-    # assuming you are at the root of the repo,
-    # i.e. after the `git clone ...` and `cd jp-mining-note`
-    cd ./tools
 
-    # make sure you have Anki open and Anki-Connect installed!
-    python3 ./batch.py -f "set_pasilence_field"
-    ```
--->
+## 3. Batch Generate Pitch Accents and Sentence Furigana <small>(optional)</small> { #batch-generate-pitch-accents-and-sentence-furigana data-toc-label="3. Batch Generate Pitch Accents and Sentence Furigana" }
 
-<br>
+This step requires the `AJT Japanese` addon to be [correctly setup](setupanki.md#ajt-japanese).
+Although this step is technically optional,
+pitch accents likely won't show for imported cards if you had nothing
+to import into `PAPositions`. In that case, this step is highly recommended.
+
+See [here](backfilling.md#backfill-pitch-accents-and-sentence-furigana)
+on how to backfill pitch accents and sentence furigana.
 
 
-## (4) Correctly Formatting `WordReading` Field
-
-Your `WordReading` field is likely formatted in one of three ways:
 
 
-=== "Furigana (plain)"
-    This is generated with the `{furigana-plain}` marker.
+## 4. Backfill the `FrequencySort` Field <small>(optional)</small> { #backfill-the-frequencysort-field data-toc-label="4. Backfill the FrequencySort Field" }
+See [here](backfilling.md#backfill-frequencysort) if you want to backfill the `FrequencySort` field.
 
-    > Example: 成[な]り 立[た]つ
-
-    If your `WordReading` field is formatted this way, then the `WordReading` field
-    is already formatted correctly. **You can skip this step**.
-
-=== "Furigana"
-    This is generated with the `{furigana}` marker.
-
-    > Example: <ruby><rb>成</rb><rt>な</rt></ruby>り<ruby><rb>立</rb><rt>た</rt></ruby>つ
-    > (HTML: `<ruby>成<rt>な</rt></ruby>り<ruby>立<rt>た</rt></ruby>つ`)
-
-    If your `WordReading` field is formatted this way,
-    it would be ideal to convert this into plain furigana
-    so the note can properly parse the field.
-
-    ??? example "Instructions for converting furigana into plain furigana *(click here)*"
-
-        1. Head to the Card Browser window.
-        1. Right click a card, and then head to:
-
-            > `Notes` →  `Find and Replace...`
-
-        1. Set the fields to the following:
-
-            {{ gen_regex_table(RegexTableArgs(
-                    "`<ruby>(<rb>)?(?P<kanji>.*?)(</rb>)?<rt>(?P<furigana>.*?)</rt></ruby>`",
-                    "<code>&nbsp;$kanji[$furigana]</code> <sup>(Keep the whitespace at the beginning!)</sup>",
-                    "`WordReading`",
-                    selected_notes_only=False,
-                )) | indent(12) }}
-
-
-=== "Kana only"
-    This is generated with the `{reading}` marker.
-
-    > Example: なりたつ
-
-    This means that your old cards only have a kana reading.
-    It would be ideal to have the `WordReading` as the kanji word with furigana.
-    You likely want the kanji word with the furigana, so the kanjis actually show
-    in the proper places.
-    Some examples include the kanji hover tooltip as well as
-    to the left of the picture field.
-
-    ??? example "Converting kana readings to furigana readings *(click here)*"
-
-        The solution provided below is imperfect, but passable.
-        This will format all of the `WordReading` fields to be `Word[WordReading]`,
-        which means kana will repeated.
-        For example, a card with `Word` as 成り立つ, and `WordReading` as なりたつ,
-        will turn into: <ruby><rb>成り立つ</rb><rt>なりたつ</rt></ruby>
-
-        To do this, you will have to run a Python script from the repository.
-        For Windows users, see the first 3 steps for the Windows instructions
-        [here](updating.md#running-the-script){:target="_blank"}
-        if you haven't use Python before.
-
-        Afterwards, [create a backup](faq.md#how-do-i-backup-my-anki-data) and run the following:
-        ```bash
-        python batch.py -f quick_fix_convert_kana_only_reading_all_notes
-        ```
-
-        The above will affect **ALL** notes.
-        If you instead want to affect certain notes, add the `kanaonlyreading`
-        tag to all affected notes, and then run:
-        ```bash
-        python batch.py -f quick_fix_convert_kana_only_reading_with_tag
-        ```
-
-<br>
-
-
-## (5) (Optional) Batch set `WordReadingFurigana` Field
-{{ feature_version("0.11.0.0") }}
-
-The following automatically fills out the `WordReadingFurigana` field.
-
-Filling out the `WordReadingFurigana` field is optional but highly recommended.
-This will enable the usage of [Word Indicators](ui.md#word-indicators)
-on existing cards.
-
-To do this, like with the above step, you will have to run a Python script.
-Again, for Windows users, see the first 3 steps for the Windows instructions
-[here](updating.md#running-the-script){:target="_blank"}
-if you haven't use Python before.
-
-The following script assumes that Step 4 is done
-(which means your `WordReading` field is formatted as plain furigana).
-Do not run this script if you have not successfully completed Step 4.
-
-
-```
-# assuming you are at the root of the repo,
-# i.e. after the `git clone ...` and `cd jp-mining-note`
-cd ./tools
-
-# make sure you have Anki open and Anki-Connect installed!
-python3 ./batch.py -f "fill_word_reading_hiragana_field"
-```
 
 ---
 
@@ -459,5 +295,130 @@ then you have **successfully transferred your notes** to the JPMN template.
 Enjoy reviewing your old cards with a new template!
 
 
+---
 
 
+# Legacy Instructions
+
+Most steps have now been combined all into the one `cleanup` batch command.
+The legacy instructions for dealing with those steps individually are recorded
+below just in case.
+
+??? example "Legacy instructions: Batch Set `PASilence` Field"
+
+    This will ensure all `PASilence` are filled correctly.
+    See [here](faq.md#what-is-the-point-of-the-pasilence-field) to understand what this field does.
+    This can be done with a {{ BATCH_CMD }}, or manually within Anki itself.
+
+    === "Batch Command"
+
+        ```aconf
+        set_pasilence_field
+        ```
+
+    === "Within Anki"
+
+        1. Head to the Card Browser window.
+        1. Right click a card, and then head to:
+
+            > `Notes` →  `Find and Replace...`
+
+        1. Set the fields to the following:
+
+            {{ gen_regex_table(RegexTableArgs(
+                    "`.*`",
+                    "`[sound:_silence.wav]`",
+                    "`PASilence` <sup>(IMPORTANT! Do not forget this field!)</sup>",
+                    selected_notes_only=False,
+                )) | indent(8) }}
+
+            ??? example "Example image <small>(click here)</small>"
+                <figure markdown>
+                {{ img("The above table in Anki", "assets/importing/bulk_add_silencewav.png") }}
+                </figure>
+
+
+??? example "Legacy instructions: Correctly Formatting `WordReading` Field"
+
+    Your `WordReading` field is likely formatted in one of three ways:
+
+    === "Furigana (plain)"
+        This is generated with the `{furigana-plain}` helper.
+
+        > Example: 成[な]り 立[た]つ
+
+        If your `WordReading` field is formatted this way, then the `WordReading` field
+        is already formatted correctly. **You can skip this step**.
+
+    === "Furigana"
+        This is generated with the `{furigana}` helper.
+
+        > Example: <ruby><rb>成</rb><rt>な</rt></ruby>り<ruby><rb>立</rb><rt>た</rt></ruby>つ
+        > (HTML: `<ruby>成<rt>な</rt></ruby>り<ruby>立<rt>た</rt></ruby>つ`)
+
+        If your `WordReading` field is formatted this way,
+        it would be ideal to convert this into plain furigana
+        so the note can properly parse the field.
+
+        ??? example "Instructions for converting furigana into plain furigana <small>(click here)</small>"
+
+            1. Head to the Card Browser window.
+            1. Right click a card, and then head to:
+
+                > `Notes` →  `Find and Replace...`
+
+            1. Set the fields to the following:
+
+                {{ gen_regex_table(RegexTableArgs(
+                        "`<ruby>(<rb>)?(?P<kanji>.*?)(</rb>)?<rt>(?P<furigana>.*?)</rt></ruby>`",
+                        "<code>&nbsp;$kanji[$furigana]</code> <sup>(Keep the whitespace at the beginning!)</sup>",
+                        "`WordReading`",
+                        selected_notes_only=False,
+                    )) | indent(12) }}
+
+
+    === "Kana only"
+        This is generated with the `{reading}` helper.
+
+        > Example: なりたつ
+
+        This means that your old cards only have a kana reading.
+        It would be ideal to have the `WordReading` as the kanji word with furigana.
+        You likely want the kanji word with the furigana, so the kanjis actually show
+        in the proper places.
+        Some examples include the kanji hover tooltip as well as
+        to the left of the picture field.
+
+        ??? example "Instructions for converting kana readings into (plain) furigana <small>(click here)</small>"
+
+            The solution provided below is imperfect, but passable.
+            This will format all of the `WordReading` fields to be `Word[WordReading]`,
+            which means kana will repeated.
+            For example, a card with `Word` as 成り立つ, and `WordReading` as なりたつ,
+            will turn into: <ruby><rb>成り立つ</rb><rt>なりたつ</rt></ruby>
+
+            To do this, run the following {{ BATCH_CMD }}:
+            ```aconf
+            quick_fix_convert_kana_only_reading_all_notes
+            ```
+
+            The above will affect **ALL** notes.
+            If you instead want to affect certain notes, add the `kanaonlyreading`
+            tag to all affected notes, and then run the following batch command:
+
+            ```aconf
+            quick_fix_convert_kana_only_reading_with_tag
+            ```
+
+??? example "Legacy instructions: Batch set `WordReadingHiragana` Field"
+
+    The following automatically fills out the `WordReadingHiragana` field.
+
+    Filling out the `WordReadingHiragana` field is optional but highly recommended.
+    This will enable the usage of [Word Indicators](ui.md#word-indicators)
+    on existing cards.
+
+    To do this, run the following {{ BATCH_CMD }}:
+    ```aconf
+    fill_word_reading_hiragana_field
+    ```

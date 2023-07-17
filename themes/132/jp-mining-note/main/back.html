@@ -1,0 +1,44 @@
+{% extends "jp-mining-note/base_back.html" %}
+
+{%- from "jp-mining-note/macros/def_header.html" import def_header with context -%}
+
+{% set note = namespace() %}
+{% set note.side = "back" %}
+{% set note.card_type = "main" %}
+
+{% block card_type %}
+{{ super() }}
+{% include "jp-mining-note/main/partials/card_type.html" %}
+{% endblock %}
+
+
+{% block card_html_top %}
+{{ super() }}
+{# replaces front display with word #}
+{% include "jp-mining-note/partials/word_reading.html" %}
+{% endblock %}
+
+{% block card_html_bottom %}
+
+  {{ def_header() }}
+
+  <div class="back-side-restrict-width">
+
+    {# definition moved above #}
+    {% include "jp-mining-note/partials/primary_definition.html" %}
+
+    <div class="image-center">
+      {% include "jp-mining-note/partials/image.html" %}
+    </div>
+
+    {% include "jp-mining-note/partials/full_sentence.html" %}
+
+    <p>______</p>
+
+    {% include "jp-mining-note/partials/audio_buttons.html" %}
+
+    {% include "jp-mining-note/partials/other_definitions.html" %}
+
+  </div>
+
+{% endblock %}

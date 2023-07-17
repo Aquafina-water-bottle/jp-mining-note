@@ -1,27 +1,8 @@
 """
 goal of this script:
-    - prevent having the user to manually update their anki card each time
-    - automatically update yomichan-generated html when yomichan templates are updated
-    - ease the process of converting their existing cards into this with bulk additions
-
-
-TODO:
-- bulk add
-    - i.e. PASilence -> [silence.wav]
-
-- sanitize
-    - PASilence
-    - provide options to auto-filling fields
-
-- field modifications:
-    - rename
-    - reposition
-    - deleting / adding
-    - (stretch goal) description
-
-
-- detection of version
-    - way of specifying what to do for each major version bump
+- prevent having the user to manually update their anki card each time
+- automatically update yomichan-generated html when yomichan templates are updated
+- ease the process of converting their existing cards into this with bulk additions
 """
 
 
@@ -32,9 +13,10 @@ import traceback
 
 import utils
 from action import Action, UserAction, RenameField, MoveField, AddField, DeleteField
-from note_changes import NOTE_CHANGES, Version, NoteChange
 
-from typing import Any
+# from note_changes import NOTE_CHANGES, Version, NoteChange
+import note_changes as nc
+from version import Version
 
 
 class FieldVerifierException(Exception):
@@ -123,11 +105,15 @@ class Verifier:
 
         return self.anki_fields
 
-    def naive_diff_list(self, list1: list, list2: list, title1: str, title2: str):
+    def naive_diff_list(
+        self, list1: list, list2: list, title1: str, title2: str
+    ) -> str:
         """
         called "naive diff" as it diffs naive-ly per line, without checking for groups of lines
         that are the same
         """
+        # Python has difflib but difflib isn't used because it doesn't have a way to
+        # format it between columns it seems
 
         # extends the list to the longest length
         max_len = max(len(list1), len(list2))
@@ -141,15 +127,19 @@ class Verifier:
         str_format = "{:<" + str(max1) + "} {:<" + str(max2) + "}"
 
         # naive diff (compares per line without any line group matching
-        print("    " + str_format.format(title1, title2))
+        msg = ""
+        msg += "    " + str_format.format(title1, title2) + "\n"
         for x, y in zip(list1, list2):
-            print(">>> " if x != y else "    ", end="")
-            print(str_format.format(x, y))
+            msg += ">>> " if x != y else "    "
+            msg += str_format.format(x, y) + "\n"
+        print(msg)  # TODO: optinal print?
+        return msg
 
-    def naive_diff_set(self, set1: set, set2: set, title1: str, title2: str):
-        if set1 != set2:
-            print(f"Fields in {title1} that aren't in {title2}: {set1-set2}")
-            print(f"Fields in {title2} that aren't in {title1}: {set2-set1}")
+    def naive_diff_set(self, set1: set, set2: set, title1: str, title2: str) -> str:
+        msg = f"Fields in {title1} that aren't in {title2}: {set1-set2}\n"
+        msg += f"Fields in {title2} that aren't in {title1}: {set2-set1}"
+        print(msg)  # TODO: optinal print?
+        return msg
 
     def verify_initial_fields(self):
         # makes sure that the anki fields are the same
@@ -161,6 +151,16 @@ class Verifier:
             first_anki_fields = anki_fields[: len(self.original_fields)]
 
             if first_anki_fields != self.original_fields:
+                # for x in difflib.context_diff(
+                #    first_anki_fields,
+                #    self.original_fields,
+                #    fromfile="Anki",
+                #    tofile="Expected (Initial)",
+                #    n=3,
+                # ):
+                #    print(x)
+                # exit(1)
+
                 self.naive_diff_list(
                     first_anki_fields,
                     self.original_fields,
@@ -189,6 +189,16 @@ class Verifier:
 
         if self.in_order:
             if simulator.simulated_fields != self.new_fields:
+                # for x in difflib.context_diff(
+                #    simulator.simulated_fields,
+                #    self.new_fields,
+                #    fromfile="Simulated",
+                #    tofile="Expected",
+                #    n=1000,
+                # ):
+                #    print(x)
+                # exit(1)
+
                 self.naive_diff_list(
                     simulator.simulated_fields, self.new_fields, "Simulated", "Expected"
                 )
@@ -252,7 +262,6 @@ class Verifier:
                 )
                 raise FieldVerifierException("Anki fields are different")
         else:
-
             # allows fields in anki that are not in the expected beginning,
             # BUT does not allow expected fields to not be in anki at the current moment
             # (i.e. you can't delete fields)
@@ -266,13 +275,32 @@ class Verifier:
                 )
 
 
+# @dataclass
+# class ActionRunnable:
+#    """
+#    not a very good name, but not sure what a good name is
+#    """
+#    action: Action
+#    should_run: bool
+
+# @dataclass
+# class ActionMetadata:
+#    """
+#    not a very good name, but not sure what a good name is
+#    """
+#    should_run: bool
+#    index: int # start from 0
+
+
 class ActionRunner:
     def __init__(
         self,
+        note_changes: tuple[nc.NoteChange],
         current_ver: Version,
         new_ver: Version,
         in_order=True,
-        note_changes=NOTE_CHANGES,
+        verify=True,
+        # select_note_changes: list[int] | None=None,
     ):
         """
         applies changes specified in the range (current_ver, new_ver]
@@ -280,7 +308,9 @@ class ActionRunner:
         - verifies field changes by default
         """
 
-        self.changes: list[NoteChange] = []
+        self.changes: list[nc.NoteChange] = []
+        self.post_changes: list[nc.NoteChange] = []
+
         self.edits_cards: bool = False
         self.requires_user_action: bool = False
 
@@ -314,27 +344,49 @@ class ActionRunner:
                 break
 
         # basic error checking
-        assert self.original_fields is not None
+        assert self.original_fields is not None, current_ver
 
         if not self.changes:  # if self.changes is empty
             return
 
-        if self.new_fields is not None:
-            self.verifier = Verifier(
-                self.original_fields, self.new_fields, in_order=self.in_order
-            )
-            actions = sum((c.actions for c in self.changes), start=[])
-            self.verifier.verify(actions)
+        if verify:
+            if self.new_fields is not None:
+                self.verifier = Verifier(
+                    self.original_fields, self.new_fields, in_order=self.in_order
+                )
+                actions = self.get_filtered_actions()
+                self.verifier.verify(actions)
+                post_actions = self.get_filtered_post_actions()
+                self.verifier.verify_api_reflect(post_actions)
 
         # sees if actions edits the cards
-        for data in self.changes:
-            for action in data.actions:
-                if action.edits_cards:
-                    self.edits_cards = True
-                if isinstance(action, UserAction):
-                    self.requires_user_action = True
-                if self.edits_cards and self.requires_user_action:
-                    return  # saves some cycles
+        for action in self.get_filtered_actions():
+            if action.edits_cards:
+                self.edits_cards = True
+            if isinstance(action, UserAction):
+                self.requires_user_action = True
+            if self.edits_cards and self.requires_user_action:
+                return  # saves some cycles
+
+    def get_filtered_actions(self) -> list[Action]:
+        """
+        simply flattens the actions from the changes.
+        """
+        result = []
+        for c in self.changes:
+            for a in c.actions:
+                result.append(a)
+        return result
+
+    def get_filtered_post_actions(self) -> list[Action]:
+        """
+        simply flattens the actions from the changes.
+        """
+        result = []
+        for c in self.changes:
+            for a in c.post_actions:
+                result.append(a)
+        return result
 
     def clear(self):
         self.changes.clear()
@@ -342,7 +394,7 @@ class ActionRunner:
     def indent(self, desc: str, indent: str = "    ", start: str = "  - ") -> str:
         return start + desc.replace("\n", "\n" + indent)
 
-    def get_version_actions_desc(self, data: NoteChange) -> str:
+    def get_version_actions_desc(self, data: nc.NoteChange) -> str:
         """
         description w/out global changes
         """
@@ -353,7 +405,11 @@ class ActionRunner:
         desc_list.append(f"Changes from {version}:")
 
         for action in data.actions:
+            # metadata = self.action_metadata[action]
+            # if metadata.should_run and not isinstance(action, UserAction):
             if not isinstance(action, UserAction):
+                # num_disp = "{:02d}: ".format(metadata.index+1)
+                # desc_list.append(self.indent(action.description, start=num_disp))
                 desc_list.append(self.indent(action.description))
 
         return "\n".join(desc_list)
@@ -367,12 +423,17 @@ class ActionRunner:
 
         for data in self.changes:
             for action in data.actions:
+                # metadata = self.action_metadata[action]
+                # if metadata.should_run and isinstance(action, UserAction):
                 if isinstance(action, UserAction):
+                    # num_disp = "{:02d}: ".format(metadata.index+1)
                     if action.unique:
                         if action.__class__ not in user_changes_unique:
                             user_changes_unique.add(action.__class__)
+                            # desc_list.append(self.indent(action.description, start=num_disp))
                             desc_list.append(self.indent(action.description))
                     else:
+                        # desc_list.append(self.indent(action.description, start=num_disp))
                         desc_list.append(self.indent(action.description))
 
         return "\n".join(desc_list)
@@ -452,13 +513,18 @@ class ActionRunner:
                 traceback.print_exc()
                 print("Post-field check failed, skipping error...")
 
-    def post_message(self):
+    def run_post(self):
+        for data in self.changes:
+            for action in data.post_actions:
+                action.run(**self.action_args)
+
+    def get_post_message(self) -> str | None:
         if self.requires_user_action:
-            print()
-            print("Make sure you don't forget to do the following actions afterwards:")
-            print(self.get_user_actions_desc())
+            return (
+                "Make sure you don't forget to do the following actions afterwards:\n"
+                f"{self.get_user_actions_desc()}"
+            )
 
 
 if __name__ == "__main__":
-
     pass

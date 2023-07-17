@@ -6,12 +6,15 @@ site_description: Documentation for the jp-mining-note project.
 
 repo_url: https://github.com/Aquafina-water-bottle/jp-mining-note
 repo_name: jp-mining-note
-edit_uri: edit/master/docs/docs/
-site_url: https://aquafina-water-bottle.github.io/jp-mining-note/
+#edit_uri: edit/master/docs/docs/
+edit_uri: edit/dev/docs/docs/
+#site_url: https://aquafina-water-bottle.github.io/jp-mining-note/
+site_url: https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/
 
 theme:
   name: material
   custom_dir: docs/overrides
+  logo: assets/logo.png
 
   palette:
     # Palette toggle for dark mode
@@ -28,7 +31,6 @@ theme:
         name: Switch to dark mode
 
 
-  #logo: assets/ideogram-cjk-variant.svg
   #favicon: assets/smallmarisa.png
   features:
     # single page application
@@ -41,10 +43,21 @@ theme:
     - header.autohide
 
     - navigation.tabs
-    #- navigation.tabs.sticky
     - navigation.sections
 
     - content.code.annotate
+
+    # copy-to-clipboard buttons for all code blocks
+    - content.code.copy
+
+    # view source
+    - content.action.view
+
+    # arrows <- and -> in footer
+    # - removed due to left sections being too tall?
+    # - would prefer the footer to only affect the main content and right column.
+    # - for example: https://kotlinlang.org/docs/coroutines-basics.html
+    #- navigation.footer
 
   icon:
     repo: fontawesome/brands/github
@@ -60,41 +73,95 @@ plugins:
       video_autoplay: False
   - macros
   - git-revision-date-localized:
-      type: date
+  - redirects:
+      redirect_maps:
+        'setupeverythingelse.md': 'setuptextmedia.md'
 
 nav:
   - Home:
     - Home: index.md
     - Getting Started:
       - Preface: preface.md
+      - Philosophy: principles.md
       - Alternatives: alternatives.md
   - Setup:
     - "Setup: Installing": setup.md
     - "Setup: Anki": setupanki.md
     - "Setup: Yomichan": setupyomichan.md
-    - "Setup: Everything Else": setupeverythingelse.md
-    - "Setup: Other": setupother.md
-    - Transfer Existing Notes: importing.md
-    - Updating: updating.md
+    - "Setup: Text & Media": setuptextmedia.md
+    - "Text & Media":
+      - "mpvacious": setupmpvacious.md
+      - "asbplayer": setupasbplayer.md
+    - Transfer Existing Notes:
+      - Transfer Existing Notes: importing.md
+    - Extra Setup:
+      - "Extra: Yomichan": setupextrayomichan.md
+      - "Extra: Anki": setupextraanki.md
+      - "Extra: Android": setupandroid.md
+      - "Extra: iOS": setupios.md
+      - "Extra: eReaders": setupereaders.md
+    - Alternate Card Exporters:
+      - JL (TODO): setupjl.md
+      - jidoujisho (TODO): setupjidoujisho.md
+      - goldendict (TODO): setupgoldendict.md
+  - Updating:
+    - "Updating: Overview": updating.md
+    - "Updating: JPMN": updatingjpmn.md
+    - "Updating: Yomichan": updatingyomichan.md
+    - "Setup Changes": setupchanges.md
+    - "Final Steps": updatingfinalsteps.md
+    - Changelog: https://github.com/Aquafina-water-bottle/jp-mining-note/blob/dev/CHANGELOG.md
   - Reference:
-    - User Interface: ui.md
-    - Field Reference: fieldref.md
+    - Quick Start (TODO): quickstart.md
+    - Blockquotes (TODO): blockquotes.md
+    - Definitions (TODO): definitions.md
+    - Sentences (TODO): sentences.md
+    - Card Types: cardtypes.md
+    - Changing Card Type (TODO): changingcardtype.md
+    - More on Card Types (TODO): cardtypes2.md
+    - Keybinds: keybinds.md
     - Images: images.md
     - Pitch Accent: autopa.md
-    - Card Types: cardtypes.md
-    - Runtime Options: runtimeoptions.md
-    - Compile-Time Options: compiletimeoptions.md
-    - Yomichan Template Options (TODO): yomichantemplates.md
+    - Kanji Hover (TODO): kanjihover.md
+    - Word Indicators (TODO): wordindicators.md
     - Tooltip Results (TODO): tooltipresults.md
-    - Developer Documentation:
-      - Modding Overview: modding.md
-      - Building: building.md
-      - Custom CSS: customcss.md
-      - Custom HTML (Overrides): overrides.md
-      - Custom JS (Modules): modules.md
-      - "Tips & Tricks": moddingtips.md
-  - "FAQ & Troubleshooting": faq.md
-  - JP Resources: jpresources.md
+    - Info Circle (TODO): infocircle.md
+    - Frequencies (TODO): frequencies.md
+    - External Links (TODO): externallinks.md
+    - Fields (TODO): fields.md
+    - Backfilling (TODO): backfilling.md
+    - Batch Commands (TODO): batch.md
+    - Other (TODO): other.md
+    - Options:
+      - Runtime Options (TODO): runtimeoptions.md
+      - Compile Options (TODO): compiletimeoptions.md
+      - Yomichan Template Options (TODO): yomichantemplates.md
+   #- DEPRECATED:
+   #  - User Interface: ui.md
+   #  - UI Customization: uicustomization.md
+   #  - Field Reference: fieldref.md
+  - Dev Docs:
+    - Modding Overview: modding.md
+    - Building: building.md
+    - Custom CSS (TODO): customcss.md
+    - Custom HTML (Overrides) (TODO): overrides.md
+    - Custom JS (Modules) (TODO): modules.md
+    - Themes (TODO): themes.md
+    - "Tips & Tricks (TODO)": moddingtips.md
+  - "FAQ & Troubleshooting":
+    - "FAQ & Troubleshooting": faq.md
+    - "FAQ: Errors & Warnings": faq/#errors-warnings
+    - "FAQ: Troubleshooting": faq/#troubleshooting
+    - "FAQ: Card Editing": faq/#card-editing
+    - "FAQ: Other": faq/#other-questions
+  - JP Resources:
+    - JP Resources: jpresources.md
+    - JPMN Handlebars Package: jpmnhandlebars.md
+    - Anki Hotkeys (TODO): scripts.md
+    - Other: jpresourcesother.md
+
+extra:
+  generator: false
 
 extra_css:
   - stylesheets/extra.css
@@ -112,6 +179,7 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  - pymdownx.keys
 
   - admonition
   - pymdownx.details

@@ -8,17 +8,28 @@
 
   <span class="info-circle-text-wrapper" id="info_circle_text_wrapper">
     <span class="info-circle-text" id="info_circle_text">
-      <div class="info-circle-text-settings" id="info_circle_text_settings"></div>
-      <div class="info-circle-text-settings-border"></div>
+
+      <div class="info-circle-text-settings hidden" id="info_circle_text_settings">
+
+        {% filter indent(8) %}
+        {% include "jp-mining-note/partials/info_circle_setting/toggle_blur.html" %}
+        {% include "jp-mining-note/partials/info_circle_setting/toggle_websocket.html" %}
+        {% include "jp-mining-note/partials/info_circle_setting/refresh_card.html" %}
+        {% include "jp-mining-note/partials/info_circle_setting/clear_cache.html" %}
+        {% endfilter %}
+
+      </div>
+      <div class="info-circle-text-settings-border hidden" id="info_circle_text_settings_border"></div>
 
       <div class="info-circle-text-error" id="info_circle_text_error"></div>
       <div class="info-circle-text-warning" id="info_circle_text_warning"></div>
       <div class="info-circle-text-leech" id="info_circle_text_leech"></div>
+      <div class="info-circle-text-info" id="info_circle_text_info"></div>
 
-      <div class="info-circle-text-info" id="info_circle_text_info">
+      <div class="info-circle-text-info-default" id="info_circle_text_info_default">
         <div>
           Need help? View the
-          <a href="https://aquafina-water-bottle.github.io/jp-mining-note/">documentation</a>.
+          <a href="https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/">documentation</a>.
         </div>
         <div>
           Have an issue?
@@ -28,9 +39,19 @@
           View the
           <a href="https://github.com/Aquafina-water-bottle/jp-mining-note">source code</a>.
         </div>
+        <div>
+          Have questions or feedback?
+          <a href="https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/faq/#contact-info">Contact me!</a>
+        </div>
+
+        <div class="info-circle-version">jp-mining-note {{ VERSION }}</div>
       </div>
 
       <div class="info-circle-text-debug" id="info_circle_text_debug"></div>
+      <div class="info-circle-text-tags hidden" id="info_circle_text_tags">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.41 11.58L12.41 2.58A2 2 0 0 0 11 2H4A2 2 0 0 0 2 4V11A2 2 0 0 0 2.59 12.42L11.59 21.42A2 2 0 0 0 13 22A2 2 0 0 0 14.41 21.41L21.41 14.41A2 2 0 0 0 22 13A2 2 0 0 0 21.41 11.58M13 20L4 11V4H11L20 13M6.5 5A1.5 1.5 0 1 1 5 6.5A1.5 1.5 0 0 1 6.5 5Z"></path><title>Card tags</title></svg>
+        <span class="info-circle-text-tags-text" id="info_circle_text_tags_text"></span>
+      </div>
 
     </span>
 

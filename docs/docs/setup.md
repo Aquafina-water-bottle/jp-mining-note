@@ -16,7 +16,7 @@ to setup the card exporter to create cards with this note type.
 Getting the text (the first part)
 and getting the image and sentence audio (the optional part of part two)
 are not heavily focused on within this site,
-but can be found under [Setup: Everything Else](setupeverythingelse.md)
+but can be found under [Setup: Text & Media](setuptextmedia.md)
 page.
 
 
@@ -28,61 +28,88 @@ page.
 
 # Installing Anki
 
-Download Anki from [the official website](https://apps.ankiweb.net/) if you haven't already.
-
-If you have never used Anki before, I recommend reading through
-[Tatsumoto's blog on setting up Anki](https://tatsumoto.neocities.org/blog/setting-up-anki.html)
-to get the appropriate settings.
-This blog also has additional guidance instructions for Linux systems.
+Download and install Anki from [the official website](https://apps.ankiweb.net/) if you haven't already.
+I recommend downloading the latest version, to avoid having to do extra steps during the setup.
 
 ---
 
 # Installing jp-mining-note
-There are two ways of installing the note:
+There are three ways of installing the note:
+
+1. Via **JPMN Manager**, a small Anki add-on that can install and update jp-mining-note,
+    as well as notify you when updates are available.
+    *If you don't know which method to choose, choose this one*.
+2. Via **command line**.
+    This method is recommended for people who are familiar with `git` and `python`,
+    and don't want to download another Anki add-on.
+3. **Manually**, using Anki.
+    This tends to be more error-prone due to having many more potential points of failure.
+    Therefore, I wouldn't recommend installing the note this way.
+    It should only be used if the first two options didn't work.
 
 
+??? info "Option 1: JPMN Manager <small>(click here)</small>"
 
-??? info "Option 1: The Automatic Way *(click here)*"
+    1.  To install any Anki add-on, navigate to:
 
-    If you know what `git` and `python` is, here's all you have to do:
+        > (Main Window) →  `Tools` →  `Add-ons` →  `Get Add-ons...`
+
+        From here, you can install
+        [JPMN Manager](https://ankiweb.net/shared/info/{{ JPMN_MGR_CODE }})
+        and
+        [Anki-Connect](https://ankiweb.net/shared/info/2055492159)
+        by using the following add-on codes:
+        ```
+        {{ JPMN_MGR_CODE }} 2055492159
+        ```
+
+    1. Restart Anki, to load the new add-ons.
+    1. Within Anki, navigate to the following:
+
+        > (Main Window) →  `Tools` →  `JPMN Manager` →  `Install jp-mining-note`
+
+        This will install latest stable version of the note,
+        as well as the fonts required for the note to work. <br>
+        Note: Installing jp-mining-note might take a while, and Anki may appear frozen.
+
+    ![type:video](assets/setup/jpmn_manager-0.12.0.0-prerelease-3.mp4)
+
+??? info "Option 2: Command Line <small>(click here)</small>"
 
     === "Windows"
 
         ```bat
         git clone "https://github.com/Aquafina-water-bottle/jp-mining-note.git"
+        :: TODO change this to master branch
+        git checkout testing
         cd jp-mining-note
 
-        :: Ensure you have Anki open, and with anki-connect running
-        :: Also ensure that you have python 3.10+ installed.
+        :: Ensure you have Anki open, and with Anki-Connect running
+        :: Also ensure that you have python 3.9+ installed.
         :: It *MAY* work with lower versions of python, but I make no such guarantee. ;)
         python tools\install.py
         ```
 
-    === "MacOS & Linux"
+    === "macOS & Linux"
 
         ```bash
         git clone "https://github.com/Aquafina-water-bottle/jp-mining-note.git"
+        :: TODO change this to master branch
+        git checkout testing
         cd jp-mining-note
 
-        # Ensure you have Anki open, and with anki-connect running
-        # Also ensure that you have python 3.10+ installed.
+        # Ensure you have Anki open, and with Anki-Connect running
+        # Also ensure that you have python 3.9+ installed.
         # It *MAY* work with lower versions of python, but I make no such guarantee. ;)
 
         # You may have to use `python3` instead of `python`.
         python tools/install.py
         ```
 
-    The above does the following:
+    `install.py` will install latest stable version of the note,
+    as well as the fonts required for the note to work.
 
-    - Installs the latest stable version of the note
-    - Installs the fonts required for the note
-
-    If the above made no sense to you,
-    or you just want to install this normally,
-    see the second option below.
-
-
-??? info "Option 2: The Manual Way *(click here)*"
+??? info "Option 3: Manually <small>(click here)</small>"
 
 
     1. Go to the
@@ -100,7 +127,7 @@ There are two ways of installing the note:
     4. Move the `.otf` files into the [media folder](faq.md#where-is-the-x-folder-in-anki){:target="_blank"}
         of your profile (`Anki2/PROFILENAME/collections.media`).
 
-    ![type:video](assets/anki/manual_import-0.9.1.1.mp4)
+    ![type:video](assets/setup/manual_import-0.9.1.1.mp4)
 
 
 ---
@@ -122,12 +149,12 @@ Please check the following in particular:
 
 1. The fonts should match with the above example.
 
-    If the fonts don't match, try restarting Anki.
-    If the fonts still don't match, the note was likely installed with "Option 2: The Manual Way".
+    If the fonts don't match, try restarting Anki and/or your computer.
+    If the fonts still don't match, the note was likely installed manually.
     Please verify you manually installed the fonts and placed them in the correct folder
     (see steps 3 and 4).
 
-    {{ img("test", "assets/info_circle.png", 'align=right') }}
+    {{ img("normal info circle example", "assets/info_circle/normal_example.png", 'align=right') }}
 
 1. Notice how at the top left corner, the info circle (the "i" encased within the circle)
     is the default grey color.
@@ -138,10 +165,10 @@ Please check the following in particular:
 1. Clicking on the image to zoom should work out of the box.
 
     Kanji hover may not work yet. If it doesn't work,
-    read the Anki-Connect setup instructions on the next page.
+    continue reading to the Anki-Connect setup instructions on the next page.
 
-1. If the furigana on your card seems to appear higher above the kanji compared to the picture,
-    see the [Fix Ruby Positioning](ui.md#fix-ruby-positioning-for-legacy-anki-versions) option.
+    If the image suddenly appears without a zoom animation,
+    then you must [enable animations on Anki](setupanki.md#enable-animations).
 
 
 ---

@@ -1,0 +1,1107 @@
+{
+
+  // OVERWRITTEN in rto_overrides.json
+  "enableAnkiconnectFeatures": true,
+
+  "hybridSentenceOpenOnPlaySentence": true,
+
+  "clickCardRevealSentenceOnBackSide": true,
+
+  // Available options: "default", "sentence", "word"
+  // - "default": Nothing is done by the card. Audio playback follows your Anki settings.
+  // - "sentence": Only plays the sentence.
+  // - "word": Only plays the word.
+  //
+  // NOTE: This is specifically for audio playback on the back side of the card.
+  //   The audio playback on the front side of the card cannot be specified globally.
+  // Hint: If you want audio at the front of your card, fill the `IsAudioCard` field.
+  // WARNING: If Anki is set to auto-play audio, then the first audio usually gets played
+  //   before the javascript of this note runs, meaning that the first bit of the first audio file
+  //   is usually heard before the desired audio is heard.
+  "audioPlaybackMode": "default",
+
+  // ==========================================================================
+  // = logger =
+  // ==========================================================================
+
+  // (Developer option) Used to show debug messages when debugging the card.
+  // Use the `LOGGER.debug()` (or `logger.debug()`) function in javascript to write debug messages.
+  // Set to any number higher than 5 to disable.
+  // 0 produces the most debug messages, 5 produces the least debug messages.
+  "logger.debugLevel": 6,
+
+  // meant to be used with the following addon:
+  // https://github.com/hikaru-y/anki21-addon-ankiwebview-inspector
+  // WARNING: If you want this enabled, ensure that it is not enabled in AnkiMobile!
+  // If this is enabled in AnkiMobile, any warning or error will break the JavaScript.
+  "logger.toConsole": true, // OVERWRITTEN
+  "logger.debugConsoleLevel": 3,
+
+  // TODO link messages to keys?
+  "logger.warn.ignore": [
+
+    // warning if the sentence field has its lines split through div elements
+    "(sentenceParser) Following sentence was stripped of div elements",
+    "(tb:sentenceParser) Following sentence was stripped of div elements",
+
+    // warns if the word could not be found through the autohighlighter (and is not already highlighted)
+    //"(sentenceParser) Could not highlight word in ",
+    //"(tb:sentenceParser) Could not highlight word in ",
+
+    // warns if the word was already highlighted
+    "(sentenceParser) Automatically highlighted word in ",
+    "(tb:sentenceParser) Automatically highlighted word in ",
+
+    //"(sentenceParser) Invalid sentence format ",
+
+    "SentenceReading is not filled out. Using Sentence field instead.",
+    //"`SentenceReading` is filled out, but the `Sentence` field is not. Is this a mistake?",
+
+    // warnings when PAOverride has an incorrect format
+    //"(autoPitchAccent) calcPosDataList returned list of 0 length for",
+    //"(autoPitchAccent) Invalid PA format: ",
+    //"(autoPitchAccent) More than one downstep marker used in ",
+    //"(autoPitchAccent) Cannot use both downstep and heiban markers in ",
+  ],
+
+  "logger.error.ignore": [
+    // This error is caused by the "Edit Field During Review (Cloze)" add-on.
+    // However, this error only appears during the preview and edit cards template windows.
+    // This error does not appear to actually affect any of the internal javascript within the card,
+    // and is rather caused by the add-on itself.
+    // Due to the card's error catcher, this previously-silent error is now caught and shown
+    // in the card's error log, despite it not actually affecting anything.
+    // Therefore, this error can be safely ignored.
+    "ReferenceError: EFDRC is not defined",
+  ],
+
+
+  "logger.error.ignoreRegex": [
+    {
+      // Vanilla Anki 2.1.61 - 2.1.63 seems to introduce this error.
+      // It doesn't seem to affect anything visible, so hopefully this is fine to ignore.
+      // Related report: https://forums.ankiweb.net/t/29185
+      // Fix for 2.1.64+: https://github.com/ankitects/anki/pull/2501
+      "pattern": "^TypeError: Cannot read properties of null \\(reading 'style'\\)\n    at (nc|Ar) \\(http://127.0.0.1:\\d+/_anki/js/reviewer\\.js:7:(113091|112035)\\)$",
+      "flags": null,
+    },
+  ],
+
+
+  // ==========================================================================
+  // = keybinds =
+  // ==========================================================================
+
+  // RESERVED KEYS (by anki):
+  // - e (edit)
+  // - r (replay)
+  // - t (stats)
+  // - y (sync)
+  // - i (card info)
+  // - o (options)
+  // - a (add)
+  // - s (idk exactly what this does tbh)
+  // - d (deck)
+  // - f (filtered deck options)
+  // - v (play recorded voice)
+  // - b (browse)
+  // - m (menu)
+  // - 1, 2, 3, 4 (again, hard, good, easy)
+  // - 5 (pause audio)
+  // - 6 (audio -5s)
+  // - 7 (audio +5s)
+  // - space (good)
+  // - enter (good)
+  //
+  // RESERVED KEYS (by AJT Flexible grading):
+  // - u (undo)
+  // - h, j, k, l: hard / again / good / easy
+  //
+  // FREE KEYS:
+  // - (left)  q w g z x c
+  // - (right) p n 8 9 0 , . ; ' [ ]
+  //
+  // If you want to customize the keybinds, you must find the exact key code
+  // that corresponds to your key. To do so, set "debug-level" to 0, press the
+  // desired key(s), and look at the bottom of the debug log (under the info
+  // circle) within the note. You may need to scroll down.
+
+  "keybinds.enabled": true,
+
+  // Keybind to toggle between showing the sentence and word on click and hover cards.
+  // Equivalent to either clicking on the sentence/word on a click card,
+  // or hovering over the word on a hover card.
+  "keybinds.toggleHybridSentence": ["KeyN"],
+
+  // Keybind to toggle between showing the tested word in a raw sentence card.
+  // Equivalent to clicking on the "show" button.
+  // This is the same as the above because both should never happen at the same time.
+  "keybinds.toggleHighlightWord": ["KeyN"],
+
+  // Keybind to toggle a vocab card's full sentence display (front side).
+  // Techinically can be Shift / n as it doesn't interfere with the other two above.
+  "keybinds.toggleFrontFullSentenceDisplay": ["Quote"],
+
+  "keybinds.playSentenceAudio": ["KeyP"],
+
+  "keybinds.playWordAudio": ["KeyW"],
+
+  // Equivalent to toggling the hint show/hide
+  "keybinds.toggleHintDisplay": ["Period"],
+
+  "keybinds.toggleSecondaryDefinitionsDisplay": ["Digit8"],
+
+  "keybinds.toggleAdditionalNotesDisplay": ["Digit9"],
+
+  "keybinds.toggleExtraDefinitionsDisplay": ["Digit0"],
+
+  "keybinds.toggleExtraInfoDisplay": ["BracketLeft"],
+
+
+
+  // ==========================================================================
+  // = mainCardUtils =
+  // ==========================================================================
+  // Does a few small but important things for the main note type to work.
+  // Don't disable this unless you know what you are doing.
+  "mainCardUtils.enabled": true,
+
+
+
+
+  // ==========================================================================
+  // = sentenceParser =
+  // ==========================================================================
+
+  "sentenceParser.enabled": true,
+
+
+  // sentenceParser.fixDivList
+  // --------------------------------------------------------------------------
+  // Fixes the sentence if it's formatted as <div>line1</div> <div>line2</div> ...
+  // (and converts it to line1<br>line ...)
+  "sentenceParser.fixDivList.enabled": true,
+
+
+  // sentenceParser.autoHighlightWord
+  // --------------------------------------------------------------------------
+  // Automatically attempts to highlight the word in the sentence.
+  // Base code taken from:
+  // https://github.com/MarvNC/JP-Resources#anki-automatically-highlight-in-sentence
+  "sentenceParser.autoHighlightWord.enabled": true,
+
+  // additional check to make sure the non-furigana'd version of SentenceReading is the exact
+  // same as the Sentence field.
+  "sentenceParser.checkSentenceReadingEqualsSentence": true,
+
+
+  // sentenceParser.quotes
+  // --------------------------------------------------------------------------
+
+
+  // the quote pair to automatically add to the sentence
+  // OVERWRITTEN in rto_overrides.json
+  "sentenceParser.quotes.quoteOpen": "「",
+  "sentenceParser.quotes.quoteClose": "」",
+
+  // quotes to search for on existing sentences,
+  // to not double-quote a sentence that already has quotes on it
+  "sentenceParser.quotes.matches": [
+    { "open": "「", "close": "」" },
+    { "open": "『", "close": "』" },
+  ],
+
+
+  // sentenceParser.fullSent.quotes
+  // --------------------------------------------------------------------------
+  // quotes on the full sentence (sentence shown in kanji hover & on backside of card)
+
+
+  // >>> processMode <<<
+  // "add": always adds a quote
+  // "remove": always removes the quote
+  // "as-is": does not add or remove quotes. This will still continue with the other
+  //          quote parsing options.
+  // "none": equivalent of disabling quote processing entirely
+
+  // >>> processMode.searchMulti <<<
+  // ignores the previous processMode if set to true
+  // this looks for sentences of the format
+  // where lines are separated with two newlines, i.e.
+  //
+  // ---------------------------------
+  //
+  // ああああああああああ  <-- line 1
+  // ああああああ
+  //
+  // 「ああああああああ    <-- line 2
+  // あああああああ」
+  //
+  // ああああああああああ  <-- line 3
+  // ああああああ
+  //
+  // ---------------------------------
+  //
+  // 「ああああああ」      <-- line 1
+  //
+  // 「ああああああああ    <-- line 2
+  // あああああああ」
+  //
+  // ああああああああ      <-- line 3
+
+  "sentenceParser.fullSent.quotes.processMode": "remove",
+  "sentenceParser.fullSent.quotes.processMode.searchMulti": true,
+
+
+
+  // >>> displayMode.quoted <<<
+  // "block":
+  //  |「ああああああああ|
+  //  |  ああああああ」  |
+  // "flow":
+  //  |「ああああああああ|
+  //  |ああああああ」    |
+
+  // >>> displayMode.unquoted <<<
+  // "indent":
+  //  |  ええええええええ|
+  //  |ええええええ      |
+  // "no-indent":
+  //  |えええええええええ|
+  //  |えええええ        |
+  // "right-shifted":
+  //  |  ええええええええ|
+  //  |  ええええええ    |
+
+  "sentenceParser.fullSent.quotes.displayMode.quoted": "block",
+  "sentenceParser.fullSent.quotes.displayMode.unquoted": "no-indent",
+
+
+  // sentenceParser.display.quotes
+  // --------------------------------------------------------------------------
+  // quotes on the display sentence (tested content above line)
+
+  // processMode and displayMode follow the same format as above
+  "sentenceParser.display.quotes.processMode": "add",
+  "sentenceParser.display.quotes.processMode.searchMulti": true,
+
+  "sentenceParser.altDisplay.quotes.processMode": "as-is",
+  "sentenceParser.altDisplay.quotes.processMode.searchMulti": true,
+
+  "sentenceParser.display.quotes.displayMode.quoted": "block",
+  "sentenceParser.display.quotes.displayMode.unquoted": "no-indent",
+
+
+  // tags used to override the quotes.processMode value on a card-by-card basis
+  "sentenceParser.display.quotes.processMode.tagOverride.add": [
+    "quote-add", "jpmn-quote-add",
+  ],
+  "sentenceParser.display.quotes.processMode.tagOverride.remove": [
+    "quote-remove", "jpmn-quote-remove",
+  ],
+  "sentenceParser.display.quotes.processMode.tagOverride.asIs": [
+    "quote-as-is", "jpmn-quote-as-is",
+  ],
+  "sentenceParser.display.quotes.processMode.tagOverride.none": [
+    "quote-no-processing", "jpmn-quote-no-processing",
+  ],
+
+  // Mostly dev-related tools. You likely don't want to use these, and instead
+  // want to change the default displayMode for the desired sentence type.
+  "sentenceParser.display.quotes.displayMode.quoted.tagOverride.block": [
+    "quote-disp-quoted-block", "jpmn-quote-disp-quoted-block",
+  ],
+  "sentenceParser.display.quotes.displayMode.quoted.tagOverride.flow": [
+    "quote-disp-quoted-flow", "jpmn-quote-disp-quoted-flow",
+  ],
+  "sentenceParser.display.quotes.displayMode.unquoted.tagOverride.indented": [
+    "quote-disp-unquoted-indent", "jpmn-quote-disp-unquoted-indent",
+  ],
+  "sentenceParser.display.quotes.displayMode.unquoted.tagOverride.noIndent": [
+    "quote-disp-unquoted-noIndent", "jpmn-quote-disp-unquoted-no-indent",
+  ],
+  "sentenceParser.display.quotes.displayMode.unquoted.tagOverride.rightShifted": [
+    "quote-disp-unquoted-rightShifted", "jpmn-quote-disp-unquoted-right-shifted",
+  ],
+
+
+
+  // sentenceParser.quotes.multi
+  // --------------------------------------------------------------------------
+
+  // recommended multi.displayMode.quoted & multi.displayMode.unquoted combinations:
+  //
+  // vn-like:
+  //  displayMode.quoted: "block"
+  //  displayMode.unquoted: "no-indent"
+  //
+  //  |「ああああああああ|
+  //  |  ああああああ」  |
+  //  |えええええええええ|
+  //  |えええええ        |
+  //  |「ああああああああ|
+  //  |  ああああああ」  |
+  //
+  //  |「ああああああ」  |
+  //  |えええええええ    |
+  //  |「ああああああ」  |
+  //
+  //
+  // vn-like (v2):
+  //  displayMode.quoted: "block"
+  //  displayMode.unquoted: "right-shifted"
+  //
+  //  |「ああああああああ|
+  //  |  ああああああ」  |
+  //  |  ええええええええ|
+  //  |  ええええええ    |
+  //  |「ああああああああ|
+  //  |  ああああああ」  |
+  //
+  //  |「ああああああ」  |
+  //  |  えええええええ  |
+  //  |「ああああああ」  |
+  //
+  //
+  // novel-like:
+  //  displayMode.quoted: "flow"
+  //  displayMode.unquoted: "indented"
+  //
+  //  |「ああああああああ|
+  //  |ああああああ」    |
+  //  |  ええええええええ|
+  //  |ええええええ      |
+  //  |「ああああああああ|
+  //  |ああああああ」    |
+  //
+  //  |「ああああああ」  |
+  //  |  えええええええ  |
+  //  |「ああああああ」  |
+  "sentenceParser.multi.quotes.displayMode.quoted": "block",
+  //"sentenceParser.multi.quotes.displayMode.unquoted": "no-indent",
+  "sentenceParser.multi.quotes.displayMode.unquoted": "right-shifted",
+
+
+
+
+  // sentenceParser.removeFinalPeriod
+  // --------------------------------------------------------------------------
+  // removes the period at the end of a sentence if `true`
+
+  "sentenceParser.removeFinalPeriod.validPeriods": "｡。．\\.",
+  "sentenceParser.removeFinalPeriod.fullSent.quoted":     true,
+  "sentenceParser.removeFinalPeriod.fullSent.unquoted":   false,
+  "sentenceParser.removeFinalPeriod.display.quoted":      true,
+  "sentenceParser.removeFinalPeriod.display.unquoted":    false,
+  "sentenceParser.removeFinalPeriod.altDisplay.quoted":   false,
+  "sentenceParser.removeFinalPeriod.altDisplay.unquoted": false,
+
+
+
+
+
+
+
+
+
+
+  // ==========================================================================
+  // = autoPitchAccent =
+  // ==========================================================================
+
+  "autoPitchAccent.enabled": true,
+
+  // this is usually katakana with long vowel marks
+  // and usually contains devoiced / nasal info
+  "autoPitchAccent.searchForAJTWord": true,
+
+  // The reading display to show if nothing is generated by AJT Japanese.
+  // Valid options:
+  // "word-reading"
+  // "katakana"
+  // "katakana-with-long-vowel-marks"
+  "autoPitchAccent.readingDisplayMode": "katakana",
+
+  // Whether to display the reading at all no pitch was found.
+  // If false, shows (N/A) instead by default.
+  // See the following to remove the (N/A):
+  //  https://aquafina-water-bottle.github.io/jp-mining-note/uicustomization/#remove-the-na-on-cards-with-no-pitch-accents
+  "autoPitchAccent.showReadingIfNoPitch": false,
+
+
+
+
+  // autoPitchAccent.paPositions
+  // --------------------------------------------------------------------------
+  // various options on how to parse the `PAPositions` field
+
+  // options:
+  // - "selected-result":
+  // - "selected-dictionary"
+  // - "all-results"
+  //
+  // Usually, 'selected' means the first (i.e. selected-dictionary means first dictionary).
+  // However, the user can bold any individual entry to select that as either the selected
+  // result or dictionary.
+  // TODO: all-results should have unique pitches
+  "autoPitchAccent.paPositions.displayMode": "selected-result",
+
+  "autoPitchAccent.paPositions.defaultConnector": "・",
+
+
+
+
+  // autoPitchAccent.paOverride
+  // --------------------------------------------------------------------------
+  // various options for the formatting of the `PAOverride` field
+  "autoPitchAccent.paOverride.separators": ["・", "、"],
+  "autoPitchAccent.paOverride.downstepMarkers": ["＼"],
+  "autoPitchAccent.paOverride.heibanMarkers": ["￣"],
+
+  // whether the heiban marker is required to specify heiban words
+  "autoPitchAccent.paOverride.heibanMarkerRequired": true,
+
+  // Undulation/kifuku (起伏) value, to set the pattern to kifuku
+  // (used in the PAOverride field).
+  // This sets the downstep be right before the last mora, and colors the word
+  // purple if colored-pitch-accent is enabled.
+  // Note that these values must be numbers and they CANNOT be strings.
+  "autoPitchAccent.paOverride.kifukuOveride": [-1],
+
+  // attempt to detect kifuku automatically by checking if the `YomichanWordTags` contains
+  // a tag that marks the word as a verb
+  "autoPitchAccent.paOverride.detectKifukuFromWordTags": true,
+
+
+
+
+  // autoPitchAccent.coloredPitchAccent
+  // --------------------------------------------------------------------------
+  // Whether to color the tested word by pitch accent class or not.
+  // Generally: 平板 is blue, 頭高 is red, 中高 is orange and 尾高 is green.
+  // The exact colors can be changed in the css.
+  // NOTE: There are certain cases where the position cannot be inferred.
+  //  See here for more details:
+  //  https://aquafina-water-bottle.github.io/jp-mining-note/autopa/#colored-pitch-accent
+
+
+  "autoPitchAccent.coloredPitchAccent.enabled": false,
+
+  // what parts of the card to color
+  // by default, virtually all of the default accent color is replaced with the pitch accent group color
+  "autoPitchAccent.coloredPitchAccent.color.wordReadingPitchOverline": true,
+  "autoPitchAccent.coloredPitchAccent.color.wordReadingKanji": true,
+  "autoPitchAccent.coloredPitchAccent.color.testedContent": true, // highlight word above line
+  "autoPitchAccent.coloredPitchAccent.color.fullSentence": true, // highlight word in full sentence
+  "autoPitchAccent.coloredPitchAccent.color.definitions": true,
+
+  // Given that `autoPitchAccent.paPositions.displayMode` selects multiple results,
+  // this determines whether the first or bolded pitch is used to color the card according
+  // to the standard colored pitch accent.
+  "autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.paPositions": true,
+  "autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.paOverride.integer": true,
+  "autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.paOverride.text": false,
+  "autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.ajtWordPitch": true,
+
+
+
+
+  // ==========================================================================
+  // = imgStylizer =
+  // ==========================================================================
+  "imgStylizer.enabled": true,
+
+
+
+
+  // Sets the image to the specified file if it contains the specified tags.
+  // This may be useful for people who primarily make cards from novels,
+  // and want to add the cover of the book to all of their notes.
+  // This is a fall-back option that is used when the `Picture` field is empty.
+  // NOTE: Remember to add the file to the media folder in order for this to work!
+
+  // EXAMPLES:
+  // - This adds the image `_sample_image.png` if the card has the tag `sample_tag`.
+  //    {
+  //      "tag": "sample_tag",
+  //      "fileName": "_sample_image.png"
+  //    },
+  // - This adds the image `_contains_both_tags.png` if the card has EITHER tags
+  //     `something` and `something2`.
+  //    {
+  //      "tag": "something", "something2",
+  //      "fileName": "_contains_both_tags.png"
+  //    }
+  // TODO typescript type
+  "imgStylizer.setMainImageFromTags": [],
+
+
+
+
+  // imgStylizer.mainImage
+  // --------------------------------------------------------------------------
+
+  // how the image (and its surrounding elements) are resized on the default breakpoint (medium sized screens)
+  // options:
+  // - "auto-height" (same height as the reading section to the left of the image)
+  // - "none" (not resized at all)
+  // - "fixed" (uses value in resizeHeightFixedValue)
+  "imgStylizer.mainImage.resizeHeightMode": "auto-height",
+  "imgStylizer.mainImage.resizeHeightFixedValue": 210,
+
+  // Adjusts the image and surrounding elements on mobile displays.
+  // You may want to turn this off if you're using a custom theme.
+  "imgStylizer.mainImage.resizeOnMobile": true,
+
+
+
+
+  // imgStylizer.mainImage.blur
+  // --------------------------------------------------------------------------
+  "imgStylizer.mainImage.blur.enabled": false,
+  // what tags can be used to toggle the card between nsfw / not nsfw
+  // case sensitive
+  "imgStylizer.mainImage.blur.tags": ["NSFW", "nsfw", "-NSFW"],
+
+
+
+
+  // Sets whether nsfw images are blurred by default or not.
+  //
+  // Available states:
+  //  "never": all images will not be blurred (even if marked as NSFW)
+  //  "only-tagged": only images marked as NSFW will be blurred by default
+  //  "always": all images will be blurred regardless of whether it is marked as NSFW or not
+  //
+  // The first number of the list is the default state. The states cycle from left -> right
+  // For example, if the list was [1, 2, 0], it would start at state 1, and clicking on the
+  // settings eye will set it to state 2, state 0, state 1, state 2.
+  "imgStylizer.mainImage.blur.startState": "only-tagged",
+
+
+
+  // imgStylizer.glossary.primaryDef
+  // --------------------------------------------------------------------------
+  "imgStylizer.glossary.primaryDef.enabled": true,
+
+  // imgStylizer.glossary.primaryDef.mode:
+  // - `yomichan` affects images imported from Yomichan.
+  // - `user` affects images manually pasted from the user.
+  // Valid options: "none", "collapse", "float"
+  // "none":
+  //   - Equivalent of disabling this entire section. I recommend setting
+  //     "imgStylizer.glossary.primaryDef.enabled" to false instead of using this option.
+  // "collapse":
+  //   - Replaces all images in the glossary (definition) sections
+  //     with an internal representation similar to how Yomichan displays images:
+  //     an `[Image]` text where you can see the image upon hover, and with click to zoom.
+  // "match-yomichan":
+  //   - Matches whatever Yomichan exports the image as within Anki.
+  //     It can export it as collapsed or not collapsed. When collapsed, it is parsed as "collapse".
+  //     When not collapsed, it is parsed as "none".
+  //   - Does not work for user inserted images.
+  // "float":
+  //   - makes images act as if they were in PrimaryDefinitionPicture,
+  //     which means that the pictures are positioned to the right / above / below as usual.
+  "imgStylizer.glossary.primaryDef.mode.yomichan": "collapse",
+  "imgStylizer.glossary.primaryDef.mode.user": "collapse",
+
+  "imgStylizer.glossary.primaryDef.mode.general.tagOverride.none": [
+    "img-no-styling",
+    "jpmn-img-no-styling"
+  ],
+  "imgStylizer.glossary.primaryDef.mode.general.tagOverride.collapse": [
+    "img-collapse",
+    "jpmn-img-collapse"
+  ],
+  "imgStylizer.glossary.primaryDef.mode.general.tagOverride.float": [
+    "img-float",
+    "jpmn-img-float"
+  ],
+
+  "imgStylizer.glossary.primaryDef.mode.yomichan.tagOverride.none": [
+    "img-yomichan-no-styling",
+    "jpmn-img-yomichan-no-styling"
+  ],
+  "imgStylizer.glossary.primaryDef.mode.yomichan.tagOverride.collapse": [
+    "img-yomichan-collapse",
+    "jpmn-img-yomichan-collapse"
+  ],
+  "imgStylizer.glossary.primaryDef.mode.yomichan.tagOverride.float": [
+    "img-yomichan-float",
+    "jpmn-img-yomichan-float"
+  ],
+
+  "imgStylizer.glossary.primaryDef.mode.user.tagOverride.none": [
+    "img-user-no-styling",
+    "jpmn-img-user-no-styling"
+  ],
+  "imgStylizer.glossary.primaryDef.mode.user.tagOverride.collapse": [
+    "img-user-collapse",
+    "jpmn-img-user-collapse"
+  ],
+  "imgStylizer.glossary.primaryDef.mode.user.tagOverride.float": [
+    "img-user-float",
+    "jpmn-img-user-float"
+  ],
+
+
+
+
+  // imgStylizer.glossary.floatImg
+  // --------------------------------------------------------------------------
+
+  // additional parsing for the float image
+  // currently, this simply sets the position of the float image if it exists
+  // and makes it clickable to zoom
+  "imgStylizer.glossary.floatImg.enabled": true,
+
+  // Whether the field is parsed with any javascript at all.
+  // The default position will be auto-bottom.
+
+  // Where to place the `PrimaryDefinitionPicture` field contents
+  //  within the primary definition section.
+  // Valid options (case sensitive): "auto", "bottom", "right", "top"
+  "imgStylizer.glossary.floatImg.position": "auto",
+
+  // Tags to override auto positioning
+  // Case sensitive
+  "imgStylizer.glossary.floatImg.overrideTags.bottom": ["img-bottom", "jpmn-img-bottom"],
+  "imgStylizer.glossary.floatImg.overrideTags.top": ["img-top", "jpmn-img-top"],
+  "imgStylizer.glossary.floatImg.overrideTags.right": ["img-right", "jpmn-img-right"],
+
+
+
+
+  // imgStylizer.glossary.other
+  // --------------------------------------------------------------------------
+  "imgStylizer.glossary.other.enabled": true,
+
+
+  // Specify dictionaries to use particular image processing modes. Works on all glossary elements.
+  // - jitenbot dictionaries from stephenmk usually have images in replacement of certain tags.
+  //   Example: 犁 + 三省堂国語辞典　第七版
+  "imgStylizer.glossary.dictsOverride.mode.yomichan": {
+    "故事・ことわざ・慣用句オンライン": "match-yomichan",
+    "四字熟語辞典オンライン": "match-yomichan",
+    "国語辞典オンライン": "match-yomichan",
+    "大辞林　第四版": "match-yomichan",
+    "新明解国語辞典　第八版": "match-yomichan",
+  },
+
+
+
+
+  // ==========================================================================
+  // = kanjiHover =
+  // ==========================================================================
+
+  "kanjiHover.enabled": true,
+
+  "kanjiHover.searchSentences": true,
+
+  "kanjiHover.overrideOptions.tooltips": {
+  },
+
+
+
+
+  // ==========================================================================
+  // = wordIndicators =
+  // ==========================================================================
+
+  "wordIndicators.enabled": true,
+
+  // If set to false, attempts to load word indicators at the front side of the card.
+  // This improves performance (from the user perspective), but can potentially lead to
+  // word indicators displaying on wrong cards under very specific circumstances.
+  "wordIndicators.getResultsFront": true,
+
+  "wordIndicators.overrideOptions.tooltips": {
+    // always show pitch accent
+    "tooltips.displayPitchAccentOnHoverOnly": false,
+  },
+
+
+
+
+  // ==========================================================================
+  // = mobileUtils =
+  // ==========================================================================
+
+  "mobileUtils.enabled": true,
+
+
+
+
+  // ==========================================================================
+  // = infoCircleUtils =
+  // ==========================================================================
+
+  "infoCircleUtils.enabled": true,
+
+  // Whether the info circle is shown as a dialog box or a tooltip (like the PC).
+  // Ideally, we would want this to be true for all mobile devices, as this prevents
+  // a UI issue when trying to tap on the word indicators.
+  // However, this is set to false on AnkiMobile by default due to this issue:
+  // https://github.com/Aquafina-water-bottle/jp-mining-note/issues/6
+  // OVERWRITTEN in rto_overrides.json
+  "infoCircleUtils.mobileDialog": true,
+
+
+  // possible values:
+  // "always"
+  // "never"
+  // "back"
+  "infoCircleUtils.showTagsMode": "back",
+
+  // data tags defined by jp-mining-note. You likely want to change the userDataTags list
+  // instead of this list.
+  "infoCircleUtils.dataTags": [
+
+    // first line hide/show
+    "line-hide",     "jpmn-line-hide",
+    "line-hide-1st", "jpmn-line-hide-1st",
+
+    "line-show",     "jpmn-line-show",
+    "line-show-1st", "jpmn-line-show-1st",
+
+    "line-hide-2nd", "jpmn-line-hide-2nd",
+    "line-show-2nd", "jpmn-line-show-2nd",
+
+    // definition lists
+    "list-hide", "jpmn-hide-hide",
+    "list-show", "jpmn-list-show",
+
+    // quotes
+    "quote-add", "jpmn-quote-add",
+    "quote-remove", "jpmn-quote-remove",
+    "quote-as-is", "jpmn-quote-as-is",
+    "quote-no-processing", "jpmn-quote-no-processing",
+
+    "quote-disp-quoted-block", "jpmn-quote-disp-quoted-block",
+    "quote-disp-quoted-flow", "jpmn-quote-disp-quoted-flow",
+    "quote-disp-unquoted-indent", "jpmn-quote-disp-unquoted-indent",
+    "quote-disp-unquoted-noIndent", "jpmn-quote-disp-unquoted-no-indent",
+    "quote-disp-unquoted-rightShifted", "jpmn-quote-disp-unquoted-right-shifted",
+
+    // img positioning
+    "img-no-styling",
+    "jpmn-img-no-styling",
+    "img-collapse",
+    "jpmn-img-collapse",
+    "img-float",
+    "jpmn-img-float",
+
+    "img-yomichan-no-styling",
+    "jpmn-img-yomichan-no-styling",
+    "img-yomichan-collapse",
+    "jpmn-img-yomichan-collapse",
+    "img-yomichan-float",
+    "jpmn-img-yomichan-float",
+
+    "img-user-no-styling",
+    "jpmn-img-user-no-styling",
+    "img-user-collapse",
+    "jpmn-img-user-collapse",
+    "img-user-float",
+    "jpmn-img-user-float",
+
+    // img float repositioning
+    "img-bottom", "jpmn-img-bottom",
+    "img-top", "jpmn-img-top",
+    "img-right", "jpmn-img-right",
+
+    // pitch accent groups
+    "平板", "heiban",
+    "頭高", "atamadaka",
+    "中高", "nakadaka",
+    "尾高", "odaka",
+    "起伏", "kifuku",
+
+    // other
+    //"yomichan",
+    //"yomitan",
+    //"subs2srs",
+    //"asbplayer",
+    //"jidoujisho",
+    //"jl",
+    //"goldendict",
+  ],
+
+
+
+
+
+
+  // ==========================================================================
+  // = freqUtils =
+  // ==========================================================================
+
+  "freqUtils.enabled": true,
+
+  // possible values:
+  // "list"
+  // "summary"
+  //
+  // hint: if you are considering using "list", make sure it is set to "summary" for mobile, i.e.
+  //"freqUtils.displayMode": {
+  //  "type": "isPC",
+  //  "resultTrue": "list",
+  //  "resultFalse": "summary",
+  //}
+  "freqUtils.displayMode": "summary",
+
+  // only useful when the mode is "list"
+
+  // possible values:
+  // "always"
+  // "if-frequencies-empty"
+  // "never"
+  "freqUtils.list.showSummaryMode": "if-frequencies-empty",
+
+  // set "freqUtils.list.max" to -1 to always show all frequencies
+  "freqUtils.list.max": 4, // OVERWRITTEN
+  "freqUtils.list.overflow": 0,
+
+  // shows "unknown" if the summary is any of the following values
+  "freqUtils.summary.defaultValues": ["999999", "9999999", "99999999", "1000000", "10000000"],
+
+
+
+  // ==========================================================================
+  // = fixRubyPositioning =
+  // ==========================================================================
+
+  // This module is specifically for people who are using Qt5 Anki instead of Qt6.
+  // Qt5 Anki displays the font a bit too high compared to Qt6, so this simply
+  // attempts to move the furigana back down.
+  //
+  // WARNING: this should only be enabled for PC, and not mobile.
+  // It will make the styling in Ankidroid and AnkiMobile look extremely strange
+  // For example:
+  //"fixRubyPositioning.enabled": {
+  //  "type": "isPC",
+  //  "resultTrue": true,
+  //  "resultFalse": false,
+  //}
+  "fixRubyPositioning.enabled": false,
+
+
+
+
+  // ==========================================================================
+  // = checkDuplicateKey =
+  // ==========================================================================
+
+  "checkDuplicateKey.enabled": true,
+
+
+
+
+  // ==========================================================================
+  // = blockquotes =  (definitions + additional notes + extra info)
+  // ==========================================================================
+
+  "blockquotes.enabled": true,
+
+  // hides the entire blockquote when empty.
+  // If this is set to false, the blockquote text is greyed out instead.
+  "blockquotes.hideEmpty": true,
+
+  // OVERWRITTEN
+  "blockquotes.collapsePrimaryDefinition": false,
+
+
+  // Automatically open blockquotes if specified.
+  "blockquotes.open.enabled": false,
+  "blockquotes.open.primaryDefinition": false,
+  "blockquotes.open.secondaryDefinition": false,
+  "blockquotes.open.additionalNotes": false,
+  "blockquotes.open.extraDefinitions": false,
+  "blockquotes.open.extraInfo": false,
+
+  "blockquotes.openOnNew.enabled": false,
+  "blockquotes.openOnNew.primaryDefinition": false,
+  "blockquotes.openOnNew.secondaryDefinition": false,
+  "blockquotes.openOnNew.additionalNotes": false,
+  "blockquotes.openOnNew.extraDefinitions": false,
+  "blockquotes.openOnNew.extraInfo": false,
+
+
+  // OVERWRITTEN in rto_overrides.json
+  // You likely don't want to change this.
+  // This simply allows the javascript to run at the proper screen resolution.
+  // ASSUMPTION: if this is enabled, then we never collapse the primary definition.
+  "blockquotes.folderTab.enabled": true,
+
+  // possible options:
+  // "unique"
+  // "multiple"
+  "blockquotes.folderTab.mode": "unique",
+  // The tabs that are linked if the folder tab mode is "linked"
+  // Otherwise, ignored if the folder tab mode is unique (or multiple).
+  // - 1 = Primary Definition
+  // - 2 = Secondary Definition
+  // - 3 = Additional Notes
+  // - 4 = Extra Definitions
+  // - 5 = Extra Info
+  // The example "12-3-4-5" links 1 & 2 (Primary Definition and Secondary Definition)
+  // together only.
+  "blockquotes.folderTab.linkedTabs": "12-3-4-5",
+
+  // if set to true, sets the icon to a small dot instead of removing it entirely
+  "blockquotes.folderTab.showDotWhenEmpty": false,
+
+
+  "blockquotes.simplifyDefinitions.enabled": false,
+
+  // If blockquotes.simplifyDefinitions.enabled is 'true', then the following controls
+  // precisely whether the simplifying definition is enabled or not for each block.
+  "blockquotes.simplifyDefinitions.primaryDefinition.enabled": true,
+  "blockquotes.simplifyDefinitions.secondaryDefinition.enabled": true,
+  "blockquotes.simplifyDefinitions.extraDefinitions.enabled": true,
+
+  // Valid options:
+  // "show", "first-line", "extra-text", "tags", "none"
+  // "show": force show the first line, including tags
+  // "first-line": completely hides the first line
+  // "tags": only hides the tag(s)
+  // "extra-text": only hides stuff after the tag(s)
+  "blockquotes.simplifyDefinitions.hideFirstLineMode": "first-line",
+
+  "blockquotes.simplifyDefinitions.dictsOverride.hideFirstLineMode": {
+    "JMdict (English)": "none",
+    "JMdict": "none",
+    "JMdict Extra": "none",
+    "Nico/Pixiv": "none",
+
+    // All jitenbot dictionaries from stephenmk separate the first line with a span, which is
+    // different from most other dictionaries.
+    "故事・ことわざ・慣用句オンライン": "none",
+    "四字熟語辞典オンライン": "none",
+    "国語辞典オンライン": "none",
+    "大辞林　第四版": "none",
+    "新明解国語辞典　第八版": "none",
+
+  },
+
+  // valid options:
+  // "always", "never", "on-singular"
+  // "always": always hide the list numbers no matter what
+  // "on-singular": only hide the list numbers if there is one entry
+  // "never": always show the list numbers
+  "blockquotes.simplifyDefinitions.removeListMode": "on-singular",
+
+  // TODO use
+  "blockquotes.simplifyDefinitions.removeListMode.tagOverride.always": [
+    "list-hide", "jpmn-hide-hide",
+  ],
+  "blockquotes.simplifyDefinitions.removeListMode.tagOverride.never": [
+    "list-show", "jpmn-list-show",
+  ],
+
+
+  // tags to override whether the first line is shown or hidden
+  "blockquotes.simplifyDefinitions.tagOverride.primaryDefinition.hideFirstLine": [
+    "line-hide",     "jpmn-line-hide",
+    "line-hide-1st", "jpmn-line-hide-1st",
+  ],
+
+  "blockquotes.simplifyDefinitions.tagOverride.primaryDefinition.showFirstLine": [
+    "line-show",     "jpmn-line-show",
+    "line-show-1st", "jpmn-line-show-1st",
+  ],
+
+  "blockquotes.simplifyDefinitions.tagOverride.secondaryDefinition.hideFirstLine": [
+    "line-hide-2nd", "jpmn-line-hide-2nd",
+  ],
+
+  "blockquotes.simplifyDefinitions.tagOverride.secondaryDefinition.showFirstLine": [
+    "line-show-2nd", "jpmn-line-show-2nd",
+  ],
+
+
+  // ==========================================================================
+  // = refreshCard =
+  // ==========================================================================
+
+  "refreshCard.enabled": true,
+
+
+
+
+  // ==========================================================================
+  // = sm:tooltips =
+  // ==========================================================================
+  // default tooltip options
+
+  // Displays the pitch accent to the right of the word
+  "tooltips.displayPitchAccent": true,
+
+  // Only displays the pitch accent if the word is hovered over
+  // (false: always show pitch accent)
+  "tooltips.displayPitchAccentOnHoverOnly": true,
+
+  // if set to true, words are able to be clicked to browse within the Anki browser
+  "tooltips.clickWordToBrowse": true,
+
+  // whether the word is highlighted in the sentence or not (for word results only)
+  "tooltips.highlightWordInSentence": false,
+
+  // base:
+  // - Anki query section used for every Anki query
+  // removed:
+  // - Results from here will be completely ignored from the query
+
+  // not new, or new + green + suspended
+  // not flagged as red and suspended
+  "tooltips.query.nonNew.base": "-is:new OR (is:suspended is:new flag:3)",
+  //"tooltips.query.nonNew.hidden": "is:suspended flag:1",
+  "tooltips.query.nonNew.removed": "is:suspended flag:1",
+
+  // new
+  "tooltips.query.new.base": "is:new",
+  // not suspended, and neither flagged as red or green
+  //"tooltips.query.new.hidden": "is:suspended (flag:1 OR flag:3)",
+  "tooltips.query.new.removed": "is:suspended (flag:1 OR flag:3)",
+
+
+
+  // maximum number of words per category
+  "tooltips.categoryMax.nonNew.oldest": 2,
+  "tooltips.categoryMax.nonNew.newest": 2,
+  "tooltips.categoryMax.new.oldest": 2,
+  "tooltips.categoryMax.new.newest": 0,
+
+
+  // TODO link to documentation about override options
+  "tooltips.overrideOptions.sentenceParser": {
+    "sentenceParser.fullSent.quotes.processMode": "add",
+  },
+  "tooltips.overrideOptions.autoPitchAccent": {
+    // highlights bolded kanji
+    "autoPitchAccent.coloredPitchAccent.color.wordReadingKanji": false,
+    // highlights bolded sentence below word
+    "autoPitchAccent.coloredPitchAccent.color.fullSentence": false,
+  },
+
+
+  // ==========================================================================
+  // = sm:cardCache =
+  // ==========================================================================
+  // OVERWRITTEN in rto_overrides.json
+  "cardCache.enabled": true,
+
+
+  // ==========================================================================
+  // = sm:asyncManager =
+  // ==========================================================================
+
+  // The delay (in milliseconds) of which this module is loaded.
+  // - 1 second is 1000ms
+  // - A delay of 0 means that it is loaded instantly.
+  // This delay helps a bit with kanji hover (in order to not pretty much freeze Anki)
+  "asyncManager.initialDelay": 50,
+
+}

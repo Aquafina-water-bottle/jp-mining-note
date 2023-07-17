@@ -1,0 +1,63 @@
+{
+  "enableAnkiconnectFeatures": {
+    "type": "isPC",
+    "resultTrue": true,
+    "resultFalse": false
+  },
+  "sentenceParser.quotes.quoteOpen": {
+    "type": "cardType",
+    "args": {
+      "op": "===",
+      "cardType": "pa_sent"
+    },
+    "resultTrue": "\u300e",
+    "resultFalse": "\u300c"
+  },
+  "sentenceParser.quotes.quoteClose": {
+    "type": "cardType",
+    "args": {
+      "op": "===",
+      "cardType": "pa_sent"
+    },
+    "resultTrue": "\u300f",
+    "resultFalse": "\u300d"
+  },
+  "blockquotes.folderTab.enabled": {
+    "type": "viewportWidthBreakpoint",
+    "args": {
+      "op": "<=",
+      "value": "combinePicture"
+    },
+    "resultTrue": true,
+    "resultFalse": false
+  },
+  "cardCache.enabled": {
+    "type": "isMobile",
+    "resultTrue": true,
+    "resultFalse": false
+  },
+  "logger.toConsole": {
+    "type": "isAnkiMobile",
+    "resultTrue": false,
+    "resultFalse": true
+  },
+  "infoCircleUtils.mobileDialog": {
+    "type": "isAnkiMobile",
+    "resultTrue": false,
+    "resultFalse": true
+  },
+  "freqUtils.list.max": {
+    "type": "isMobile",
+    "resultTrue": 1,
+    "resultFalse": 4
+  },
+  "blockquotes.collapsePrimaryDefinition": {
+    "type": "cardType",
+    "args": {
+      "op": "===",
+      "cardType": "cloze_deletion"
+    },
+    "resultTrue": true,
+    "resultFalse": false
+  }
+}

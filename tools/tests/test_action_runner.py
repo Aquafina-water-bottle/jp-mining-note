@@ -1,7 +1,8 @@
 import pytest
 
 from tools.action_runner import Version, FieldEditSimulator, Verifier
-import tools.note_changes as note_changes
+import tools.note_changes as nc
+from tools.json_handler import JsonHandler
 
 
 def test_version_cmp():
@@ -28,12 +29,13 @@ def test_note_changes():
     # s.simulate(actions)
     # s.verify(note_changes.NOTE_CHANGES[0].fields)
 
-    original_fields = note_changes.NOTE_CHANGES[-1].fields
-    new_fields = note_changes.NOTE_CHANGES[0].fields
+    json_handler = JsonHandler()
+    NOTE_CHANGES = nc.get_note_changes(json_handler)
+
+    original_fields = NOTE_CHANGES[-1].fields
+    new_fields = NOTE_CHANGES[0].fields
     verifier = Verifier(original_fields, new_fields)
-    actions = sum(
-        (data.actions for data in reversed(note_changes.NOTE_CHANGES)), start=[]
-    )
+    actions = sum((data.actions for data in reversed(NOTE_CHANGES)), start=[])
     verifier.verify_simulator(actions)
 
 
@@ -41,16 +43,17 @@ def test_note_changes():
 def sim():
     return FieldEditSimulator(["A", "B", "C", "D", "E"])
 
-class TestFieldEditSimulator:
 
+class TestFieldEditSimulator:
     def test_rename_to_existing_field(self, sim):
-        with pytest.raises(Exception, match="Cannot rename field A -> C: C field already exists"):
+        with pytest.raises(
+            Exception, match="Cannot rename field A -> C: C field already exists"
+        ):
             sim._rename_field("A", "C")
 
     def test_rename(self, sim):
         sim._rename_field("A", "F")
         assert sim.simulated_fields == ["F", "B", "C", "D", "E"]
-
 
     def test_add(self, sim):
         sim._add_field("F", 3)
@@ -64,8 +67,6 @@ class TestFieldEditSimulator:
         sim._add_field("A", 1)
         assert sim.simulated_fields == ["B", "A", "C", "D", "E"]
 
-
-
     def test_move_backwards(self, sim):
         sim._add_field("C", 0)
         assert sim.simulated_fields == ["C", "A", "B", "D", "E"]
@@ -78,9 +79,6 @@ class TestFieldEditSimulator:
         sim._add_field("C", 3)
         assert sim.simulated_fields == ["A", "B", "D", "C", "E"]
 
-
-
     def test_delete_field(self, sim):
         sim._delete_field("C")
         assert sim.simulated_fields == ["A", "B", "D", "E"]
-

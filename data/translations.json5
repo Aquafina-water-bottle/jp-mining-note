@@ -1,0 +1,80 @@
+{
+  "en": {
+    "image-hover-text": "[Image]",
+
+    "primary-definition": "Primary Definition",
+    "secondary-definition": "Secondary Definition",
+    "additional-notes": "Additional Notes",
+    "extra-definitions": "Extra Definitions",
+    "extra-info": "Extra Info",
+
+    "show-word-button": "Show",
+    "hide-word-button": "Hide",
+    "full-sentence": "Full Sentence",
+    "hint": "Hint",
+    "kanji-not-found": "Kanji not found.",
+    "unknown-frequency": "Unknown",
+
+    "pa-indicator-prefix": "PA: ",
+    "pa-indicator-do-not-test": "Do not test",
+    "pa-indicator-word": "Word",
+    "pa-indicator-sentence": "Sentence",
+
+    "card-type-open-bracket": " (",
+    "card-type-close-bracket": ") ",
+    "card-type-separator": " / ",
+    "card-type-main-hover": "Hover",
+    "card-type-main-click": "Click",
+    "card-type-main-hint": "Hint ",
+    "card-type-main-sentence": "Sentence",
+    "card-type-main-word": "Word",
+    "card-type-main-tsc": "TSC",
+    "card-type-main-sentence-first": "Sentence First",
+    "card-type-main-audio": "Audio",
+    "card-type-main-pitch-none": "None",
+
+    "card-type-pa-sentence": "PA Sentence",
+    "card-type-pa-word": "PA Word",
+    "card-type-cloze-deletion": "Cloze Deletion",
+  },
+
+  // I think these are correct, but feel free to let me know if there are any mistakes!
+  "jp": {
+    "image-hover-text": "【画像】",
+
+    "primary-definition": "第一の定義",
+    "secondary-definition": "第二の定義",
+    "additional-notes": "メモ",
+    "extra-definitions": "他の定義",
+    "extra-info": "他の情報",
+
+    "show-word-button": "表す",
+    "hide-word-button": "隠す",
+    "full-sentence": "全ての文",
+    "hint": "ヒント",
+    "kanji-not-found": "漢字は見つかりません｡",
+    "unknown-frequency": "未知",
+
+    "pa-indicator-prefix": "ピッチ：",
+    "pa-indicator-do-not-test": "採点しないでください", // slightly different meaning but it works
+    "pa-indicator-word": "単語",
+    "pa-indicator-sentence": "文",
+
+    "card-type-open-bracket": " (",
+    "card-type-close-bracket": ")",
+    "card-type-separator": "・",
+    "card-type-main-hover": "かざす",
+    "card-type-main-click": "クリック",
+    "card-type-main-hint": "ヒント",
+    "card-type-main-sentence": "文",
+    "card-type-main-word": "単語",
+    "card-type-main-tsc": "TSC", // not sure how to translate this, might be easier to leave as is
+    "card-type-main-sentence-first": "文⇒単語", // translated as in test 文, then test 単語
+    "card-type-main-audio": "音",
+    "card-type-main-pitch-none": "なし",
+
+    "card-type-pa-sentence": "ピッチ（文）",
+    "card-type-pa-word": "ピッチ（単語）",
+    "card-type-cloze-deletion": "穴埋め問題", // took this from the translated anki documentation
+  },
+}

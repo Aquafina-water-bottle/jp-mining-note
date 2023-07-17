@@ -1,0 +1,275 @@
+{
+  // toggles whether the runtime options should be read from a file or not.
+  "hardcodedRuntimeOptions": false,
+
+  // forces the behavior of the cards to act as if the field is filled or not filled
+  "alwaysFilledFields": [],
+  "neverFilledFields": [],
+
+
+  // Where the external links are placed
+  // Available options: "Extra Info", "Primary Definition"
+  "externalLinksPosition": "Extra Info",
+  //"externalLinksPosition": "Primary Definition",
+
+  "externalLinks": {
+
+    "jpdb.io": {
+        iconType: "image",
+        iconImageLight: "_icon_jpdb_lightmode.png",
+        iconImageDark:  "_icon_jpdb_darkmode.png",
+        url: "https://jpdb.io/search?q={{text:Word}}",
+    },
+
+    "jisho.org": {
+        iconType: "image",
+        iconImageLight: "_icon_jisho_lightmode.png",
+        iconImageDark:  "_icon_jisho_darkmode.png",
+        url: "https://jisho.org/search/{{Word}}",
+    },
+
+    "image-search": {
+      iconType: "image",
+      iconImageLight: "_icon_image_black.svg",
+      iconImageDark:  "_icon_image_white.svg",
+      url: "https://www.google.co.jp/search?q={{text:Word}}&tbm=isch",
+      hoverDisplay: "google.co.jp (Image search)",
+    },
+
+    //"yourei.jp": {
+    //    iconType: "text",
+    //    iconText: "用",
+    //    url: "http://yourei.jp/{{text:Word}}",
+    //    //hoverDisplay: "用例",
+    //},
+
+    //"fuseji.net": {
+    //    iconType: "text",
+    //    iconText: "伏",
+    //    url: "http://fuseji.net/{{text:Word}}",
+    //    //hoverDisplay: "伏せ字",
+    //},
+
+    //"zokugo-dict.com": {
+    //  iconType: "text",
+    //  iconText: "俗",
+    //  url: "http://search.zokugo-dict.com/search.cgi?charset=utf&q={{text:Word}}",
+    //  //hoverDisplay: "日本語俗語辞書",
+    //},
+
+    //"sakura-paris.org/dict": {
+    //  iconType: "text",
+    //  iconText: "広辞苑",
+    //  url: "https://sakura-paris.org/dict/%E5%BA%83%E8%BE%9E%E8%8B%91/prefix/{{text:Word}}",
+    //  //hoverDisplay: "広辞苑無料検索",
+    //},
+
+    //"kotobank.jp": {
+    //  iconType: "text",
+    //  iconText: "コ",
+    //  url: "https://kotobank.jp/gs/?q={{text:Word}}",
+    //  //hoverDisplay: "コトバンク",
+    //},
+
+    // Used with elizagamedev's "Textbender" android app, to allow the user
+    //  to open the sentence in Yomichan's search bar within android
+    // See: https://github.com/elizagamedev/android-textbender
+    // NOTE: This button will only be visible on android devices.
+    //"yomichan-textbender-sentence": {
+    //  iconType: "text",
+    //  //iconText: "ﾖﾐ",
+    //  iconText: "文",
+    //  //iconText: "Ｔ",
+    //  //iconText: "読",
+    //  url: "textbender://x?x={{text:Sentence}}",
+    //  hoverDisplay: "Sentence Yomichan (textbender)",
+    //},
+
+    // Same as the above, but opens the bolded definition (or the entire primary definition
+    // if no bold exists)
+    //"yomichan-textbender-definition": {
+    //  iconType: "text",
+    //  iconText: "読",
+    //  //iconText: "Ｔ",
+    //  //iconText: "読",
+    //  url: "textbender://x?x={{text:PrimaryDefinition}}",
+    //  hoverDisplay: "Definition Yomichan (textbender)",
+    //},
+  },
+
+
+  // Option to have custom CSS.
+  // The last takes priorty over the first,
+  // i.e. the "extra" folder takes priority over base in
+  //   `["base", "extra"]`
+  // Don't remove "base" unless you know what you're doing.
+
+  // "base": The base css that has virtually everything the note requires to work.
+  //         Don't remove this unless you know what you're doing.
+  // "responsive": CSS that helps with resizing the card for smaller screens.
+  // "dictionaries": various CSS for specific dictionaries.
+  // "editor-fields": CSS to merge certain rows within the editor together.
+  // "legacy-anki_2-1-54": Legacy CSS to support Anki version 2.1.54 and below.
+  // "theme": CSS for any custom theme to work.
+  //          Don't remove this unless you know what you're doing.
+
+  // TODO: what is a better way to build the CSS?????
+  //
+  // advantages with this current approach:
+  // - pretty much 100% control of the css
+  // problems with this current approach:
+  // - changing one item requires changing entire array, making it not very portable between versions
+
+  "cssFolders": [
+    "base",
+    "responsive-font",
+    "responsive",
+    "dictionaries",
+    "editor-fields",
+
+    "theme",
+    "extra",
+  ],
+
+
+
+  // This is a hack to allow the user to triple-click the definition and copy
+  // without selecting everything below the line.
+  // - This seems to ONLY affect the texthooker page;
+  //   regular copy/pastes through everything I tried
+  //   (pyperclip, text editor paste, pasting into Anki, etc)
+  //   does not suffer from this problem.
+  // - This hack is NO LONGER NEEDED with the newer clipboard inserter plugin found here:
+  //   https://github.com/laplus-sadness/lap-clipboard-inserter
+  //     - This option is enabled by default just in case, as it doesn't seem to cause any problems.
+  "clipboardInserter0pxHackEnabled": true,
+
+  // Allows the user to customize the displayed words on the card,
+  // while specifying fallback languages if the language doesn't have the key/pair value.
+  // Currently, the following languages are supported:
+  // - "en": English
+  // - "jp": Japanese
+  "displayLanguages": ["en"],
+  //"displayLanguages": ["jp", "en"],
+
+
+  "allowClickToggleOnHoverCards": false,
+
+  "autoQuoteOpen": "「",
+  "autoQuoteClose": "」",
+
+
+
+
+
+
+  // ==========================================================================
+  // = enableModule =
+  // ==========================================================================
+
+  // Whether the module shows up in the raw javascript or not.
+  // If set to false, then the module's javascript will NOT exist in the template,
+  // so any related behavior and runtime options will no longer function.
+  "enableModule.keybinds":                true,
+
+  "enableModule.sentenceParser":               true,
+  "enableModule.sentenceParser.autoHighlight": true,
+
+  "enableModule.autoPitchAccent":         true,
+
+  "enableModule.imgStylizer":             true,
+  "enableModule.imgStylizer.imageBlur":   true,
+
+  "enableModule.asyncScheduler":          true, // required for kanjiHover, wordIndicators, checkDuplicateKey
+  "enableModule.asyncScheduler.front":    true, // attempts to pre-load at front
+  "enableModule.kanjiHover":              true,
+  "enableModule.wordIndicators":          true,
+  "enableModule.checkDuplicateKey":       true,
+
+  "enableModule.freqUtils":               true,
+
+  "enableModule.mobileUtils":             true,
+  "enableModule.mobilePopup":             true,
+  "enableModule.fsrsUtils":               true,
+  "enableModule.infoCircleUtils":         true,
+  "enableModule.fixRubyPositioning":      true,
+
+  "enableModule.blockquotes":             true,
+  "enableModule.refreshCard":             true,
+
+
+
+
+
+  // ==========================================================================
+  // = breakpoints =
+  // ==========================================================================
+
+  // viewport width breakpoints on when the note is transformed for responsiveness
+  "breakpoints.width.enlargeMaxWidth": 2250,
+  "breakpoints.width.displaySentenceShrink": 1600,
+  "breakpoints.width.displaySentenceRemoveNewlines": 1300,
+  "breakpoints.width.maxWidthBackside": 850,
+  "breakpoints.width.combinePicture": 620,
+  "breakpoints.height.tablet": 700,
+
+
+
+
+
+  // ==========================================================================
+  // = fullSentenceRuby =
+  // ==========================================================================
+
+  // Specifies when the ruby is displayed
+  // - valid options: "hover", "click", "both", "always", "never"
+  // - "both" means that both hovering and clicking works, i.e. clicking can
+  //   freeze / unfreeze the furigana in place.
+  // - "always" means that furigana is always shown. This is not recommended.
+  "fullSentenceRuby.displayMode": "hover",
+
+  // Specifies how the ruby is displayed
+  // valid options: "opacity", "font-size",
+  // - "opacity" adds invisible spacing between words
+  // - "font-size" adds spacing only when ruby is displayed, which will increase the
+  //   height of the ruby, and can cause characters to overflow into the next line
+  "fullSentenceRuby.fillMode": "opacity",
+
+  // An option that only affects the note when fill-mode is font size.
+  // adds a smooth transition between no furigana and furigana
+  "fullSentenceRuby.fillModeFontSizeTransition": false,
+
+
+  // ==========================================================================
+  // = defaultQuotes =
+  // ==========================================================================
+  // see sentenceParser.quotes for the appropriate documentation on what this does
+  // TODO implement this somewhere?
+  "defaultQuote.add": true,
+  "defaultQuote.displayMode": "vn",
+
+  // >>> displayMode (quoted) <<<
+  // "quoted-block":
+  //  |「ああああああああ|
+  //  |  ああああああ」  |
+  // "quoted-flow":
+  //  |「ああああああああ|
+  //  |ああああああ」    |
+
+  // >>> displayMode (unquoted) <<<
+  // "unquoted-indented":
+  //  |  ええええええええ|
+  //  |ええええええ      |
+  // "unquoted-no-indent":
+  //  |えええええええええ|
+  //  |えええええ        |
+  // "unquoted-right-shifted":
+  //  |  ええええええええ|
+  //  |  ええええええ    |
+
+
+  "defaultQuote.fullSent.displayMode": "unquoted-no-indent",
+  "defaultQuote.display.displayMode": "quoted-block",
+  "defaultQuote.altDisplay.displayMode": "unquoted-no-indent",
+}
+

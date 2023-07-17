@@ -1,0 +1,76 @@
+{
+  "hardcodedRuntimeOptions": false,
+  "alwaysFilledFields": [],
+  "neverFilledFields": [],
+  "externalLinksPosition": "Extra Info",
+  "externalLinks": {
+    "jpdb.io": {
+      "iconType": "image",
+      "iconImageLight": "_icon_jpdb_lightmode.png",
+      "iconImageDark": "_icon_jpdb_darkmode.png",
+      "url": "https://jpdb.io/search?q={{text:Word}}"
+    },
+    "jisho.org": {
+      "iconType": "image",
+      "iconImageLight": "_icon_jisho_lightmode.png",
+      "iconImageDark": "_icon_jisho_darkmode.png",
+      "url": "https://jisho.org/search/{{Word}}"
+    },
+    "image-search": {
+      "iconType": "image",
+      "iconImageLight": "_icon_image_black.svg",
+      "iconImageDark": "_icon_image_white.svg",
+      "url": "https://www.google.co.jp/search?q={{text:Word}}&tbm=isch",
+      "hoverDisplay": "google.co.jp (Image search)"
+    }
+  },
+  "cssFolders": [
+    "base",
+    "responsive-font",
+    "responsive",
+    "dictionaries",
+    "editor-fields",
+    "theme",
+    "extra"
+  ],
+  "clipboardInserter0pxHackEnabled": true,
+  "displayLanguages": [
+    "en"
+  ],
+  "allowClickToggleOnHoverCards": false,
+  "autoQuoteOpen": "\u300c",
+  "autoQuoteClose": "\u300d",
+  "enableModule.keybinds": true,
+  "enableModule.sentenceParser": true,
+  "enableModule.sentenceParser.autoHighlight": true,
+  "enableModule.autoPitchAccent": true,
+  "enableModule.imgStylizer": true,
+  "enableModule.imgStylizer.imageBlur": true,
+  "enableModule.asyncScheduler": true,
+  "enableModule.asyncScheduler.front": true,
+  "enableModule.kanjiHover": true,
+  "enableModule.wordIndicators": true,
+  "enableModule.checkDuplicateKey": true,
+  "enableModule.freqUtils": true,
+  "enableModule.mobileUtils": true,
+  "enableModule.mobilePopup": true,
+  "enableModule.fsrsUtils": true,
+  "enableModule.infoCircleUtils": true,
+  "enableModule.fixRubyPositioning": true,
+  "enableModule.blockquotes": true,
+  "enableModule.refreshCard": true,
+  "breakpoints.width.enlargeMaxWidth": 2250,
+  "breakpoints.width.displaySentenceShrink": 1600,
+  "breakpoints.width.displaySentenceRemoveNewlines": 1300,
+  "breakpoints.width.maxWidthBackside": 850,
+  "breakpoints.width.combinePicture": 620,
+  "breakpoints.height.tablet": 700,
+  "fullSentenceRuby.displayMode": "hover",
+  "fullSentenceRuby.fillMode": "opacity",
+  "fullSentenceRuby.fillModeFontSizeTransition": false,
+  "defaultQuote.add": true,
+  "defaultQuote.displayMode": "vn",
+  "defaultQuote.fullSent.displayMode": "unquoted-no-indent",
+  "defaultQuote.display.displayMode": "quoted-block",
+  "defaultQuote.altDisplay.displayMode": "unquoted-no-indent"
+}

@@ -1,0 +1,46 @@
+{
+  "hardcodedRuntimeOptions": true,
+  "externalLinks": {
+    "image-search": {
+      "iconType": "image",
+      "iconImageLight": "_icon_image_black.svg",
+      "iconImageDark": "_icon_image_white.svg",
+      "url": "https://www.google.co.jp/search?q={{text:Word}}&tbm=isch",
+      "hoverDisplay": "google.co.jp (Image search)"
+    },
+    "zokugo-dict.com": {
+      "iconType": "text",
+      "iconText": "\u4fd7",
+      "url": "http://search.zokugo-dict.com/search.cgi?charset=utf&q={{text:Word}}"
+    },
+    "yomichan-textbender-sentence": {
+      "iconType": "text",
+      "iconText": "\u6587",
+      "url": "textbender://x?x={{text:Sentence}}",
+      "hoverDisplay": "Sentence Yomichan (textbender)"
+    },
+    "yomichan-textbender-definition": {
+      "iconType": "text",
+      "iconText": "\u8aad",
+      "url": "textbender://x?x={{text:PrimaryDefinition}}",
+      "hoverDisplay": "Definition Yomichan (textbender)"
+    }
+  },
+  "cssFolders": [
+    "base",
+    "responsive-font",
+    "responsive",
+    "dictionaries",
+    "editor-fields",
+    "sentence-max-width",
+    "theme",
+    "extra"
+  ],
+  "displayLanguages": [
+    "jp",
+    "en"
+  ],
+  "fullSentenceRuby.displayMode": "click",
+  "fullSentenceRuby.fillMode": "font-size",
+  "fullSentenceRuby.fillModeFontSizeTransition": true
+}

@@ -3,20 +3,37 @@
 {% from "macros/global.html" import T, IF, IFNOT, END with context %}
 {% import "macros/utils.html" as utils with context %}
 
-{% call IF('AltDisplay') %}
-  <div class="expression expression--single expression--sentence highlight-bold" id="display">
-    {{ utils.quote_open -}}
-    {{ T('furigana:AltDisplay') }}
-    {{- utils.quote_close }}
-  </div>
-{% endcall %}
+<div class="expression expression--single expression--sentence highlight-bold" id="display">
+  {{ utils.quote_open -}}
 
-{% call IFNOT('AltDisplay') %}
-  <div class="expression expression--single expression--sentence highlight-bold" id="display">
-    {{ utils.quote_open -}}
-    {{ T('Sentence') }}
-    {{- utils.quote_close }}
-  </div>
-{% endcall %}
+  {%- call IF("AltDisplayAudioCard") -%}
+  {{ utils.expression_inner_div_extra(
+    "furigana:AltDisplayAudioCard",
+    "expression-inner--altdisplay
+    expression-inner--cloze-deletion")
+  }}
+  {%- endcall -%}
+
+  {%- call IFNOT("AltDisplayAudioCard") -%}
+
+    {# TODO AltDisplayAudioCard #}
+    {%- call IF("AltDisplaySentence") -%}
+    {{ utils.expression_inner_div_extra(
+      "furigana:AltDisplaySentence",
+      "expression-inner--altdisplay
+      expression-inner--cloze-deletion")
+    }}
+    {%- endcall -%}
+    {%- call IFNOT("AltDisplaySentence") -%}
+      {{ utils.expression_inner_div_extra(
+        "Sentence",
+        "expression-inner--cloze-deletion")
+      }}
+    {%- endcall -%}
+
+  {%- endcall -%}
+
+  {{- utils.quote_close }}
+</div>
 
 {% include "jp-mining-note/partials/hint.html" %}

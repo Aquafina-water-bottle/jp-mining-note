@@ -19,46 +19,47 @@
 <!-- displays the audio and show/hide button, used only when testing pitch accent -->
 {% call IF("PAShowInfo") %}
 
-  <!-- only shown if:
-    - word PA should be tested
-    - sentence card
-      - TSC and hybrid cards already shows the word
-  -->
-  {% call IF("IsSentenceCard") %}
-  {% call utils.if_none("PADoNotTest", "PASeparateWordCard",
-      "IsTargetedSentenceCard", "IsClickCard", "IsHoverCard") %}
-  {% call utils.if_any("PASeparateSentenceCard", "PATestOnlyWord") %}
+  {% call IFNOT("IsAudioCard") %}
 
-    <button id="pa-button">Show</button>
+    <div class="below-display-wrapper">
 
-  {% endcall %}
-  {% endcall %}
-  {% endcall %}
+      <div class="below-display-top-row">
 
-  <!--
-    if the display is a word: show sentence preview (spoilered)
-  -->
-  {% call utils.if_none("IsSentenceCard", "IsHoverCard", "IsClickCard", "IsTargetedSentenceCard") %}
-    {% filter indent(width=4) %}
-    {% include "jp-mining-note/partials/full_sentence_front.html" %}
-    {% endfilter %}
-  {% endcall %}
+        <!-- only shown if:
+          - word PA should be tested
+          - sentence card
+            - TSC and hybrid cards already shows the word
+        -->
+        {% call IF("IsSentenceCard") %}
+        {% call utils.if_none("PADoNotTest", "PASeparateWordCard",
+            "IsTargetedSentenceCard", "IsClickCard", "IsHoverCard", "IsHintCard") %}
+        {% call utils.if_any("PASeparateSentenceCard", "PATestOnlyWord") %}
 
+          <button class="pa-button" id="pa_button">{{ TRANSLATOR.get("show-word-button") }}</button>
 
-  <span id="pa-silence-audio" style="display:none">{{ T("PASilence") }}</span>
+        {% endcall %}
+        {% endcall %}
+        {% endcall %}
 
-  {% call IF("SentenceAudio") %}
-    <span id="sentence-audio"> {{ T("SentenceAudio") }} </span>
-  {% endcall %}
+        <div id="pa_silence_audio" style="display:none">{{ T("PASilence") }}</div>
 
+        {% call IF("SentenceAudio") %}
+          <div id="sentence_audio"> {{ T("SentenceAudio") }} </div>
+        {% endcall %}
+
+      </div>
+
+    </div>
+
+  {% endcall %} {# IsAudioCard #}
 
 {% endcall %} {# PAShowInfo #}
 
 {% endblock %}
 
 
-{% block javascript %}
+{#{% block javascript %}
 {{ super() }}
 {% include "jp-mining-note/main/js/front.js" %}
-{% endblock %}
+{% endblock %}#}
 
