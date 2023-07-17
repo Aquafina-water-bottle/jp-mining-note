@@ -119,7 +119,7 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   ) {
     LOGGER.warn(
       'JPMNOptions was not defined in the options file. Was there an error? ' +
-        `Click <a href="{BASE_DOCS_URL}/faq/#warning-jpmnopts-was-not-defined-in-the-options-file-was-there-an-error">here</a> for basic troubleshooting.`,
+        `Click <a href="${BASE_DOCS_URL}/faq/#warning-jpmnopts-was-not-defined-in-the-options-file-was-there-an-error">here</a> for basic troubleshooting.`,
       { isHtml: true }
     );
   }
